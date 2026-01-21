@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="css/index.css">
+  <script src="js/index.js"></script>
+  <title>Trends.com</title>
+</head>
+<body>
+	<section class="Accauthsection" id='Accauthsection' style="display:none;background-image:url('Mainpagebackgroundimage');
+  background-size: cover;
+  background-position: center;
+  height: 100vh;
+  width: 100vw;
+">
+	  <h1>Trends</h1>
+	  <span>
+	    <button onclick="document.getElementById('signin').style.display='flex';">Sign in</button>
+	    <button onclick="document.getElementById('signup').style.display='flex';">Sign up</button>
+ <div><br>Bienvenue sur <b>Trends</b>,<br>Discover the latest styles and lifestyle shifts.</div>
+	  </span>
+	  <footer>&copy; July 2025, Trends. All rights reserved.</footer>
+	  <form id="signin" class="signin" style="display:none">
+	    <sp style="text-align:left">Signin<ps onclick="document.getElementById('signin').style.display='none',document.getElementById('signup').style.display='none';">cancel</ps>
+</sp>
+	    <input id="signinemail" type="email" required placeholder="email address" name="email" autocomplete="on"><hr>
+	    <input id="signinpassword" minlength=8 type="password" required placeholder="password" name="password" autocomplete="on"><hr><br>
+	    <button type="submit" class='auth-btn'>Done</button>
+	  </form>
+	  <form id="signup" class="signup" style="display:none">
+	    <sp style="text-align:left">Signup<ps onclick="document.getElementById('signup').style.display='none',document.getElementById('signin').style.display='none';">cancel</ps>
+</sp>
+      <input id="signupusername"  type="text" required placeholder="username"><hr>
+	    <input id="signupemail" type="email" required placeholder="email address" ><hr>
+	    <input id="signuppassword" minlength=8 type="password" required placeholder="password"><hr><br>
+	    <button type="submit" class='auth-btn'>Done</button>
+	  </form>
+	  
+	</section>
+	<section class="Mainaccount" id='Mainaccount' style="display:block">
+	  <nav id="mainnav">
+  <span id="tab1" style="font-weight:bolder;border-bottom:1px solid aliceblue;cursor:pointer;padding:0 15px;" 
+        onclick="
+          document.getElementById('Trendspage').style.display='block';
+          document.getElementById('Explorepage').style.display='none';
+          document.getElementById('Createpage').style.display='none';
+          document.getElementById('Biopage').style.display='none';
+          
+          document.getElementById('tab1').style.fontWeight='bolder';
+          document.getElementById('tab2').style.fontWeight='normal';
+          document.getElementById('tab3').style.fontWeight='normal';
+          document.getElementById('tab4').style.fontWeight='normal';
+          
+          document.getElementById('tab1').style.borderBottom='1px solid aliceblue';
+          document.getElementById('tab2').style.borderBottom='';
+          document.getElementById('tab3').style.borderBottom='';
+          document.getElementById('tab4').style.borderBottom='';
+        ">
+    Trends
+  </span>
+
+  <span id="tab2" style="cursor:pointer;padding:0 15px;" 
+        onclick="
+          document.getElementById('Trendspage').style.display='none';
+          document.getElementById('Explorepage').style.display='block';
+          document.getElementById('Createpage').style.display='none';
+          document.getElementById('Biopage').style.display='none';
+          
+          document.getElementById('tab1').style.fontWeight='normal';
+          document.getElementById('tab2').style.fontWeight='bolder';
+          document.getElementById('tab3').style.fontWeight='normal';
+          document.getElementById('tab4').style.fontWeight='normal';
+          document.getElementById('tab1').style.borderBottom='';
+          document.getElementById('tab2').style.borderBottom='1px solid aliceblue';
+          document.getElementById('tab3').style.borderBottom='';
+          document.getElementById('tab4').style.borderBottom='';
+        ">
+    Explore
+  </span>
+
+  <span id="tab3" style="cursor:pointer;padding:0 15px;" 
+        onclick="
+          document.getElementById('Trendspage').style.display='none';
+          document.getElementById('Explorepage').style.display='none';
+          document.getElementById('Createpage').style.display='block';
+          document.getElementById('Biopage').style.display='none';
+          
+          document.getElementById('tab1').style.fontWeight='normal';
+          document.getElementById('tab2').style.fontWeight='normal';
+          document.getElementById('tab3').style.fontWeight='bolder';
+          document.getElementById('tab4').style.fontWeight='normal';
+          
+          document.getElementById('tab1').style.borderBottom='';
+          document.getElementById('tab2').style.borderBottom='';
+          document.getElementById('tab3').style.borderBottom='1px solid aliceblue';
+          document.getElementById('tab4').style.borderBottom='';
+        ">
+    Create
+  </span>
+
+  <span id="tab4" style="cursor:pointer;padding:0 15px;" 
+        onclick="
+          document.getElementById('Trendspage').style.display='none';
+          document.getElementById('Explorepage').style.display='none';
+          document.getElementById('Createpage').style.display='none';
+          document.getElementById('Biopage').style.display='block';
+          
+          document.getElementById('tab1').style.fontWeight='normal';
+          document.getElementById('tab2').style.fontWeight='normal';
+          document.getElementById('tab3').style.fontWeight='normal';
+          document.getElementById('tab4').style.fontWeight='bolder';
+          
+          document.getElementById('tab1').style.borderBottom='';
+          document.getElementById('tab2').style.borderBottom='';
+          document.getElementById('tab3').style.borderBottom='';
+          document.getElementById('tab4').style.borderBottom='1px solid aliceblue';
+        ">
+    Bio
+  </span>
+</nav>
+
+<section id="Trendspage" class='Trendspage' style="display:block;">
+  <div>
+    <span><img src="img1"><span>Ayodeji emmanuel</span></span>
+    <img src="img3">
+     <aside>
+      <span style="color:#ff0028eb" onclick="LikeFunction('inx-TrendspageContentLike-uk')" id='inx-TrendspageContentLike-uk'>&hearts; <r id='inx-TrendspageContentLikecount-uk'>50</r></span>
+      <span onclick='document.getElementById("g").style.display="block";'>&aleph; <r 
+      id='inx-TrendspageContentCommentcount-uk'>50</r></span>
+    </aside>
+     <ui>Holla beo how has everytging been i hope wverytging is alright bro i know you kobe to sance and all, damn i dont know what to write..........</ui>
+     <dp>December 25.</dp>
+     <section style="display:none" id="g">
+       <spc onclick='document.getElementById("g").style.display="none"'>&cent;</spc>
+       <ft>
+       <div>
+         <span>
+           <img src="img3">
+           <txt>Roberto martinez</txt>
+         </span>
+         <ut>holla</ut>
+      </div>
+      <div>
+         <span>
+           <img src="img3">
+           <txt>Roberto martinez</txt>
+         </span>
+         <ut>holla</ut>
+      </div>
+      <div>
+         <span>
+           <img src="img3">
+           <txt>Roberto martinez</txt>
+         </span>
+         <ut>holla</ut>
+      </div>
+      <div>
+         <span>
+           <img src="img3">
+           <txt>Roberto martinez</txt>
+         </span>
+         <ut>holla</ut>
+      </div>
+        <div>
+         <span>
+           <img src="img3">
+           <txt>Roberto martinez</txt>
+         </span>
+         <ut>holla</ut>
+      </div>
+        <div>
+         <span>
+           <img src="img3">
+           <txt>Roberto martinez</txt>
+         </span>
+         <ut>holla</ut>
+      </div>  <div>
+         <span>
+           <img src="img3">
+           <txt>Roberto martinez</txt>
+         </span>
+         <ut>holla</ut>
+      </div>  <div>
+         <span>
+           <img src="img3">
+           <txt>Roberto martinez</txt>
+         </span>
+         <ut>holla</ut>
+      </div>  <div>
+         <span>
+           <img src="img3">
+           <txt>Roberto martinez</txt>
+         </span>
+         <ut>holla</ut>
+      </div>  <div>
+         <span>
+           <img src="img3">
+           <txt>Roberto martinez</txt>
+         </span>
+         <ut>holla</ut>
+      </div>  <div>
+         <span>
+           <img src="img3">
+           <txt>Roberto martinez</txt>
+         </span>
+         <ut>holla</ut>
+      </div>  <div>
+         <span>
+           <img src="img3">
+           <txt>Roberto martinez</txt>
+         </span>
+         <ut>holla</ut>
+      </div>  <div>
+         <span>
+           <img src="img3">
+           <txt>Roberto martinez</txt>
+         </span>
+         <ut>holla</ut>
+      </div>  <div>
+         <span>
+           <img src="img3">
+           <txt>Roberto martinez</txt>
+         </span>
+         <ut>holla</ut>
+      </div>  <div>
+         <span>
+           <img src="img3">
+           <txt>Roberto martinez</txt>
+         </span>
+         <ut>holla</ut>
+      </div>  <div>
+         <span>
+           <img src="img3">
+           <txt>Roberto martinez</txt>
+         </span>
+         <ut>holla</ut>
+      </div>  <div>
+         <span>
+           <img src="img3">
+           <txt>Roberto martinez</txt>
+         </span>
+         <ut>holla ue8eiehs8sus s8shsvs9eoehe7gehsj usjsbsisguzidvcja9sh susisbsjs usjshsisbsushshsishshs jsieheieveuehsvsueu3irbdkdo07w6wgshs hsjshehsbe shshbs sjs us e susvsvs ssusb</ut>
+      </div>
+      </ft>
+      <br><br><br><br><br>
+      <form onsubmit="othercommentupload('inx-TrendspageContentCommentinputfield-uk')">
+      <textarea id='inx-TrendspageContentCommentinputfield-uk' maxlength="200" placeholder="Comment on ensus post" required></textarea>
+      <button type="submit">&uArr;</button>
+      </form>
+     </section>
+  </div>
+  <div>
+    <span><img src="img1"><span>Ayodeji emmanuel</span></span>
+    <img src="img2">
+     <aside>
+      <span>&hearts; <r>50</r></span>
+      <span>&aleph; <r>50</r></span>
+    </aside>
+     <ui>Holla beo how has everytging been i hope wverytging is alright bro i know you kobe to sance and all, damn i dont know what to write..........</ui>
+     <dp>December 25.</dp>
+  </div>
+</section>
+
+<section id="Explorepage" class='Explorepage' style="display:none;">
+  <section>
+    <h>Now Trending</h>
+    <div><span>US Bitcoin secretary on tour to monaco.......</span><span>Russia stock market appreciates by 2.78% yesterday after strategic diversification of funds.......</span><span>Lasu dancing challenge.......</span><span>US Bitcoin secretary.......</span><span>US Bitcoin secretary.......</span><span>US Bitcoin secretary.......</span><span>US Bitcoin secretary.......</span><span>US Bitcoin secretary.......</span><span>US Bitcoin secretary.......</span><span>US Bitcoin secretary.......</span><span>US Bitcoin secretary.......</span><span>US Bitcoin secretary.......</span><span>US Bitcoin secretary.......</span><span>US Bitcoin secretary.......</span></div><br><br><br><br><br>
+    <h>Timeless Buzz</h>
+    <div><span>Bitcoin hits $200,000 october 14 2925.......</span><span>Bitcoin hits $200,000 october 14 2925.......</span><span>Bitcoin hits $200,000 october 14 2925.......</span><span>Bitcoin hits $200,000 october 14 2925.......</span><span>Bitcoin hits $200,000 october 14 2925.......</span><span>Bitcoin hits $200,000 october 14 2925.......</span><span>Bitcoin hits $200,000 october 14 2925.......</span><span>Bitcoin hits $200,000 october 14 2925.......</span><span>Bitcoin hits $200,000 october 14 2925.......</span><span>Bitcoin hits $200,000 october 14 2925.......</span><span>Bitcoin hits $200,000 october 14 2925.......</span><span>Bitcoin hits $200,000 october 14 2925.......</span><span>Bitcoin hits $200,000 october 14 2925.......</span><span>Bitcoin hits $200,000 october 14 2925.......</span><span>Bitcoin hits $200,000 october 14 2925.......</span><span>Bitcoin hits $200,000 october 14 2925.......</span><span>Bitcoin hits $200,000 october 14 2925.......</span><span>Bitcoin hits $200,000 october 14 2925.......</span><span>Bitcoin hits $200,000 october 14 2925.......</span><span>Bitcoin hits $200,000 october 14 2925.......</span></div>
+  </section>
+</section>
+<section id="Createpage" class='Createpage' style="display:none;">
+ <div id="preview"></div> 
+ <label for="upload">Upload file</label>
+ <input type="file" id="upload" style="display:none;"   accept="image/*,video/*" capture>
+       <can onclick="document.getElementById('commentstuff').style.display='none',document.getElementById('preview').innerHTML='',document.getElementById('next1').style.display='none',document.getElementById('can1').style.display='none';" id="can1"
+       style="display:none;">Cancel</can>
+       <span onclick="document.getElementById('bb').style.display='block',document.getElementById('mainnav').style.display='none',document.getElementById('commentstuff').style.display='block',document.getElementById('Createpage').style.filter='blur(3px)',document.getElementById('can1').style.display='none',document.getElementById('upload').disabled=true,document.getElementById('cc').style.display='block';" id="next1" style="display:none">Next</span>
+      
+</section>
+<cc id="cc" onclick="document.getElementById('bb').style.display='none',document.getElementById('mainnav').style.display='flex',document.getElementById('cc').style.display='none',document.getElementById('commentstuff').style.display='none',document.getElementById('Createpage').style.filter='blur(0px)',document.getElementById('can1').style.display='block',document.getElementById('upload').disabled=false,document.getElementById('next1').style.display='block';" style="display:none">x</cc>
+ <textarea class="commentstuff" id="commentstuff" style="display:none"  maxlength="200" placeholder="Add a comment..."></textarea>
+ <bb id="bb" style="display:none">Start the Wave</bb>
+<section id="Biopage" class='Biopage' style="display:none;">
+  <div><img src="img3"></div>
+  <span>Gustav fedinard</span>
+  <ll>7.3k likes</ll>
+  <aside>Posts</aside>
+  <mc>
+    <ic><img src="img2"></ic>
+    <ic><img src="img3"></ic> <ic><img src="img2"></ic>
+    <ic><img src="img3"></ic> <ic><img src="img2"></ic>
+    <ic><img src="img3"></ic> <ic><img src="img2"></ic>
+    <ic><img src="img3"></ic> <ic><img src="img2"></ic>
+    <ic><img src="img3"></ic> <ic><img src="img2"></ic>
+    <ic><img src="img3"></ic> <ic><img src="img2"></ic>
+    <ic><img src="img3"></ic>
+  </mc>
+</section>
+	</section>
+	<div id='userinfo'>userkey-0</div>
+</body>
+
+<script>
+  /**Page greetings**/
+ /** alert("Good day.")**/
+ /**Image video upload preview**/
+    const fileInput = document.getElementById('upload');
+    const previewDiv = document.getElementById('preview'); // Targets the <div></div> right above the label
+
+    fileInput.addEventListener('change', function() {
+        // Clear previous preview
+        previewDiv.innerHTML = '';
+
+        if (this.files && this.files[0]) {
+            const file = this.files[0];
+            const url = URL.createObjectURL(file);
+
+            let element;
+            if (file.type.startsWith('image/')) {
+                element = document.createElement('img');
+                element.src = url;
+                element.alt = 'Image preview';
+                element.style.width = '100vw';
+                element.style.height = 'auto';
+                document.getElementById('next1').style.display="block";
+                document.getElementById('can1').style.display="block";
+            } else if (file.type.startsWith('video/')) {
+                element = document.createElement('video');
+                element.src = url;
+                element.controls = true;
+                element.style.width = '100vw';
+                element.style.height = 'auto';
+                document.getElementById('next1').style.display="block";
+                document.getElementById('can1').style.display="block";
+            }
+
+            if (element) {
+                previewDiv.appendChild(element);
+            } else {
+                previewDiv.textContent = 'Unsupported file type.';
+            }
+
+            // Revoke the object URL after loading to free memory
+            element.onload = element.onloadedmetadata = () => URL.revokeObjectURL(url);
+        }
+    });
+    //signin prevent page reload
+    document.getElementById("signin").onsubmit = function (e) {
+  e.preventDefault(),
+  signinpassword=document.getElementById('signinpassword').value.trim(),
+  signinemail=document.getElementById('signinemail').value.trim();
+  parsedsignininfo="signin"+'•+#'+signinemail+"•+#"+signinpassword
+  Signinbackendans=sendToBackend(parsedsignininfo)
+  //resolving result
+  Request_return_status_signin=Signinbackendans['Request_return_status'];
+  alert(Request_return_status_signin);
+  if (Request_return_status_signin==='Signed in successfully.'){
+    document.getElementById('Trendspage').innerHTML=Signinbackendans['Trendspage'];
+    document.getElementById('Explorepage').innerHTML=Signinbackendans['Explorepage'];
+    document.getElementById('Biopage').innerHTML=Signinbackendans['Biopage'];
+    document.getElementById('Accauthsection').style.display='none';
+    document.getElementById('Mainaccount').style.display='block';
+    
+  }
+  
+  
+
+
+  const email = this.email.value;
+  const password = this.password.value;
+
+  console.log(email, password);
+};
+document.getElementById("signup").onsubmit = function (e) {
+  e.preventDefault(),
+  signuppassword=document.getElementById('signuppassword').value.trim(),
+  signupusername=document.getElementById('signupusername').value.trim(),
+  signupemail=document.getElementById('signupemail').value.trim();
+  parsedsignupinfo="signup"+'•+#'+signupusername+"•+#"+signupemail+"•+#"+signuppassword
+  Signupbackendans=sendToBackend(parsedsignupinfo)
+   //resolving result
+  Request_return_status_signup=Signupbackendans['Request_return_status'];
+  alert(Request_return_status_signup);
+  if (Request_return_status_signup==='Account  created successfully.'){
+    document.getElementById('Trendspage').innerHTML=Signupbackendans['Trendspage'];
+    document.getElementById('Explorepage').innerHTML=Signupbackendans['Explorepage'];
+    document.getElementById('Biopage').innerHTML=Signupbackendans['Biopage'];
+    document.getElementById('Accauthsection').style.display='none';
+    document.getElementById('Mainaccount').style.display='block';
+    
+  }
+  const username = this.username.value;
+  const email = this.email.value;
+  const password = this.password.value;
+
+  console.log(username, email, password);
+};
+  
+// For sending info to backend
+/**
+ * Sends data from frontend to Python backend
+ * @param {Object} data - The data object to send to the backend
+ * @param {string} url - The backend endpoint URL (default: 'http://localhost:5000/api/data')
+ * @param {string} method - HTTP method (default: 'POST')
+ * @returns {Promise} Promise that resolves with the backend response
+ */
+function sendToBackend(data, url = 'http://localhost:5000/api/data', method = 'POST') {
+    return fetch(url, {
+        method: method,
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data)
+    })
+    .then(response => {
+        // Check if response is OK
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        return response.json();
+    })
+    .then(responseData => {
+        console.log('✅ Success:', responseData);
+        return responseData;
+    })
+    .catch(error => {
+        console.error('❌ Error sending data:', error);
+        throw error;
+    });
+}
+    function LikeFunction(x){
+     pc69= document.getElementById('userinfo').innerHTML.split('-')
+       vy7=x.split('-')
+       likebtn=document.getElementById(x).style.color;
+       m12=vy7[0]+'-'+'TrendspageContentLikecount'+'-'+vy7[2];
+       likecounter=document.getElementById(m12).innerHTML;
+       if (likebtn==='aliceblue'){
+         document.getElementById(x).style.color='#ff0028eb';
+         document.getElementById(m12).innerHTML=String(eval(likecounter)+1);
+         //request status ,userwholiked, indexof whatwas liked ,userkeywhoposted likestatus
+         parsedlikestatus='like'+'•+#'+pc69[1]+'•+#'+vy7[0]+'•+#'+vy7[2]
+         sendToBackend(parsedlikestatus)
+         
+       }
+       else {
+         document.getElementById(x).style.color='aliceblue';
+         document.getElementById(m12).innerHTML=String(eval(likecounter)-1);
+           parsedlikestatus='unliked'+'•+#'+pc69[1]+'•+#'+vy7[0]+'•+#'+vy7[2]
+         sendToBackend(parsedlikestatus)
+         
+       }
+       
+}
+function othercommentupload(x){
+  
+}
+</script>
+
+</html>

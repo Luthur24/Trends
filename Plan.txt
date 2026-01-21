@@ -1,0 +1,11 @@
+Every request sentvfrom frontemd to backend begins with the request status
+contentFile naming of uploads goes by indexin posted_emailofwhoposted
+profilepicfile  naming of uploads goes by emailofwhoposted
+underscore cant be found in the name of any uploaded file
+1 rep like 0 rep unlike
+likedatabase structure- userlikingkey.indexofwhatislikedinuseruploaded.keyofuserwhouploaded------indexofwhatislikedinuseruploaded.keyofuserwhouploaded.likedorunlikedstatus
+self comment datsvase-- index of what was commented on by user who posted it.user who posted tge content
+datetime stored in -yr-month-day
+other people comment database structure--
+other people comment database structure--
+other people comment database structure--
