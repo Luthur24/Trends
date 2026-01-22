@@ -9,10 +9,19 @@
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* subtle shadow */
 }
 .Accauthsection h1{color:aliceblue;font-size:700%;text-align:left;font-weight:bolder;position:relative;margin:auto;background-color:transparent}
-.Accauthsection footer{position:relative;top:75vh;text-align:right;margin-right:3vw;font-weight:500;color:aliceblue;background-color:transparent}
+.Accauthsection footer{
+  position:fixed;
+  bottom:10px;
+  left:0;
+  width:100%;
+  font-size:90%;
+  background-color: transparent;
+  text-align: right;
+  color:aliceblue;
+}
 .Accauthsection div{font-size:120%;font-weight:500;color:aliceblue;font-family:cursive;font-weight:bolder;background-color:transparent}
 .Accauthsection div b{color:aliceblue;background-color:transparent}
-.Accauthsection{text-align:center; position: fixed; height:100vh;}
+.Accauthsection{text-align:center;height:100vh;position:fixed}
 .Accauthsection form{margin:10%;background-color:white;position:fixed;width:60vw;display:flex;flex-direction:column;left:2.7vw;top:30vh;padding-inline:30px;padding-block:40px;border-radius:12px;color:black}
 .Accauthsection form input{background-color:transparent;display:block;border:none;text-align:center;width:60vw;font-size:120%;padding-block:10px}
 .Accauthsection form hr{color:brown;width:60vw}
