@@ -12,7 +12,7 @@
 .Accauthsection footer{position:relative;top:75vh;text-align:right;margin-right:3vw;font-weight:500;color:aliceblue;background-color:transparent}
 .Accauthsection div{font-size:120%;font-weight:500;color:aliceblue;font-family:cursive;font-weight:bolder;background-color:transparent}
 .Accauthsection div b{color:aliceblue;background-color:transparent}
-.Accauthsection{text-align:center; position: fixed;}
+.Accauthsection{text-align:center; position: fixed; height:100vh;}
 .Accauthsection form{margin:10%;background-color:white;position:fixed;width:60vw;display:flex;flex-direction:column;left:2.7vw;top:30vh;padding-inline:30px;padding-block:40px;border-radius:12px;color:black}
 .Accauthsection form input{background-color:transparent;display:block;border:none;text-align:center;width:60vw;font-size:120%;padding-block:10px}
 .Accauthsection form hr{color:brown;width:60vw}
