@@ -11,7 +11,7 @@ class Handler(http.server.BaseHTTPRequestHandler):
         self.send_header("Content-Type", "application/json")
         self.send_header("Access-Control-Allow-Origin", "*")
         self.end_headers()
-        self.wfile.write(json.dumps(3333339).encode())
+        self.wfile.write(json.dumps(77777777).encode())
 
     def do_POST(self):
         self.do_GET()
