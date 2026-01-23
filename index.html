@@ -457,6 +457,10 @@ function sendToBackend(data, url = 'https://my-backend-4v4l.onrender.com/api/sub
 function othercommentupload(x){
   
 }
+fetch("https://my-backend-4v4l.onrender.com")
+  .then(res => res.text())
+  .then(data => alert(data))
+  .catch(() => alert("backend not reached"));
 </script>
 
 </html>
