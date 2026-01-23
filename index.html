@@ -347,12 +347,12 @@
         }
     });
     //signin prevent page reload
-    document.getElementById("signin").onsubmit = function (e) {
+    document.getElementById("signin").onsubmit = async function (e) {
   e.preventDefault(),
   signinpassword=document.getElementById('signinpassword').value.trim(),
   signinemail=document.getElementById('signinemail').value.trim();
   parsedsignininfo="signin"+'•+#'+signinemail+"•+#"+signinpassword
-  Signinbackendans=sendToBackend(parsedsignininfo)
+  Signinbackendans= await sendToBackend(parsedsignininfo)
   //resolving result
   Request_return_status_signin=Signinbackendans['Request_return_status'];
   alert(Request_return_status_signin);
@@ -373,13 +373,13 @@
 
   console.log(email, password);
 };
-document.getElementById("signup").onsubmit = function (e) {
+document.getElementById("signup").onsubmit = async function (e) {
   e.preventDefault(),
   signuppassword=document.getElementById('signuppassword').value.trim(),
   signupusername=document.getElementById('signupusername').value.trim(),
   signupemail=document.getElementById('signupemail').value.trim();
   parsedsignupinfo="signup"+'•+#'+signupusername+"•+#"+signupemail+"•+#"+signuppassword
-  Signupbackendans=sendToBackend(parsedsignupinfo)
+  Signupbackendans= await sendToBackend(parsedsignupinfo)
    //resolving result
   Request_return_status_signup=Signupbackendans['Request_return_status'];
   alert(Request_return_status_signup);
