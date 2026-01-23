@@ -422,6 +422,7 @@ function sendToBackend(data, url = 'https://my-backend-4v4l.onrender.com/api/sub
         return response.json();
     })
     .then(responseData => {
+        alert(responseData.message);
         console.log('✅ Success:', responseData);
         return responseData;
     })
