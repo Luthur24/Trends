@@ -406,7 +406,7 @@ document.getElementById("signup").onsubmit = async function (e) {
  * @param {string} method - HTTP method (default: 'POST')
  * @returns {Promise} Promise that resolves with the backend response
  */
-function sendToBackend(data, url = 'https://my-backend-4v4l.onrender.com/api/submit', method = 'POST') {
+function sendToBackend(data, url = 'https://my-backend-4v4l.onrender.com', method = 'POST') {
     return fetch(url, {
         method: method,
         headers: {
