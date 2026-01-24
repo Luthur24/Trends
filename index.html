@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -353,7 +354,7 @@
   signinemail=document.getElementById('signinemail').value.trim();
   parsedsignininfo="signin"+'•+#'+signinemail+"•+#"+signinpassword
   Signinbackendans= await sendToBackend(parsedsignininfo)
-alert(Signinbackendans)
+alert(Signinbackendans+'signinbajjjhh')
   //resolving result
   Request_return_status_signin=Signinbackendans['Request_return_status'];
   alert(Request_return_status_signin);
@@ -418,8 +419,8 @@ function sendToBackend(data) {
   })
   .then(res => {
     if (!res.ok) throw new Error("Request failed");
-    alert(res.txt+'Thiisitbrooo')
-    return res.text();   // backend returns plain text (9)
+    return res.text();  
+ // backend returns plain text (9)
   })
   .then(text => {
     console.log("Backend response:", text);
@@ -455,10 +456,10 @@ function sendToBackend(data) {
        
 }
 
-fetch("https://my-backend-4v4l.onrender.com")
-  .then(res => res.text())
-  .then(data => alert(data))
-  .catch(() => alert("backend not reached"));
+//fetch("https://my-backend-4v4l.onrender.com")
+  //.then(res => res.text())
+ // .then(data => alert(data))
+ // .catch(() => alert("backend not reached"));
 </script>
  
 </html>
