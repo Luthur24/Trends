@@ -418,6 +418,7 @@ function sendToBackend(data) {
   })
   .then(res => {
     if (!res.ok) throw new Error("Request failed");
+    alert(res.txt+'Thiisitbrooo')
     return res.text();   // backend returns plain text (9)
   })
   .then(text => {
