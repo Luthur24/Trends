@@ -427,7 +427,6 @@ function sendToBackend(data) {
     return text;
   })
   .catch(err => {
-    alert(err)
     console.error("Backend error:", err);
     return null;
   });
