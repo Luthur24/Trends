@@ -6,15 +6,25 @@ import json
 PORT = int(os.environ.get("PORT", 8000))
 
 class Handler(http.server.BaseHTTPRequestHandler):
-    def do_GET(self):
+
+    def _set_headers(self):
         self.send_response(200)
         self.send_header("Content-Type", "application/json")
         self.send_header("Access-Control-Allow-Origin", "*")
+        self.send_header("Access-Control-Allow-Methods", "GET, POST, OPTIONS")
+        self.send_header("Access-Control-Allow-Headers", "Content-Type")
         self.end_headers()
-        self.wfile.write(json.dumps(111111).encode())
+
+    def do_GET(self):
+        self._set_headers()
+        self.wfile.write(json.dumps(9).encode("utf-8"))
 
     def do_POST(self):
-        self.do_GET()
+        self._set_headers()
+        self.wfile.write(json.dumps(9).encode("utf-8"))
+
+    def do_OPTIONS(self):
+        self._set_headers()
 
 with socketserver.TCPServer(("0.0.0.0", PORT), Handler) as server:
     server.serve_forever()
