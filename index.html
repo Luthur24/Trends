@@ -406,27 +406,25 @@ document.getElementById("signup").onsubmit = async function (e) {
  * @param {string} method - HTTP method (default: 'POST')
  * @returns {Promise} Promise that resolves with the backend response
  */
-function sendToBackend(data, url = 'https://my-backend-4v4l.onrender.com/api/submit', method = 'POST') {
-  return fetch(url, {
-    method: method,
+function sendToBackend(data) {
+  return fetch("https://my-backend-4v4l.onrender.com/api/submit", {
+    method: "POST",
     headers: {
-      'Content-Type': 'application/json',
+      "Content-Type": "text/plain"
     },
-    body: JSON.stringify(data)
+    body: data
   })
-  .then(response => {
-    if (!response.ok) {
-      throw new Error(`HTTP error ${response.status}`);
-    }
-    return response.text(); // ✅ FIX
+  .then(res => {
+    if (!res.ok) throw new Error("Request failed");
+    return res.text();   // backend returns plain text (9)
   })
-  .then(responseData => {
-    alert("Backend returned: " + responseData);
-    return responseData;
+  .then(text => {
+    console.log("Backend response:", text);
+    return text;
   })
-  .catch(error => {
-    alert("ERROR: " + error.message); // ✅ SEE ERRORS
-    throw error;
+  .catch(err => {
+    console.error("Backend error:", err);
+    return null;
   });
 }
     function LikeFunction(x){
