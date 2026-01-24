@@ -407,29 +407,27 @@ document.getElementById("signup").onsubmit = async function (e) {
  * @returns {Promise} Promise that resolves with the backend response
  */
 function sendToBackend(data, url = 'https://my-backend-4v4l.onrender.com', method = 'POST') {
-    return fetch(url, {
-        method: method,
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(data)
-    })
-    .then(response => {
-        // Check if response is OK
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        return response.json();
-    })
-    .then(responseData => {
-        alert(responseData.message);
-        console.log('✅ Success:', responseData);
-        return responseData;
-    })
-    .catch(error => {
-        console.error('❌ Error sending data:', error);
-        throw error;
-    });
+  return fetch(url, {
+    method: method,
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(data)
+  })
+  .then(response => {
+    if (!response.ok) {
+      throw new Error(`HTTP error ${response.status}`);
+    }
+    return response.text(); // ✅ FIX
+  })
+  .then(responseData => {
+    alert("Backend returned: " + responseData);
+    return responseData;
+  })
+  .catch(error => {
+    alert("ERROR: " + error.message); // ✅ SEE ERRORS
+    throw error;
+  });
 }
     function LikeFunction(x){
      pc69= document.getElementById('userinfo').innerHTML.split('-')
