@@ -305,7 +305,7 @@
 
 <script>
   /**Page greetings**/
-  alert("Welcomeedddddddddddddeee.")
+  alert("Welcomeedddddddssssssssssssssddddddeee.")
  /**Image video upload preview**/
     const fileInput = document.getElementById('upload');
     const previewDiv = document.getElementById('preview'); // Targets the <div></div> right above the label
@@ -356,7 +356,7 @@
   Signinbackendans= await sendToBackend(parsedsignininfo)
 //alert(Signinbackendans+'signinbajjjhh')
   //resolving result
-  Request_return_status_signin=Signinbackendans['Request_return_status'];
+  Request_return_status_signin=Signinbackendans
   alert(Request_return_status_signin);
   if (Request_return_status_signin==='Signed in successfully.'){
     document.getElementById('Trendspage').innerHTML=Signinbackendans['Trendspage'];
@@ -384,7 +384,7 @@ document.getElementById("signup").onsubmit = async function (e) {
   Signupbackendans= await sendToBackend(parsedsignupinfo)
 alert(Signupbackendans)
    //resolving result
-  Request_return_status_signup=Signupbackendans['Request_return_status'];
+  Request_return_status_signup=Signupbackendans
   alert(Request_return_status_signup);
   if (Request_return_status_signup==='Account  created successfully.'){
     document.getElementById('Trendspage').innerHTML=Signupbackendans['Trendspage'];
