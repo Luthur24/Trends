@@ -353,6 +353,7 @@
   signinemail=document.getElementById('signinemail').value.trim();
   parsedsignininfo="signin"+'•+#'+signinemail+"•+#"+signinpassword
   Signinbackendans= await sendToBackend(parsedsignininfo)
+alert(Signinbackendans)
   //resolving result
   Request_return_status_signin=Signinbackendans['Request_return_status'];
   alert(Request_return_status_signin);
@@ -380,6 +381,7 @@ document.getElementById("signup").onsubmit = async function (e) {
   signupemail=document.getElementById('signupemail').value.trim();
   parsedsignupinfo="signup"+'•+#'+signupusername+"•+#"+signupemail+"•+#"+signuppassword
   Signupbackendans= await sendToBackend(parsedsignupinfo)
+alert(Signupbackendans)
    //resolving result
   Request_return_status_signup=Signupbackendans['Request_return_status'];
   alert(Request_return_status_signup);
