@@ -32,7 +32,7 @@
 	  <form id="signup" class="signup" style="display:none">
 	    <sp style="text-align:left">Signup<ps onclick="document.getElementById('signup').style.display='none',document.getElementById('signin').style.display='none';">cancel</ps>
 </sp>
-      <input id="signupusername"  type="text" required placeholder="username"><hr>
+      <input id="signupusername"  type="text" required placeholder="username" pattern="[A-Za-z]+"><hr>
 	    <input id="signupemail" type="email" required placeholder="email address" ><hr>
 	    <input id="signuppassword" minlength=8 type="password" required placeholder="password"><hr><br>
 	    <button type="submit" class='auth-btn'>Done</button>
