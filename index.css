@@ -20,7 +20,7 @@
   text-align: right;
   color:aliceblue;
 }
-.Accauthsection div{font-size:120%;font-weight:500;color:aliceblue;font-family:cursive;font-weight:bolder;background-color:transparent}
+.Accauthsection div{font-size:150%;font-weight:500;color:aliceblue;font-family:cursive;font-weight:bolder;background-color:transparent}
 .Accauthsection div b{color:aliceblue;background-color:transparent}
 .Accauthsection{text-align:center;height:100vh;position:fixed}
 .Accauthsection form{margin:10%;background-color:white;position:fixed;width:60vw;display:flex;flex-direction:column;left:2.7vw;top:30vh;padding-inline:30px;padding-block:40px;border-radius:12px;color:black;}
