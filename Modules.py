@@ -2,6 +2,9 @@ import AppModulator as A
 import random
 import os
 import datetime
+import psycopg2
+import bcrypt
+
 #Handles all frontend request
 def frontend_request_protocol(x):
   ans={}
@@ -40,8 +43,6 @@ def frontend_request_protocol(x):
     open('userwholikedandwhstwasliked_db','w').write(f'{x[1]}.{x[2]}.{x[3]}\n')
   return ans
         
-import psycopg2
-import bcrypt
 
 def Account_existence_verifier(email, username, password, status):
     conn = psycopg2.connect(
