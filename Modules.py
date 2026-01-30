@@ -40,27 +40,86 @@ def frontend_request_protocol(x):
     open('userwholikedandwhstwasliked_db','w').write(f'{x[1]}.{x[2]}.{x[3]}\n')
   return ans
         
-def Account_existence_verifier(email,request_statusss,Password):
-  ui=open("email_db",'r').readlines()
-  hy=open("password_db",'r').readlines()
-  if request_statusss=='signup':
-     if email+'\n' in ui:
-       ans=1
-     else:ans=0
-  else:
-   xQ= email+'\n' in ui
-   kQ= password+'\n' in hy
-   if xQ:
-     einx=ui.index(email+'\n')
-     pinx=hy.index(password+'\n')
-     if einx==pinx:
-       ans=1#account exists
-     else:
-       ans=2#incorrect password
-   else:
-      ans=0#account does not exist
-     
-  return ans
+import psycopg2
+import bcrypt
+
+def Account_existence_verifier(email, username, password, status):
+    conn = psycopg2.connect(
+        dbname="trends_postgres",
+        user="trends_postgres_user",
+        password="YOUR_PASSWORD",
+        host="YOUR_HOST",
+        port=5432
+    )
+    cur = conn.cursor()
+
+    # ---------- SIGN UP ----------
+    if status == "signup":
+        # Check username
+        cur.execute(
+            "SELECT 1 FROM user_profile_accounts WHERE username = %s",
+            (username,)
+        )
+        username_exists = cur.fetchone() is not None
+
+        # Check email
+        cur.execute(
+            "SELECT 1 FROM user_profile_accounts WHERE email = %s",
+            (email,)
+        )
+        email_exists = cur.fetchone() is not None
+
+        if username_exists or email_exists:
+            cur.close()
+            conn.close()
+            if username_exists and email_exists:
+                return "Username and email already exist"
+            elif username_exists:
+                return "Username already exists"
+            else:
+                return "Email already exists"
+
+        # Hash password
+        password_hash = bcrypt.hashpw(
+            password.encode(),
+            bcrypt.gensalt()
+        ).decode()
+
+        # Insert new user
+        cur.execute(
+            """
+            INSERT INTO user_profile_accounts (username, email, password_hash)
+            VALUES (%s, %s, %s)
+            """,
+            (username, email, password_hash)
+        )
+
+        conn.commit()
+        cur.close()
+        conn.close()
+        return "Signup successful"
+
+    # ---------- SIGN IN ----------
+    elif status == "signin":
+        # Get stored hash
+        cur.execute(
+            "SELECT password_hash FROM user_profile_accounts WHERE email = %s",
+            (email,)
+        )
+        row = cur.fetchone()
+
+        cur.close()
+        conn.close()
+
+        if not row:
+            return "Invalid email or password"
+
+        stored_hash = row[0].encode()
+
+        if bcrypt.checkpw(password.encode(), stored_hash):
+            return "Signin successful"
+        else:
+            return "Invalid email or password"
   
 def Trendspage_contentgenerator(keyofuserbeingpersonalized):
     ans=""
