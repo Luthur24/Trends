@@ -95,4 +95,4 @@ bb{color:aliceblue;font-weight:bold;background-color:dodgerblue;border-radius:7p
   transform: scale(1.05); /* Slight zoom */
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
-.hse{color:dodgerblue;font-size:110%;font-weight:bolder;font-family:system-ui; position: relative;top:29vh}
+.hse{font-size:110%;font-weight:bolder;font-family:system-ui; position: relative;top:29vh;}
