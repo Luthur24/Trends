@@ -1,5 +1,5 @@
 *{background-color:#0e1415;font-size:90%;font-family:system-ui;color:black;margin:auto}
-.Accauthsection span{position:relative;top:27vh}
+.Accauthsection span{position:relative;top:26vh}
 .Accauthsection span button{all:unset;background-color:white;border-radius:10px;width:20vw;text-align:center;height:5.7vh;font-weight:500;color:black;transition:all 0.3s ease}
 /* Target the buttons inside your Accauthsection */
 /* Hover effect */
