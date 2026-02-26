@@ -9,7 +9,7 @@
 </head>
 <body>
 
-<section class="Accauthsection" id="Accauthsection" style="display:none">
+<section class="Accauthsection" id="Accauthsection" style="display:block">
   <style>
     * {
       margin: 0;
@@ -135,7 +135,7 @@
     dodgerblue 100%   /* Back to black */
   );
   background-size: 400% 400%;
-  animation: black-shift 20s ease-in-out infinite;
+  animation: black-shift 30s ease-in-out infinite;
 }
 
 @keyframes black-shift {
@@ -1197,7 +1197,7 @@
     window.addEventListener('load', () => {
       setTimeout(() => {
         document.getElementById('loading').classList.add('hide');
-      }, 5000);
+      }, 5500);
     });
 
 function openModal(type) {
@@ -1224,7 +1224,7 @@ function switchModal(from, to) {
 
 </section>
 
-<section class="newMainaccount" style="display:block" id='newMainaccount'>
+<section class="newMainaccount" style="display:none" id='newMainaccount'>
 
   <button class="menuBtn" style="display:none">☰</button>
 
