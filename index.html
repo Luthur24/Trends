@@ -10984,10 +10984,11 @@ async function apiRequest(body) {
       headers,
       body: JSON.stringify(body)
     });
-    return await res.json();
     alert(JSON.stringify(res))
+    return await res.json();
   } catch (e) {
     console.error('[API Error]', e);
+    alert('Error:' + e.message);
     return { status: 500, message: 'Network error. Please try again.' };
   }
 }
@@ -12455,7 +12456,7 @@ function navigate(sectionId) {
   if (sectionId === 'Messages')  loadConversations();
   if (sectionId === 'profile')   initProfile();
 }
-
+alert(1111)
 </script>
 
 </html>
