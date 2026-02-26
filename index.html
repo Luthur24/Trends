@@ -10985,6 +10985,7 @@ async function apiRequest(body) {
       body: JSON.stringify(body)
     });
     return await res.json();
+    alert(JSON.stringify(res))
   } catch (e) {
     console.error('[API Error]', e);
     return { status: 500, message: 'Network error. Please try again.' };
