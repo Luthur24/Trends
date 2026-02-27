@@ -10981,8 +10981,9 @@ async function apiRequest(body) {
       headers,
       body: JSON.stringify(body)
     });
-    alert(JSON.stringify(res))
-    return await res.json();
+    const data = await res.json();
+    alert(JSON.stringify(data));
+    return data;
   } catch (e) {
     console.error('[API Error]', e);
     alert('Error:' + e.message);
@@ -12431,7 +12432,6 @@ function navigate(sectionId) {
   if (sectionId === 'Messages')  loadConversations();
   if (sectionId === 'profile')   initProfile();
 }
-alert(899)
 </script>
 </body>
 
