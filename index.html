@@ -35,7 +35,7 @@
     /* Loading Screen */
     #loading {
       position: fixed;
-      top: 0;
+      top: 0vh;
       left: 0;
       width: 100vw;
       height: 100vh;
@@ -53,13 +53,13 @@
     }
 
     .loading-text {
-      font-size: 700%;
-      font-weight: 700;
+      font-size: 600%;
+      font-weight: bolder;
       animation: fade 1.5s ease-in-out infinite;
       text-align: center;
     }
     .loading-text span{
-      font-size: 6%;
+      font-size: 14%;
     }
 
     @keyframes fade {
@@ -515,7 +515,7 @@
 
   <!-- Loading -->
   <div id="loading">
-    <div class="loading-text">Tre&aleph;ds<br><span><h1>A social and research network for universities.<br> We have opened up <b>Tre&aleph;ds</b> for popular consumption at <b>Lagos State University (LASU).</b></h6></span></div>
+    <div class="loading-text">Tre&aleph;ds<br><span><h6>A social and research network for universities.<br> We have opened up <b>Tre&aleph;ds</b> for popular consumption at <b>Lagos State University (LASU).</b></h6></span></div>
   </div>
 
   <!-- Header -->
@@ -6591,7 +6591,7 @@ function finTab(tab,btn){
         <div class="set-item-label">Logout</div>
         <div class="set-item-desc">End current session</div>
       </div>
-      <button class="set-btn danger" onclick="logoutConfirm()">Logout</button>
+      <button class="set-btn danger" onclick="logout()">Logout</button>
     </div>
   </div>
 
@@ -7011,13 +7011,6 @@ function closeSetModal() {
 }
 
 // Logout
-function logoutConfirm() {
-  if (confirm('Are you sure you want to logout?')) {
-    alert('Logging out...');
-    // TODO: Clear session and redirect to login
-    // window.location.href = '/login';
-  }
-}
 
 // Save all settings
 function saveAllSettings() {
@@ -10736,36 +10729,6 @@ document.addEventListener('click', (e) => {
 </section>
 <script>
 
-
-function logout() {
-  localStorage.removeItem("currentUser");
-  // Close drawer and overlay
-  document.getElementById('newMainaccount').style.height='0vh';
-  document.querySelector('.drawer').classList.remove('open');
-  document.querySelector('.overlay').classList.remove('show');
-
-  // Hide ALL sections
-  const sectionsToHide = [
-    'newMainaccount',
-    'Settings',
-    'Board',
-    'Finance',
-    'Research',
-    'Explore',
-    'profile',
-    'Create',
-    'Trending',
-    'drawer',
-  ];
-
-  sectionsToHide.forEach(id => {
-    const el = document.getElementById(id);
-    if (el) el.style.display = 'none';
-  });
-
-  // Show landing page
-  document.getElementById('Accauthsection').style.display = 'block';
-}
 
 
 // run immediately when page loads
