@@ -11301,20 +11301,20 @@ document.querySelector('#signupForm').addEventListener('submit', handleSignup);
 // SESSION
 // ═══════════════════════════════════════════════════════════════
 function saveSession(token, userKey) {
-  sessionStorage.setItem('token', token);
-  sessionStorage.setItem('user_key', userKey);
+  localStorage.setItem('token', token);
+  localStorage.setItem('user_key', userKey);
 }
 
 function getToken() {
-  return sessionStorage.getItem('token');
+  return localStorage.getItem('token');
 }
 
 function getUserKey() {
-  return sessionStorage.getItem('user_key');
+  return localStorage.getItem('user_key');
 }
 
 function clearSession() {
-  sessionStorage.clear();
+  localStorage.clear();
 }
 
 // ═══════════════════════════════════════════════════════════════
@@ -11397,7 +11397,7 @@ function personalizePage(data) {
 
   // token + user_key
   if (data.token)    saveSession(data.token, data.user_key);
-  if (data.user_key) sessionStorage.setItem('user_key', data.user_key);
+  if (data.user_key) localStorage.setItem('user_key', data.user_key);
 
   // notification badge
   if (data.notif_count > 0) {
@@ -12216,7 +12216,7 @@ function renderMessages(messages) {
 async function sendMsg() {
   const input = document.getElementById('msgInput');
   if (!input || !input.value.trim() || !currentConvoKey) return;
-  const recipientKey = sessionStorage.getItem('current_chat_recipient');
+  const recipientKey = localStorage.getItem('current_chat_recipient');
   const res = await apiRequest({
     status:        'send_dm',
     recipient_key: recipientKey,
