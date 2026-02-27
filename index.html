@@ -11329,6 +11329,7 @@ async function apiRequest(body) {
     });
     const data = await res.json();
     alert(JSON.stringify(data));
+    iosLoaderDone()
     
     return data;
   } catch (e) {
