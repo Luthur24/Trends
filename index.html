@@ -10767,7 +10767,7 @@ function logout() {
 
 
 // run immediately when page loads
-//checkLoginState();
+checkLoginState();
 // Profile image click — full screen viewer
 document.querySelector('.avatar').addEventListener('click', function() {
   const src = this.src;
@@ -11915,7 +11915,7 @@ function closeDrawer() {
 // INIT
 // ═══════════════════════════════════════════════════════════════
 document.addEventListener('DOMContentLoaded', () => {
- // checkLoginState();
+  checkLoginState();
   setupSearch();
 
   document.querySelector('#signinForm')?.addEventListener('submit', handleSignin);
