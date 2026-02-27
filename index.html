@@ -1222,6 +1222,7 @@ function switchModal(from, to) {
   </script>
 
 
+
 </section>
 
 <section class="newMainaccount" style="display:none" id='newMainaccount'>
@@ -10730,12 +10731,8 @@ document.addEventListener('click', (e) => {
   }
 });
 </script>
-
 </section>
-        <div id='userinfo' style="display:none;">userkey-0</div>
-</body>
 <script>
-
 
 
 function logout() {
@@ -11311,6 +11308,7 @@ function buildPostHTML(post) {
 // ═══════════════════════════════════════════════════════════════
 // SOCIAL ACTIONS
 // ═══════════════════════════════════════════════════════════════
+
 async function toggleLike(postKey, btn) {
   const res = await apiRequest({ status: 'toggle_like', post_key: postKey });
   if (res.status === 200) {
@@ -11420,32 +11418,7 @@ function sharePost(postKey) {
 // ═══════════════════════════════════════════════════════════════
 // PROFILE
 // ═══════════════════════════════════════════════════════════════
-let profileSeenKeys = [];
 
-async function loadProfileTab(tab) {
-  profileSeenKeys = [];
-  const res = await apiRequest({ status: 'get_user_posts', tab, seen_keys: profileSeenKeys });
-  if (res.status === 200) {
-    const container = document.getElementById(`tab-${tab}`);
-    if (!container) return;
-    if (!res.posts || res.posts.length === 0) {
-      const msgs = {
-        posts:    'A blank feed is a rare thing. Fill it with something that matters.',
-        research: 'No research posted yet.',
-        saved:    'Nothing saved yet.'
-      };
-      container.innerHTML = `<div class="userpostedstuffs">${msgs[tab]}</div>`;
-      return;
-    }
-    container.innerHTML = '';
-    res.posts.forEach(post => {
-      profileSeenKeys.push(post.post_key);
-      const el = document.createElement('div');
-      el.innerHTML = buildPostHTML(post);
-      container.appendChild(el.firstElementChild);
-    });
-  }
-}
 
 async function openUserModal(type) {
   document.getElementById('modalTitle').textContent = type === 'following' ? 'Following' : 'Followers';
@@ -12394,11 +12367,13 @@ async function loadFinanceTab(tab) {
 // BOARD PAGE
 // ═══════════════════════════════════════════════════════════════
 async function initBoard() {
-  const res = await apiRequest({ status: 'get_feed', seen_keys: [], n: 20, type_filter: 'all' });
-  // Board uses existing hardcoded announcements — no backend needed yet
-  // When board posts are added to DB this will populate
+  document.querySelectorAll('.board-filter')?.forEach(filter => {
+    filter.addEventListener('click', function () {
+      document.querySelectorAll('.board-filter').forEach(f => f.classList.remove('active'));
+      this.classList.add('active');
+    });
+  });
 }
-
 // Board filter — keep existing logic working
 document.querySelectorAll('.board-filter')?.forEach(filter => {
   filter.addEventListener('click', function () {
@@ -12456,7 +12431,8 @@ function navigate(sectionId) {
   if (sectionId === 'Messages')  loadConversations();
   if (sectionId === 'profile')   initProfile();
 }
-alert(1111)
+alert(899)
 </script>
+</body>
 
 </html>
