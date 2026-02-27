@@ -1653,12 +1653,14 @@ function switchModal(from, to) {
   <div class="overlay" id="overlay"></div>
 
   <nav class="drawer" id="drawer">
-    <a id="profilenav" class="profilenav" onclick="document.getElementById('Messages').style.display='none',closeDrawer(),document.getElementById('profile').style.display='block',document.getElementById('Trending').style.display='none',document.getElementById('Research').style.display='none',document.getElementById('Explore').style.display='none',document.getElementById('Finance').style.display='none',document.getElementById('Board').style.display='none',document.getElementById('Settings').style.display='none';"  href="#" style="height:10vh;top:0vh;border-bottom:1px solid #f0f8ff34;">
-      <pib><img src="img1" style="display:block;">&tau;&aleph;</pib><un>Oshifala Israel Omobayode</un>
-       <lr>Cambridge • Biotechnology</lr>
-      <aside><marquee>Esse quam videri...</marquee></aside>
-      
-       </a>
+    <a id="profilenav" class="profilenav" onclick="document.getElementById('Messages').style.display='none',closeDrawer(),document.getElementById('profile').style.display='block',document.getElementById('Trending').style.display='none',document.getElementById('Research').style.display='none',document.getElementById('Explore').style.display='none',document.getElementById('Finance').style.display='none',document.getElementById('Board').style.display='none',document.getElementById('Settings').style.display='none';" style="padding:16px 20px;border-bottom:1px solid #111;margin-bottom:8px;align-items:center;gap:14px;display:flex;">
+      <pib><img src="img1" style="display:block;">&tau;&aleph;</pib>
+      <div style="display:flex;flex-direction:column;gap:2px;overflow:hidden;">
+        <un>Oshifala Israel Omobayode</un>
+        <lr>Cambridge • Biotechnology</lr>
+        <aside><marquee>Esse quam videri...</marquee></aside>
+      </div>
+    </a>
        <span>
    <a onclick="document.getElementById('Messages').style.display='none',closeDrawer(),document.getElementById('profile').style.display='none',document.getElementById('Trending').style.display='block',document.getElementById('Research').style.display='none',document.getElementById('Explore').style.display='none',document.getElementById('Finance').style.display='none',document.getElementById('Board').style.display='none',document.getElementById('Settings').style.display='none';"  href="#" style="margin-top:1vh;"><bs>⇗</bs>Trending</a>
    <a onclick="document.getElementById('Messages').style.display='none',document.getElementById('drawer').style.display='none',document.getElementById('overlay').style.display='none',document.getElementById('profile').style.display='none',document.getElementById('Trending').style.display='none',document.getElementById('Research').style.display='block',document.getElementById('Explore').style.display='none',document.getElementById('Finance').style.display='none',document.getElementById('Board').style.display='none',document.getElementById('Settings').style.display='none';"
@@ -1688,9 +1690,19 @@ function switchModal(from, to) {
 </button></a>
 
     </span>
-    <button onclick="document.getElementById('Create').style.display='block';" style="background-color:transparent;border:none;color:dodgerblue;font-size:500%;font-weight:bolder;width:21vw;height:21vw;left:36.5vw;position:relative;border-radius:50%;top:3vh;box-shadow:0 0 40px aliceblue;padding:0px;margin:0px;">
-      &tau;
-    </button>
+    <button onclick="navigate('Create')" style="
+      margin: 16px 20px 8px;
+      width: calc(100% - 40px);
+      padding: 14px;
+      background: #fff;
+      color: #000;
+      border: none;
+      border-radius: 10px;
+      font-size: 16px;
+      font-weight: 700;
+      cursor: pointer;
+      letter-spacing: 0.5px;
+    ">+ Create Post</button>
   </nav>
 
   <style>
@@ -1718,30 +1730,26 @@ html, body {
   -ms-overflow-style: none;
 }
 .drawer a pib img{
-  height:7vh;
-  width:7vh;
-  position:fixed;
+  height:52px;
+  width:52px;
   border-radius:500px;
   object-fit:cover;
   background-color:transparent;
+  display:block;
 }
-.drawer a pib{top:2vh;position:fixed;
+.drawer a pib{
   display: flex;
-  justify-content: center; /* horizontal center */
-  align-items: center; /* vertical center */
-/*  height: 100vh;  or any height */
- height:7vh;
- width:7vh;
- background-color:#111;
- position:fixed;
- border-radius:500px;
- overflow: hidden; /* hide excess text */
- text-overflow: ellipsis; /* show ... when text overflows */
- white-space: nowrap;
- font-weight:bolder;
- font-size: 300%;
- letter-spacing: 3px;
-
+  justify-content: center;
+  align-items: center;
+  height:52px;
+  width:52px;
+  background-color:#111;
+  border-radius:500px;
+  overflow: hidden;
+  font-weight:bolder;
+  font-size: 22px;
+  letter-spacing: 1px;
+  flex-shrink:0;
 }
 
 html::-webkit-scrollbar,
@@ -1759,28 +1767,34 @@ body::-webkit-scrollbar {
     .drawer {
       position: fixed;
       top: 0;
-      left: -90vw;
-      width: 90vw;
-      height: 100%;
-      background: black;
+      left: -100vw;
+      width: 82vw;
+      max-width: 320px;
+      height: 100vh;
+      background: #0a0a0a;
       color: #fff;
       transition: left 0.3s ease;
       z-index: 1000;
+      display: flex;
+      flex-direction: column;
+      overflow-y: auto;
+      overflow-x: hidden;
+      padding-bottom: 20px;
     }
 
-    .drawer  a {
-      display: block;
+    .drawer a {
+      display: flex;
+      align-items: center;
       color: white;
       text-decoration: none;
-      margin-block:10px;
-      background-color:transparent;
-      left:7vw;
+      background-color: transparent;
       position: relative;
-      font-size: 10px;
+      font-size: 16px;
       font-weight: 500;
-      height:fit-content;
-      width:70vw;
-      
+      width: 100%;
+      padding: 10px 20px;
+      box-sizing: border-box;
+      gap: 14px;
     }
     .newMainaccount a {
   display: block;
@@ -1793,86 +1807,76 @@ body::-webkit-scrollbar {
   transform: translateX(3px);
 }
     .drawer a un{
-      position: relative;
-      color: aliceblue;
-      left:15vw;
-      font-size: 110%;
-      font-weight:500;
       display: block;
+      color: #fff;
+      font-size: 15px;
+      font-weight: 600;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 180px;
+    }
+    .drawer a aside{
+      display: block;
+      font-size: 12px;
+      font-weight: 400;
+      color: #555;
       background-color: transparent;
-      bottom:0vh;
-      width:fit-content;
-      float: left;
-      width:39.5vw;
-      white-space: nowrap; /* keep text on one line */
-    overflow: hidden; /* hide excess text */
-    text-overflow: ellipsis; /* show ... when text overflows */
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 180px;
     }
-    .drawer a aside{position: relative;
-      color: aliceblue;
-      display:block;
-      font-size: 95%;
-      font-weight:500;
-      float:left;
-      left: 15vw;
-      background-color: #2828284f;
-      border-radius: 7px 20px 20px 7px;
-      padding: 1.8px;
-      padding-right:5px;
-      top:0.5vh;
-      width:39.5vw;
-      white-space: nowrap; /* keep text on one line */
-    overflow: hidden; /* hide excess text */
-    text-overflow: ellipsis; /* show ... when text overflows */
-    }
-      
-      
     .drawer a lr{
-      position: relative;
-      color: dodgerblue;
-      display:block;
-      font-size: 95%;
-      font-weight:500;
-      background-color: transparent;
-      float:left;
-      left:15vw;
-width:39.5vw;
-      white-space: nowrap; /* keep text on one line */
-    overflow: hidden; /* hide excess text */
-    text-overflow: ellipsis; /* show ... when text overflows */
-      
-      
-    }
-    
-    .drawer a fo{
-      position: relative;
-      color: grey;
-      left:15vw;
-      font-size: 95%;
-      font-weight:500;
       display: block;
-      background-color: transparent;
-      top:0.4vh;
-      width:fit-content;
-      float: left;
+      color: dodgerblue;
+      font-size: 12px;
+      font-weight: 500;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 180px;
+    }
+    .drawer a fo{
+      display: block;
+      color: #555;
+      font-size: 12px;
+      font-weight: 400;
     }
     .drawer a fo b{
-      color: aliceblue;
+      color: #aaa;
       background-color: transparent;
-      
-    } 
-    .drawer span{top:0vh;background-color:transparent;}
-    .drawer span a{font-size:100%;margin-block:1vh;}
-
+    }
+    .drawer span{
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      background-color: transparent;
+    }
+    .drawer span a{
+      font-size: 16px;
+      margin-block: 2px;
+      padding: 12px 20px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      width: 100%;
+      box-sizing: border-box;
+    }
+    .drawer span a:active {
+      background: rgba(255,255,255,0.05);
+    }
     .drawer.open {
       left: 0;
     }
     .drawer a bs{
-      color: aliceblue;
-      margin-right:6vw;
-      font-weight: bolder;
-      font-size:130%;
-      background-color:transparent;
+      color: #fff;
+      font-weight: bold;
+      font-size: 20px;
+      background-color: transparent;
+      width: 24px;
+      text-align: center;
+      flex-shrink: 0;
     }
     .overlay {
       position: fixed;
