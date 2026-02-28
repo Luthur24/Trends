@@ -57,7 +57,7 @@
       background: #000;
       color: #fff;
       line-height: 1.6;
-
+    
     }
 
 
@@ -140,7 +140,7 @@
     background-position: 100% 50%;
   }
 }
-
+    
 
     .cta-buttons {
       display: flex;
@@ -284,7 +284,7 @@
       color: #fff;
       margin: 50px 0 12px;
     }
-
+    
     .terms p{
       color: #999;
     }
@@ -987,7 +987,7 @@ function iosLoaderDone() {
     <!-- Release Notes -->
     <section id="releases" class="section">
       <h2 class="section-title">Release Notes</h2>
-
+      
       <div class="release-item">
         <div class="release-header">
           <div class="release-title">Version 1.0.0</div>
@@ -1043,7 +1043,7 @@ function iosLoaderDone() {
       <h2 class="section-title">Terms of Service</h2>
       <div class="terms">
         <p><strong>Last Updated: February 7, 2026</strong></p>
-
+        
         <p>Welcome to Tre&aleph;ds. By accessing or using our platform, you agree to be bound by these Terms of Service.</p>
 
         <h3>1. Acceptance of Terms</h3>
@@ -1146,14 +1146,14 @@ function iosLoaderDone() {
       <button class="modal-close" onclick="closeModal('signin')">×</button>
       <h2>Sign in</h2>
       <p>Welcome back to Tre&aleph;ds</p>
-
+      
       <button class="social-btn">Continue with Google</button>
       <button class="social-btn">Continue with Microsoft</button>
       <button class="social-btn">Continue with GitHub</button>
       <button class="social-btn">Continue with Apple</button>
-
+      
       <div class="divider">or</div>
-
+      
       <form id="signinForm">
         <div class="form-group">
           <label class="form-label">Email</label>
@@ -1165,7 +1165,7 @@ function iosLoaderDone() {
         </div>
         <button type="submit" class="btn btn-primary" style="width: 100%;">Sign in</button>
       </form>
-
+      
       <div class="form-footer">
         Don't have an account? <a href="#" onclick="switchModal('signin', 'signup')">Sign up</a>
       </div>
@@ -1178,30 +1178,30 @@ function iosLoaderDone() {
     <button class="modal-close" onclick="closeModal('signup')">×</button>
     <h2>Sign up</h2>
     <p>Create your account</p>
-
+    
     <button class="social-btn">Continue with Google</button>
     <button class="social-btn">Continue with Microsoft</button>
     <button class="social-btn">Continue with GitHub</button>
     <button class="social-btn">Continue with Apple</button>
-
+    
     <div class="divider">or</div>
-
+    
     <form id="signupForm">
       <div class="form-group">
         <label class="form-label">Full Name</label>
         <input  maxlength="40" type="text" class="form-input" placeholder="John Doe" required pattern="^[A-Za-z]+(?:[ '-][A-Za-z]+)+$">
       </div>
-
+      
       <div class="form-group">
         <label  class="form-label">Username</label>
         <input maxlength="31" type="text" class="form-input" placeholder="@johndoe" required pattern="^@[A-Za-z0-9]+(?:\s[A-Za-z0-9]+)*$">
       </div>
-
+      
       <div class="form-group">
         <label class="form-label">Email</label>
         <input type="email" class="form-input" placeholder="name@gmail.com" required>
       </div>
-
+      
       <div class="form-group">
         <label class="form-label">Password</label>
         <input maxlength="20" type="password" class="form-input" placeholder="At least 8 characters" minlength="8" required>
@@ -1562,7 +1562,7 @@ function iosLoaderDone() {
 <option value="publishing-studies">Publishing Studies</option>
 </datalist>    
 </div>
-
+      
       <div class="form-group">
 <label for="academicLevel" class="form-label">Academic Level</label>
 <input
@@ -1601,10 +1601,10 @@ function iosLoaderDone() {
   <option value="professor">Professor</option>
 </datalist>
 </div>
-
+      
       <button type="submit" class="btn btn-primary" style="width: 100%;">Create account</button>
     </form>
-
+    
     <div class="form-footer">
       Already have an account? <a href="#" onclick="switchModal('signup', 'signin')">Sign in</a>
     </div>
@@ -1646,7 +1646,7 @@ function switchModal(from, to) {
 
 </section>
 
-<section class="newMainaccount" style="display:none" id='newMainaccount'>
+<section class="newMainaccount" style="display:block" id='newMainaccount'>
 
   <button class="menuBtn" style="display:none">☰</button>
 
@@ -1658,14 +1658,7 @@ function switchModal(from, to) {
   <div class="dr-bg"></div>
 
   <!-- Profile -->
-  <a id="profilenav" class="profilenav dr-profile" onclick="navigate('profile');closeDrawer()">
-    <pib><img src="img1" onerror="this.style.display='none'">&tau;&aleph;</pib>
-    <div class="dr-info">
-      <un>Oshifala Israel Omobayode</un>
-      <lr>Cambridge • Biotechnology</lr>
-      <aside><marquee>Esse quam videri...</marquee></aside>
-    </div>
-  </a>
+  <a id="profilenav" class="profilenav dr-profile" onclick="navigate('profile');closeDrawer()"></a>
 
   <div class="dr-divider"></div>
 
@@ -1972,7 +1965,7 @@ html::-webkit-scrollbar, body::-webkit-scrollbar { display: none; }
   border-radius: 50%;
   animation: gpulse 2s infinite;
 
-
+  
 }
 
 @keyframes gpulse {
@@ -2190,9 +2183,9 @@ html::-webkit-scrollbar, body::-webkit-scrollbar { display: none; }
     </span>
     <div class="global-online-count" id="globalOnlineCount">247 online</div>
   </div>
-
+  
   <div class="global-messages" id="globalMessages"></div>
-
+  
   <div class="global-input">
     <input id="globalInput" type="text" placeholder="Type a message..." maxlength="500" oninput="globalInputChange(this)">
     <button id="globalSend" disabled>Send</button>
@@ -2248,7 +2241,7 @@ const globalChatData = [
 function initGlobalChat() {
   const container = document.getElementById('globalMessages');
   if (!container) return;
-
+  
   // Add welcome message
   container.innerHTML = `
     <div class="g-msg system">
@@ -2257,12 +2250,12 @@ function initGlobalChat() {
       </div>
     </div>
   `;
-
+  
   // Render messages
   globalChatData.forEach(msg => {
     container.innerHTML += buildGlobalMessage(msg);
   });
-
+  
   // Scroll to bottom
   container.scrollTop = container.scrollHeight;
 }
@@ -2285,7 +2278,7 @@ function buildGlobalMessage(msg) {
       </div>
     `;
   }
-
+  
   return `
     <div class="g-msg">
       <img src="${msg.avatar}" class="g-avatar" alt="${msg.name}">
@@ -2314,22 +2307,22 @@ document.addEventListener('DOMContentLoaded', () => {
   const overlay = document.getElementById('globalOverlay');
   const input = document.getElementById('globalInput');
   const sendBtn = document.getElementById('globalSend');
-
+  
   if (!overlay || !closeBtn || !input || !sendBtn) return;
-
+  
   // Initialize
   initGlobalChat();
-
+  
   // Close button
   closeBtn.addEventListener('click', () => {
     overlay.style.display = 'none';
   });
-
+  
   // Send message
   function sendGlobalMessage() {
     const text = input.value.trim();
     if (!text) return;
-
+    
     const newMsg = {
       name: 'You',
       dept: 'Your Dept',
@@ -2338,18 +2331,18 @@ document.addEventListener('DOMContentLoaded', () => {
       time: 'Just now',
       reactions: []
     };
-
+    
     const container = document.getElementById('globalMessages');
     container.innerHTML += buildGlobalMessage(newMsg);
     container.scrollTop = container.scrollHeight;
-
+    
     input.value = '';
     sendBtn.disabled = true;
   }
-
+  
   // Send button click
   sendBtn.addEventListener('click', sendGlobalMessage);
-
+  
   // Enter key
   input.addEventListener('keypress', (e) => {
     if (e.key === 'Enter' && !e.shiftKey) {
@@ -2357,7 +2350,7 @@ document.addEventListener('DOMContentLoaded', () => {
       sendGlobalMessage();
     }
   });
-
+  
   // Update online count (simulate)
   setInterval(() => {
     const count = 240 + Math.floor(Math.random() * 20);
@@ -2379,8 +2372,8 @@ document.addEventListener('DOMContentLoaded', () => {
     color: aliceblue;
     display: flex;
     justify-content: center;
-
-
+    
+    
   }
 </style>
 
@@ -3484,7 +3477,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     const seedMessages = [
-
+    
     ];
 
     seedMessages.forEach(m => addMessage(m[0], m[1]));
@@ -3526,8 +3519,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 </section>
-
-
+  
+  
  <section style="display:none" id="Research" class="Research">
 <style>
 .Research {
@@ -3562,7 +3555,7 @@ document.addEventListener('DOMContentLoaded', () => {
     justify-content: space;
     background-color:#000000ba;
 
-
+    
   }
 
   .research-page-title {
@@ -3919,7 +3912,7 @@ document.addEventListener('DOMContentLoaded', () => {
 <!-- Header -->
 <div class="research-header-top">
   <div style="display:flex; align-items:center; gap:12px;">
-
+    
     <div class="research-page-title">Research</div>
   </div>
   <input type="text" class="research-search" placeholder="Search...">
@@ -4237,8 +4230,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
 </section>
 
-
-
+  
+  
 <section id="Explore" class="Explore" style="display:none">
 <style>
   .Explore {
@@ -6146,7 +6139,7 @@ function finTab(tab,btn){
       </div>
 
       <h2 class="announcement-title">Scheduled Maintenance — February 12, 2026</h2>
-
+      
       <div class="announcement-body">
         We will be performing critical infrastructure upgrades to improve platform performance and security. The service will be temporarily unavailable during this maintenance window.
       </div>
@@ -6181,14 +6174,14 @@ function finTab(tab,btn){
       </div>
 
       <h2 class="announcement-title">Product Roadmap — Your Input Needed</h2>
-
+      
       <div class="announcement-body">
         Help us prioritize our development roadmap. Your feedback directly influences which features we build next.
       </div>
 
       <div class="poll">
         <div class="poll-title">Which feature should we prioritize?</div>
-
+        
         <div class="poll-option" data-votes="42">
           <div class="poll-bar" style="width: 42%"></div>
           <div class="poll-content">
@@ -6250,7 +6243,7 @@ function finTab(tab,btn){
       </div>
 
       <h2 class="announcement-title">Academic Research Symposium 2026</h2>
-
+      
       <div class="announcement-body">
         Join leading researchers from MIT, Stanford, and Cambridge for our annual virtual symposium. Present your work, network with peers, and explore collaborative opportunities.
       </div>
@@ -6301,7 +6294,7 @@ function finTab(tab,btn){
       </div>
 
       <h2 class="announcement-title">Platform Update — Enhanced Search & Analytics</h2>
-
+      
       <div class="announcement-body">
         We've shipped significant improvements to search functionality and introduced advanced analytics for research tracking.
       </div>
@@ -6343,7 +6336,7 @@ function finTab(tab,btn){
       </div>
 
       <h2 class="announcement-title">50,000 Researchers Strong</h2>
-
+      
       <div class="announcement-body">
         We've reached 50,000 registered users across 200+ universities worldwide. Thank you for making Trends the leading academic collaboration platform.
       </div>
@@ -6373,7 +6366,7 @@ function finTab(tab,btn){
       filter.addEventListener('click', function() {
         document.querySelectorAll('.board-filter').forEach(f => f.classList.remove('active'));
         this.classList.add('active');
-
+        
         const filterType = this.dataset.filter;
         console.log('Filtering by:', filterType);
         // Add filtering logic here
@@ -6419,7 +6412,7 @@ function finTab(tab,btn){
   </script>
 </section>
 
-
+  
 <section id="Settings" class="Settings" style="display:none">
 <style>
 .Settings{background:#080808;color:#fff;min-height:100vh;width:100%;position:fixed;top:0;left:0;bottom:0;right:0;overflow-y:auto;-webkit-overflow-scrolling:touch;z-index:900;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;scrollbar-width:none;}
@@ -7101,7 +7094,7 @@ function showSaveBar() {
 function toggleSetting(key) {
   const toggle = document.getElementById('toggle' + key.charAt(0).toUpperCase() + key.slice(1));
   if (!toggle) return;
-
+  
   toggle.classList.toggle('active');
   settingsState[key] = toggle.classList.contains('active');
   showSaveBar();
@@ -7155,7 +7148,7 @@ function shareProfile() {
 function opeSetnModal(type) {
   const modal = document.getElementById('setModal');
   const content = document.getElementById('setModalContent');
-
+  
   const modals = {
     editProfile: `
       <div class="set-modal-title">Edit Profile</div>
@@ -7447,7 +7440,7 @@ function opeSetnModal(type) {
       </div>
     `
   };
-
+  
   content.innerHTML = modals[type] || '<div class="set-modal-title">Coming soon</div><button class="set-btn" style="width:100%;margin-top:20px;" onclick="closeSetModal()">Close</button>';
   modal.classList.add('active');
 }
@@ -7496,7 +7489,7 @@ document.getElementById('setModal').addEventListener('click', function(e) {
 
 </section>
 
-
+  
   <section style="display:none" id="profile" class="profile">
   <style>
   .user-item {
@@ -7615,12 +7608,33 @@ document.getElementById('setModal').addEventListener('click', function(e) {
   margin-top: -60px;
 }
 
-.avatar {
+.avatar-circle {
   width: 120px; height: 120px;
   border-radius: 50%;
   border: 4px solid #000;
-  object-fit: cover;
   box-shadow: 0 0 0 2px #222;
+  background: #1a1a1a;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.avatar {
+  width: 100%; height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  position: absolute;
+  inset: 0;
+}
+
+.avatar-initials {
+  font-size: 40px;
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: -1px;
+  pointer-events: none;
 }
 
 /* Info */
@@ -7631,7 +7645,7 @@ document.getElementById('setModal').addEventListener('click', function(e) {
 
 .bio {
   margin-top: 12px;
-  color: charteuse;
+  color: #ccc;
   line-height: 1.6;
   font-size: 14px;
 }
@@ -7722,16 +7736,19 @@ document.getElementById('setModal').addEventListener('click', function(e) {
     <button style="display:none" class="close-btn" onclick="document.getElementById('profile').style.display='none'">×</button>
   </div>  <div class="cover"></div>  
   <div class="avatar-wrap">
-    <img id="avatar" src="img2" class="avatar" />
+    <div class="avatar-circle" id="avatarCircle">
+      <img id="avatar" src="" class="avatar" style="display:none;" />
+      <div class="avatar-initials" id="avatarInitials">?</div>
+    </div>
   </div>  
   <div id="info" class="info">
-    <div class="name">Oshifala Israel Omobayode</div>
-    <div class="handle">@Montreal_protocol</div>
-    <div class="bio">Computer Science • Student • Stanford Bridge • Building academic collaboration tools.</div>
+    <div class="name" id="profileName">---</div>
+    <div class="handle" id="profileHandle">---</div>
+    <div class="bio" id="profileBio">---</div>
   </div>
   <div id="userListModal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.85); backdrop-filter:blur(20px); z-index:99999; align-items:center; justify-content:center;">
   <div style="background:#111; border:1px solid #222; border-radius:12px; width:90%; max-width:400px; max-height:80vh; display:flex; flex-direction:column; overflow:hidden;">
-
+    
     <!-- Header -->
     <div style="display:flex; justify-content:space-between; align-items:center; padding:16px 20px; border-bottom:1px solid #222;">
       <div id="modalTitle" style="font-size:16px; font-weight:600;"></div>
@@ -7740,109 +7757,8 @@ document.getElementById('setModal').addEventListener('click', function(e) {
 
     <!-- User List — backend fills this -->
     <div id="userListContent" style="overflow-y:auto; flex:1;text-align:left">
-  <div class="user-item">
-    <img src="img1" alt="profile">
-    <div class="user-item-info">
-      <div class="user-item-name">Ada James</div>
-      <div class="user-item-handle">@ada.james</div>
-      <div class="user-item-dept">Electrical Engineering · UNILAG</div>
-    </div>
-    <button class="user-follow-btn">Follow</button>
-  </div>
-
-  <div class="user-item">
-    <img src="img2" alt="profile">
-    <div class="user-item-info">
-      <div class="user-item-name">Samuel Obi</div>
-      <div class="user-item-handle">@samuel.obi</div>
-      <div class="user-item-dept">Mathematics · OAU</div>
-    </div>
-    <button class="user-follow-btn following">Following</button>
-  </div>
-
-  <div class="user-item">
-    <img src="img3" alt="profile">
-    <div class="user-item-info">
-      <div class="user-item-name">Fatima Bello</div>
-      <div class="user-item-handle">@fatima.bello</div>
-      <div class="user-item-dept">Computer Science · ABU</div>
-    </div>
-    <button class="user-follow-btn">Follow</button>
-  </div>
-
-  <div class="user-item">
-    <img src="img1" alt="profile">
-    <div class="user-item-info">
-      <div class="user-item-name">Chidi Nwosu</div>
-      <div class="user-item-handle">@chidi.nwosu</div>
-      <div class="user-item-dept">Physics · FUTO</div>
-    </div>
-    <button class="user-follow-btn following">Following</button>
-  </div>
-
-  <div class="user-item">
-    <img src="img2" alt="profile">
-    <div class="user-item-info">
-      <div class="user-item-name">Ngozi Eze</div>
-      <div class="user-item-handle">@ngozi.eze</div>
-      <div class="user-item-dept">Biochemistry · UI</div>
-    </div>
-    <button class="user-follow-btn">Follow</button>
-  </div>
-
-  <div class="user-item">
-    <img src="img3" alt="profile">
-    <div class="user-item-info">
-      <div class="user-item-name">Tunde Adeyemi</div>
-      <div class="user-item-handle">@tunde.adeyemi</div>
-      <div class="user-item-dept">Mechanical Engineering · LASU</div>
-    </div>
-    <button class="user-follow-btn">Follow</button>
-  </div>
-
-  <div class="user-item">
-    <img src="img1" alt="profile">
-    <div class="user-item-info">
-      <div class="user-item-name">Amaka Okonkwo</div>
-      <div class="user-item-handle">@amaka.okonkwo</div>
-      <div class="user-item-dept">Law · UNIBEN</div>
-    </div>
-    <button class="user-follow-btn following">Following</button>
-  </div>
-
-  <div class="user-item">
-    <img src="img2" alt="profile">
-    <div class="user-item-info">
-      <div class="user-item-name">Emeka Dike</div>
-      <div class="user-item-handle">@emeka.dike</div>
-      <div class="user-item-dept">Medicine · UNILAG</div>
-    </div>
-    <button class="user-follow-btn">Follow</button>
-  </div>
-
-  <div class="user-item">
-    <img src="img3" alt="profile">
-    <div class="user-item-info">
-      <div class="user-item-name">Yetunde Lawal</div>
-      <div class="user-item-handle">@yetunde.lawal</div>
-      <div class="user-item-dept">Economics · OAU</div>
-    </div>
-    <button class="user-follow-btn">Follow</button>
-  </div>
-
-  <div class="user-item">
-    <img src="img1" alt="profile">
-    <div class="user-item-info">
-      <div class="user-item-name">Biodun Ojo</div>
-      <div class="user-item-handle">@biodun.ojo</div>
-      <div class="user-item-dept">Architecture · UNILAG</div>
-    </div>
-    <button class="user-follow-btn following">Following</button>
-  </div>
-
-  <!-- Items injected here by backend response -->
 </div>
-
+    
     <!-- Load More -->
     <div style="padding:12px 20px; border-top:1px solid #222;">
       <button id="loadMoreBtn" style="background:transparent; border:1px solid #333; border-radius:6px; color:#fff; padding:10px 0; font-size:13px; cursor:pointer; width:100%;">
@@ -7854,19 +7770,19 @@ document.getElementById('setModal').addEventListener('click', function(e) {
 </div>
   <div id="stats"  class="stats">
   <div onclick="openUserModal('following')" style="cursor:pointer;">
-    <div class="stat-num">7.7K</div>
+    <div class="stat-num" id="statFollowing">0</div>
     <div class="stat-label">Following</div>
   </div>
   <div onclick="openUserModal('followers')" style="cursor:pointer;">
-    <div class="stat-num">6.4K</div>
+    <div class="stat-num" id="statFollowers">0</div>
     <div class="stat-label">Followers</div>
   </div>
   <div>
-    <div class="stat-num">38K</div>
+    <div class="stat-num" id="statLikes">0</div>
     <div class="stat-label">Likes</div>
   </div>
   <div>
-    <div class="stat-num">5.8K</div>
+    <div class="stat-num" id="statPosts">0</div>
     <div class="stat-label">Posts</div>
   </div>
 </div>
@@ -8426,7 +8342,7 @@ document.getElementById('setModal').addEventListener('click', function(e) {
 
 <!-- POSTS TAB -->
 <div class="tab-content active" id="tab-posts">
-
+    
 
   <!-- Image/Video Grid -->
   <div class="grid">
@@ -9060,13 +8976,60 @@ document.addEventListener('click', function(e) {
 });
 
 // ── INIT ───────────────────────────────────────────────────────
-function initProfile() {
+async function initProfile() {
   profileSeenKeys   = { posts: [], research: [], saved: [] };
   profileScrollLock = { posts: false, research: false, saved: false };
   activeTab         = 'posts';
+
+  // Reset tabs
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
   document.querySelector('.tab[data-tab="posts"]')?.classList.add('active');
-  document.getElementById('tab-posts')?.classList.add('active');
+  document.getElementById('tab-posts')?.classList.remove('active');
+
+  // Fetch profile data from backend every time to keep stats fresh
+  const res = await apiRequest({ status: 'get_profile' });
+  if (res && res.status === 200) {
+    const nameEl   = document.getElementById('profileName');
+    const handleEl = document.getElementById('profileHandle');
+    const bioEl    = document.getElementById('profileBio');
+    const av       = document.getElementById('avatar');
+
+    if (nameEl && res.full_name)   nameEl.textContent   = res.full_name;
+    if (handleEl && res.username)  handleEl.textContent = '@' + res.username;
+    if (bioEl && res.bio)          bioEl.textContent    = res.bio;
+    const initEl = document.getElementById('avatarInitials');
+    if (res.avatar) {
+      if (av) { av.src = res.avatar; av.style.display = 'block'; }
+      if (initEl) initEl.style.display = 'none';
+    } else {
+      if (av) av.style.display = 'none';
+      if (initEl) {
+        const name = res.full_name || '';
+        const parts = name.trim().split(' ');
+        initEl.textContent = parts.length >= 2
+          ? parts[0][0].toUpperCase() + parts[parts.length-1][0].toUpperCase()
+          : name[0]?.toUpperCase() || '?';
+        initEl.style.display = 'block';
+      }
+    }
+
+    const setNum = (id, val) => {
+      const el = document.getElementById(id);
+      if (el) el.textContent = fmtNum(val || 0);
+    };
+    setNum('statFollowing', res.following);
+    setNum('statFollowers', res.followers);
+    setNum('statLikes',     res.likes);
+    setNum('statPosts',     res.posts);
+  }
+
   loadProfileTab('posts');
+}
+
+function fmtNum(n) {
+  if (n >= 1000000) return (n/1000000).toFixed(1) + 'M';
+  if (n >= 1000)    return (n/1000).toFixed(1) + 'K';
+  return String(n);
 }
 </script>
 
@@ -9414,7 +9377,7 @@ function crSwitch(type,btn){
   document.querySelectorAll('.cr-tab').forEach(t=>t.classList.remove('active'));
   btn.classList.add('active');
   crType=type;
-
+  
   // Update placeholder
   const placeholders={
     post:"What's on your mind?",
@@ -9429,10 +9392,10 @@ function crSwitch(type,btn){
     ad:"Describe what you're promoting..."
   };
   document.getElementById('crText').placeholder=placeholders[type]||"What's on your mind?";
-
+  
   // Hide all sections
   document.querySelectorAll('.cr-section').forEach(s=>s.classList.remove('active'));
-
+  
   // Show relevant section
   const sections={
     research:'crResearch',
@@ -9581,12 +9544,12 @@ function crCreate(){
   const visibility=document.getElementById('crVisibility').value;
   const allowComments=document.getElementById('crComments').classList.contains('active');
   const showInFeed=document.getElementById('crFeed').classList.contains('active');
-
+  
   if(!content&&!crMedia){
     alert('Please add content or media');
     return;
   }
-
+  
   const data={
     type:crType,
     content,
@@ -9596,7 +9559,7 @@ function crCreate(){
     media:crMedia,
     timestamp:new Date().toISOString()
   };
-
+  
   // Type-specific data
   if(crType==='poll'){
     const opts=[];
@@ -9605,7 +9568,7 @@ function crCreate(){
     });
     data.pollOptions=opts;
   }
-
+  
   if(crType==='research'){
     data.research={
       title:document.getElementById('crResearchTitle').value,
@@ -9614,7 +9577,7 @@ function crCreate(){
       tags:crResearchTags
     };
   }
-
+  
   if(crType==='event'){
     data.event={
       title:document.getElementById('crEventTitle').value,
@@ -9623,7 +9586,7 @@ function crCreate(){
       location:document.getElementById('crEventLocation').value
     };
   }
-
+  
   if(crType==='bounty'){
     data.bounty={
       title:document.getElementById('crBountyTitle').value,
@@ -9632,7 +9595,7 @@ function crCreate(){
       category:document.getElementById('crBountyCategory').value
     };
   }
-
+  
   if(crType==='job'){
     data.job={
       title:document.getElementById('crJobTitle').value,
@@ -9643,7 +9606,7 @@ function crCreate(){
       link:document.getElementById('crJobLink').value
     };
   }
-
+  
   if(crType==='product'){
     data.product={
       name:document.getElementById('crProductName').value,
@@ -9652,14 +9615,14 @@ function crCreate(){
       category:document.getElementById('crProductCategory').value
     };
   }
-
+  
   if(crType==='question'){
     data.question={
       title:document.getElementById('crQuestionTitle').value,
       tags:crQuestionTags
     };
   }
-
+  
   if(crType==='collab'){
     data.collab={
       title:document.getElementById('crCollabTitle').value,
@@ -9667,7 +9630,7 @@ function crCreate(){
       duration:document.getElementById('crCollabDuration').value
     };
   }
-
+  
   if(crType==='ad'){
     data.ad={
       title:document.getElementById('crAdTitle').value,
@@ -9676,16 +9639,16 @@ function crCreate(){
       cta:document.getElementById('crAdCTA').value
     };
   }
-
+  
   console.log('Creating post:',data);
-
+  
   // TODO: Send to backend
   // await fetch('/api/posts', {
   //   method: 'POST',
   //   headers: { 'Content-Type': 'application/json' },
   //   body: JSON.stringify(data)
   // });
-
+  
   alert('Post created successfully!');
   crReset();
   document.getElementById('Create').style.display='none';
@@ -10108,7 +10071,7 @@ function initMessages() {
 function renderMsgChats() {
   const container = document.getElementById('msgList');
   let filtered = msgChats;
-
+  
   if (msgCurrentTab === 'unread') {
     filtered = msgChats.filter(c => c.unread > 0);
   } else if (msgCurrentTab === 'groups') {
@@ -10116,7 +10079,7 @@ function renderMsgChats() {
   } else if (msgCurrentTab === 'archived') {
     filtered = [];
   }
-
+  
   container.innerHTML = filtered.map(chat => `
     <div class="msg-chat ${chat.unread > 0 ? 'unread' : ''} ${chat.pinned ? 'pinned' : ''} ${currentChatId === chat.id ? 'active' : ''}" onclick="openMsgChat(${chat.id})">
       ${chat.isGroup ? `
@@ -10144,7 +10107,7 @@ function renderMsgChats() {
       ${chat.muted ? '<span class="msg-muted">🔕</span>' : ''}
     </div>
   `).join('');
-
+  
   updateMsgBadges();
 }
 
@@ -10180,17 +10143,17 @@ function openMsgChat(chatId) {
   currentChatId = chatId;
   const chat = msgChats.find(c => c.id === chatId);
   if (!chat) return;
-
+  
   // Mark as read
   chat.unread = 0;
   renderMsgChats();
-
+  
   const main = document.getElementById('msgMain');
   main.classList.add('active');
-
+  
   // Build chat UI
   const contactInfo = msgContacts.find(c => c.name === chat.name);
-
+  
   main.innerHTML = `
     <div class="msg-chat-header">
       <button class="msg-back" onclick="closeMsgChat()" style="display:none;">←</button>
@@ -10336,9 +10299,9 @@ function openMsgChat(chatId) {
       </div>
     </div>
   `;
-
+  
   renderMsgMessages(chatId);
-
+  
   // Show back button on mobile
   if (window.innerWidth <= 768) {
     main.querySelector('.msg-back').style.display = 'block';
@@ -10349,9 +10312,9 @@ function openMsgChat(chatId) {
 function renderMsgMessages(chatId) {
   const messages = msgMessages[chatId] || [];
   const container = document.getElementById('msgMessages');
-
+  
   let html = '<div class="msg-date-divider">Today</div>';
-
+  
   messages.forEach(msg => {
     html += `
       <div class="msg-bubble-wrap ${msg.sent ? 'sent' : ''}">
@@ -10388,7 +10351,7 @@ function renderMsgMessages(chatId) {
       </div>
     `;
   });
-
+  
   container.innerHTML = html;
   container.scrollTop = container.scrollHeight;
 }
@@ -10407,7 +10370,7 @@ function toggleMsgProfile() {
 function autoResizeMsgInput(textarea) {
   textarea.style.height = 'auto';
   textarea.style.height = Math.min(textarea.scrollHeight, 120) + 'px';
-
+  
   const sendBtn = document.getElementById('msgSendBtn');
   sendBtn.disabled = !textarea.value.trim();
 }
@@ -10425,7 +10388,7 @@ function sendMsg() {
   const input = document.getElementById('msgInput');
   const text = input.value.trim();
   if (!text || !currentChatId) return;
-
+  
   const newMsg = {
     id: Date.now(),
     sender: 'You',
@@ -10434,19 +10397,19 @@ function sendMsg() {
     sent: true,
     read: false
   };
-
+  
   if (replyingTo) {
     newMsg.replyTo = replyingTo;
     cancelMsgReply();
   }
-
+  
   if (!msgMessages[currentChatId]) msgMessages[currentChatId] = [];
   msgMessages[currentChatId].push(newMsg);
-
+  
   renderMsgMessages(currentChatId);
   input.value = '';
   autoResizeMsgInput(input);
-
+  
   // Update chat list
   const chat = msgChats.find(c => c.id === currentChatId);
   if (chat) {
@@ -10460,7 +10423,7 @@ function sendMsg() {
 function replyToMsg(msgId) {
   const msg = msgMessages[currentChatId].find(m => m.id === msgId);
   if (!msg) return;
-
+  
   replyingTo = msg;
   document.getElementById('msgReplyingTo').classList.add('active');
   document.getElementById('replyName').textContent = msg.sender;
@@ -10488,7 +10451,7 @@ function handleMsgFile(input, type) {
   if (input.files && input.files[0]) {
     const file = input.files[0];
     const reader = new FileReader();
-
+    
     reader.onload = function(e) {
       const newMsg = {
         id: Date.now(),
@@ -10498,7 +10461,7 @@ function handleMsgFile(input, type) {
         sent: true,
         read: false
       };
-
+      
       if (type === 'image') {
         newMsg.hasImage = true;
         newMsg.imageSrc = e.target.result;
@@ -10507,12 +10470,12 @@ function handleMsgFile(input, type) {
         newMsg.fileName = file.name;
         newMsg.fileSize = (file.size / 1024 / 1024).toFixed(2) + ' MB';
       }
-
+      
       if (!msgMessages[currentChatId]) msgMessages[currentChatId] = [];
       msgMessages[currentChatId].push(newMsg);
       renderMsgMessages(currentChatId);
     };
-
+    
     reader.readAsDataURL(file);
   }
 }
@@ -10547,7 +10510,7 @@ function renderMsgContacts() {
   lists.forEach(listId => {
     const container = document.getElementById(listId);
     if (!container) return;
-
+    
     container.innerHTML = msgContacts.map(contact => `
       <div class="msg-contact" onclick="toggleMsgContact(${contact.id},'${listId}')" data-id="${contact.id}">
         <img src="${contact.avatar}" class="msg-contact-avatar">
@@ -10578,7 +10541,7 @@ function msgSearchContacts(query) {
 function toggleMsgContact(id, listId) {
   const contact = document.querySelector(`#${listId} .msg-contact[data-id="${id}"]`);
   contact.classList.toggle('selected');
-
+  
   if (contact.classList.contains('selected')) {
     if (!selectedContacts.includes(id)) selectedContacts.push(id);
   } else {
@@ -10590,7 +10553,7 @@ function toggleMsgContact(id, listId) {
 function openMsgModal(type) {
   selectedContacts = [];
   document.querySelectorAll('.msg-contact').forEach(c => c.classList.remove('selected'));
-
+  
   if (type === 'newChat') {
     document.getElementById('msgNewChatModal').classList.add('active');
   } else if (type === 'newGroup') {
@@ -10612,11 +10575,11 @@ function startNewChat() {
     alert('Please select a contact');
     return;
   }
-
+  
   if (selectedContacts.length === 1) {
     const contactId = selectedContacts[0];
     const contact = msgContacts.find(c => c.id === contactId);
-
+    
     // Check if chat already exists
     let chat = msgChats.find(c => c.name === contact.name);
     if (!chat) {
@@ -10635,7 +10598,7 @@ function startNewChat() {
       };
       msgChats.unshift(chat);
     }
-
+    
     closeMsgModal('newChat');
     renderMsgChats();
     openMsgChat(chat.id);
@@ -10650,7 +10613,7 @@ function createGroup() {
     alert('Select at least 2 members');
     return;
   }
-
+  
   alert('Group created! (Feature fully functional in backend)');
   closeMsgModal('newGroup');
 }
@@ -10710,77 +10673,77 @@ initMessages();
 
 <!-- NOTIFICATIONS SIDEBAR -->
 <div id="notifPanel" style="position:fixed;top:0;right:-100%;width:420px;max-width:90vw;height:100vh;background:#000;border-left:1px solid #1a1a1a;z-index:10000;overflow-y:auto;transition:right 0.3s;display:flex;flex-direction:column;scrollbar-width:none;">
-
+  
   <style>
     #notifPanel::-webkit-scrollbar{display:none;}
-
+    
     /* HEADER */
     .notif-header{position:sticky;top:0;background:#000;border-bottom:1px solid #1a1a1a;padding:18px 20px;z-index:10;display:flex;justify-content:space-between;align-items:center;}
     .notif-title{font-size:20px;font-weight:800;letter-spacing:-0.5px;}
     .notif-close{background:transparent;border:1px solid#333;border-radius:50%;color:#fff;font-size:20px;cursor:pointer;width:36px;height:36px;display:flex;align-items:center;justify-content:center;transition:all 0.2s;}
     .notif-close:hover{background:#fff;color:#000;}
-
+    
     /* TABS */
     .notif-tabs{display:flex;gap:0;border-bottom:1px solid#111;padding:0 20px;position:sticky;top:62px;background:#000;z-index:9;}
     .notif-tab{flex:1;padding:12px 0;background:transparent;border:none;border-bottom:2px solid transparent;color:#444;font-size:13px;font-weight:700;cursor:pointer;transition:all 0.2s;text-align:center;}
     .notif-tab.active{color:#fff;border-bottom-color:#fff;}
-
+    
     /* FILTER PILLS */
     .notif-filters{display:flex;gap:8px;padding:12px 20px;overflow-x:auto;scrollbar-width:none;border-bottom:1px solid#0d0d0d;}
     .notif-filters::-webkit-scrollbar{display:none;}
     .notif-filter{padding:6px 12px;background:transparent;border:1px solid#222;border-radius:16px;color:#555;font-size:11px;font-weight:700;cursor:pointer;transition:all 0.2s;white-space:nowrap;text-transform:uppercase;letter-spacing:0.5px;}
     .notif-filter:hover,.notif-filter.active{background:#fff;color:#000;border-color:#fff;}
-
+    
     /* NOTIFICATIONS LIST */
     .notif-list{flex:1;overflow-y:auto;}
     .notif-empty{padding:80px 20px;text-align:center;color:#333;font-size:14px;}
-
+    
     /* NOTIFICATION ITEM */
     .notif-item{display:flex;gap:12px;padding:14px 20px;border-bottom:1px solid#0d0d0d;cursor:pointer;transition:background 0.15s;position:relative;}
     .notif-item:hover{background:rgba(255,255,255,0.02);}
     .notif-item.unread{background:rgba(255,255,255,0.03);}
     .notif-item.unread::before{content:'';position:absolute;left:0;top:50%;transform:translateY(-50%);width:3px;height:60%;background:#3b82f6;border-radius:0 2px 2px 0;}
-
+    
     .notif-avatar{width:44px;height:44px;border-radius:50%;object-fit:cover;border:1px solid#1e1e1e;flex-shrink:0;}
     .notif-icon{width:44px;height:44px;border-radius:50%;background:#111;border:1px solid#1e1e1e;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;}
-
+    
     .notif-body{flex:1;min-width:0;}
     .notif-text{font-size:14px;line-height:1.5;margin-bottom:4px;color:#ccc;}
     .notif-text strong{color:#fff;font-weight:700;}
     .notif-time{font-size:11px;color:#444;font-variant-numeric:tabular-nums;}
-
+    
     .notif-preview{margin-top:8px;padding:10px;background:#0a0a0a;border:1px solid#1a1a1a;border-radius:8px;font-size:13px;color:#666;line-height:1.4;}
-
+    
     .notif-actions{display:flex;gap:6px;margin-top:10px;}
     .notif-btn{padding:7px 14px;background:transparent;border:1px solid#222;border-radius:6px;color:#888;font-size:12px;font-weight:600;cursor:pointer;transition:all 0.2s;}
     .notif-btn:hover{border-color:#fff;color:#fff;}
     .notif-btn.primary{background:#fff;color:#000;border-color:#fff;}
     .notif-btn.primary:hover{opacity:0.9;}
-
+    
     /* MARK ALL READ */
     .notif-mark-all{padding:12px 20px;text-align:center;border-bottom:1px solid#0d0d0d;}
     .notif-mark-btn{background:transparent;border:1px solid#222;border-radius:8px;color:#666;font-size:12px;font-weight:700;cursor:pointer;padding:8px 16px;transition:all 0.2s;}
     .notif-mark-btn:hover{border-color:#fff;color:#fff;}
-
+    
     /* SETTINGS LINK */
     .notif-settings{padding:16px 20px;border-top:1px solid#111;text-align:center;position:sticky;bottom:0;background:#000;}
     .notif-settings-btn{background:transparent;border:1px solid#333;border-radius:8px;color:#888;font-size:13px;font-weight:600;cursor:pointer;padding:10px 20px;transition:all 0.2s;width:100%;}
     .notif-settings-btn:hover{border-color:#fff;color:#fff;}
   </style>
-
+  
   <!-- HEADER -->
   <div class="notif-header">
     <div class="notif-title">Notifications</div>
     <button class="notif-close" onclick="notifClose()">×</button>
   </div>
-
+  
   <!-- TABS -->
   <div class="notif-tabs">
     <button class="notif-tab active" onclick="notifTabSwitch('all',this)">All</button>
     <button class="notif-tab" onclick="notifTabSwitch('unread',this)">Unread</button>
     <button class="notif-tab" onclick="notifTabSwitch('mentions',this)">Mentions</button>
   </div>
-
+  
   <!-- FILTERS -->
   <div class="notif-filters">
     <button class="notif-filter active" onclick="notifFilterSwitch('all',this)">All</button>
@@ -10792,20 +10755,20 @@ initMessages();
     <button class="notif-filter" onclick="notifFilterSwitch('bounties',this)">Bounties</button>
     <button class="notif-filter" onclick="notifFilterSwitch('mentions',this)">Mentions</button>
   </div>
-
+  
   <!-- MARK ALL READ -->
   <div class="notif-mark-all">
     <button class="notif-mark-btn" onclick="notifMarkAllRead()">Mark all as read</button>
   </div>
-
+  
   <!-- NOTIFICATIONS LIST -->
   <div class="notif-list" id="notifList"></div>
-
+  
   <!-- SETTINGS -->
   <div class="notif-settings">
     <button class="notif-settings-btn" onclick="alert('Notification settings coming soon')">⚙️ Notification Settings</button>
   </div>
-
+  
 </div>
 
 <script>
@@ -11006,11 +10969,7 @@ const notifData = [
 let notifCurrentTab = 'all';
 let notifCurrentFilter = 'all';
 
-// Open panel
-function notifOpen() {
-  document.getElementById('notifPanel').style.right = '0';
-  notifRender();
-}
+// notifOpen handled in main script
 
 // Close panel
 function notifClose() {
@@ -11036,14 +10995,14 @@ function notifFilterSwitch(filter, btn) {
 // Render notifications
 function notifRender() {
   let filtered = notifData;
-
+  
   // Apply tab filter
   if (notifCurrentTab === 'unread') {
     filtered = filtered.filter(n => n.unread);
   } else if (notifCurrentTab === 'mentions') {
     filtered = filtered.filter(n => n.type === 'mention');
   }
-
+  
   // Apply type filter
   if (notifCurrentFilter !== 'all') {
     if (notifCurrentFilter === 'likes') {
@@ -11062,16 +11021,16 @@ function notifRender() {
       filtered = filtered.filter(n => n.type === 'mention');
     }
   }
-
+  
   const container = document.getElementById('notifList');
-
+  
   if (filtered.length === 0) {
     container.innerHTML = '<div class="notif-empty">No notifications</div>';
     return;
   }
-
+  
   container.innerHTML = filtered.map(n => notifBuildItem(n)).join('');
-
+  
   // Update badge
   const unreadCount = notifData.filter(n => n.unread).length;
   const badge = document.getElementById('notifBadge');
@@ -11085,19 +11044,19 @@ function notifRender() {
 // Build notification item
 function notifBuildItem(n) {
   const unreadClass = n.unread ? 'unread' : '';
-
+  
   let iconHTML = '';
   if (n.avatar) {
     iconHTML = `<img src="${n.avatar}" class="notif-avatar">`;
   } else if (n.icon) {
     iconHTML = `<div class="notif-icon">${n.icon}</div>`;
   }
-
+  
   let previewHTML = '';
   if (n.preview) {
     previewHTML = `<div class="notif-preview">${n.preview}</div>`;
   }
-
+  
   let actionsHTML = '';
   if (n.type === 'follow') {
     actionsHTML = `
@@ -11121,7 +11080,7 @@ function notifBuildItem(n) {
       </div>
     `;
   }
-
+  
   return `
     <div class="notif-item ${unreadClass}" onclick="notifMarkRead(${n.id})">
       ${iconHTML}
@@ -11182,9 +11141,6 @@ checkLoginState();
 // Profile image click — full screen viewer
 document.querySelector('.avatar').addEventListener('click', function() {
   const src = this.src;
-
-  // Only trigger if image src is not empty/broken
-  if (!src || src.endsWith('img2') === false && src.trim() === '') return;
   if (!src || src.includes('undefined') || src.trim() === '') return;
 
   // Create overlay
@@ -11226,76 +11182,8 @@ document.querySelector('.avatar').addEventListener('click', function() {
   overlay.appendChild(img);
   document.body.appendChild(overlay);
 });
-function openUserModal(type) {
-  document.getElementById('modalTitle').textContent = 
-    type === 'following' ? 'Following' : 'Followers';
-  document.getElementById('userListModal').style.display = 'flex';
-}
-
-function closeUserModal() {
-  document.getElementById('userListModal').style.display = 'none';
-}
-
-document.getElementById('userListModal').addEventListener('click', function(e) {
-  if (e.target === this) closeUserModal();
-});
-document.querySelectorAll('.user-follow-btn').forEach(btn => {
-  btn.addEventListener('click', function(e) {
-    e.stopPropagation();
-    this.classList.toggle('following');
-    this.textContent = this.classList.contains('following') ? 'Following' : 'Follow';
-  });
-});
-function shareProfile() {
-  const handle = document.querySelector('.handle').textContent.trim();
-  const name = document.querySelector('.name').textContent.trim();
-  const profileUrl = `https://trends.com/${handle}`;
-
-  const shareData = {
-    title: name,
-    text: `Check out ${name}'s profile on Trends`,
-    url: profileUrl
-  };
-
-  if (navigator.share) {
-    // Native share sheet (mobile)
-    navigator.share(shareData).catch(() => {});
-  } else {
-    // Fallback — copy to clipboard
-    navigator.clipboard.writeText(profileUrl).then(() => {
-      showCopyToast();
-    }).catch(() => {
-      // Last resort fallback
-      prompt('Copy your profile link:', profileUrl);
-    });
-  }
-}
-
-function showCopyToast() {
-  const existing = document.getElementById('copyToast');
-  if (existing) existing.remove();
-
-  const toast = document.createElement('div');
-  toast.id = 'copyToast';
-  toast.textContent = 'Profile link copied!';
-  toast.style.cssText = `
-    position: fixed;
-    bottom: 32px;
-    left: 50%;
-    transform: translateX(-50%);
-    background: #fff;
-    color: #000;
-    padding: 10px 20px;
-    border-radius: 6px;
-    font-size: 13px;
-    font-weight: 600;
-    z-index: 99999;
-    animation: fadeInOverlay 0.2s ease;
-  `;
-
-  document.body.appendChild(toast);
-  setTimeout(() => toast.remove(), 2500);
-}
+// openUserModal/closeUserModal handled in main script
+// shareProfile handled in main script
 document.querySelectorAll('.event-actions .event-btn').forEach(btn => {
   btn.addEventListener('click', function() {
     const parent = this.closest('.event-actions');
@@ -11304,10 +11192,7 @@ document.querySelectorAll('.event-actions .event-btn').forEach(btn => {
   });
 });
 
-document.querySelector('#signinForm').addEventListener('submit', handleSignin);
-
-
-document.querySelector('#signupForm').addEventListener('submit', handleSignup);
+// Form listeners registered in DOMContentLoaded below
 
 
 //fetch request function
@@ -11355,13 +11240,11 @@ async function apiRequest(body) {
       body: JSON.stringify(body)
     });
     const data = await res.json();
-    alert(JSON.stringify(data));
     iosLoaderDone()
-
+    
     return data;
   } catch (e) {
     console.error('[API Error]', e);
-    alert('Error:' + e.message);
     iosLoaderDone()
     return { status: 500, message: 'Network error. Please try again.' };
   }
@@ -11406,13 +11289,23 @@ function personalizePage(data) {
       if (val) el.classList.add('active');
       else     el.classList.remove('active');
     } else if (id === 'avatar' || id === 'setProfilePic') {
-      if (val) { el.src = val; el.style.display = 'block'; }
-      else     { el.style.display = 'none'; }
+      const av = document.getElementById('avatar');
+      const initEl = document.getElementById('avatarInitials');
+      if (val) {
+        if (av) { av.src = val; av.style.display = 'block'; }
+        if (initEl) initEl.style.display = 'none';
+      } else {
+        if (av) av.style.display = 'none';
+        if (initEl) initEl.style.display = 'block';
+      }
     } else if (id.startsWith('select')) {
       el.value = val;
     } else if (id.startsWith('toggle')) {
       if (val === 'active') el.classList.add('active');
       else                  el.classList.remove('active');
+    } else if (id === 'profilenav') {
+      const pnav = document.querySelector('.profilenav');
+      if (pnav) pnav.innerHTML = val;
     } else {
       el.innerHTML = val;
     }
@@ -11455,13 +11348,13 @@ async function handleSignup(event) {
     document.getElementById('newMainaccount').style.display = 'block';
     loadTrendingFeed();
   } else {
-
+   
     showToast(res.message, 'error');
   }
 }
 
 async function handleSignin(event) {
-
+  
   event.preventDefault();
   const form = document.querySelector('#signinForm');
   const data = {
@@ -11471,14 +11364,14 @@ async function handleSignin(event) {
   };
   const res = await apiRequest(data);
   if (res.status === 200) {
-
+   
     personalizePage(res);
     showSection('Trending');
     document.getElementById('Accauthsection').style.display = 'none';
     document.getElementById('newMainaccount').style.display = 'block';
     loadTrendingFeed();
   } else {
-
+   
     showToast(res.message, 'error');
   }
 }
@@ -11913,9 +11806,8 @@ async function crCreate() {
     showToast(res.message, 'success');
     crReset();
     document.getElementById('Create').style.display = 'none';
-    document.getElementById('newMainaccount').style.display = 'block';
     seenKeys = [];
-    loadTrendingFeed();
+    navigate('Trending');
   } else {
     showToast(res.message, 'error');
   }
@@ -12253,7 +12145,7 @@ async function sendMsg() {
 }
 
 async function sendGlobalMessage() {
-  const input = document.getElementById('globalChatInput');
+  const input = document.getElementById('globalInput');
   if (!input || !input.value.trim()) return;
   const res = await apiRequest({ status: 'send_global_message', content: input.value.trim() });
   if (res.status === 200) {
@@ -12265,7 +12157,7 @@ async function sendGlobalMessage() {
 async function loadGlobalMessages() {
   const res = await apiRequest({ status: 'get_global_messages' });
   if (res.status === 200) {
-    const container = document.getElementById('globalChatMessages');
+    const container = document.getElementById('globalMessages');
     if (!container) return;
     const userKey = getUserKey();
     container.innerHTML = res.messages.map(m => `
@@ -12334,10 +12226,8 @@ async function loadResearchFeed(append = false) {
   researchFetching = true;
 
   const res = await apiRequest({
-    status:    'get_user_posts',
-    tab:       'research',
-    seen_keys: researchSeenKeys,
-    global:    true  // fetch from all users not just current
+    status:    'get_global_research',
+    seen_keys: researchSeenKeys
   });
 
   researchFetching = false;
@@ -12797,6 +12687,66 @@ document.getElementById('openGlobal')?.addEventListener('click', openGlobalChat)
 // ═══════════════════════════════════════════════════════════════
 // NAVIGATE — Updated to call init functions
 // ═══════════════════════════════════════════════════════════════
+async function saveProfileInfo() {
+  const res = await apiRequest({
+    status:         'update_profile_info',
+    full_name:      document.getElementById('setProfileName')?.value || '',
+    university:     document.getElementById('setUniversity')?.value  || '',
+    department:     document.getElementById('setDepartment')?.value  || '',
+    academic_level: document.getElementById('setAcademicLevel')?.value || ''
+  });
+  if (res.status === 200) { showToast(res.message, 'success'); personalizePage(res); }
+  else showToast(res.message, 'error');
+}
+
+async function saveEmail() {
+  const res = await apiRequest({
+    status:    'update_email',
+    new_email: document.getElementById('setEmail')?.value || '',
+    password:  document.getElementById('setCurrentPasswordEmail')?.value || ''
+  });
+  if (res.status === 200) { showToast(res.message, 'success'); personalizePage(res); }
+  else showToast(res.message, 'error');
+}
+
+async function saveUsername() {
+  const res = await apiRequest({
+    status:       'update_username',
+    new_username: (document.getElementById('setUsername')?.value || '').replace('@','')
+  });
+  if (res.status === 200) { showToast(res.message, 'success'); personalizePage(res); }
+  else showToast(res.message, 'error');
+}
+
+async function savePassword() {
+  const np = document.getElementById('setNewPassword')?.value || '';
+  const cp = document.getElementById('setConfirmPassword')?.value || '';
+  if (np !== cp) { showToast('Passwords do not match.', 'error'); return; }
+  const res = await apiRequest({
+    status:           'update_password',
+    current_password: document.getElementById('setCurrentPassword')?.value || '',
+    new_password:     np
+  });
+  if (res.status === 200) showToast(res.message, 'success');
+  else showToast(res.message, 'error');
+}
+
+async function saveBio() {
+  const res = await apiRequest({
+    status:  'update_bio',
+    new_bio: document.getElementById('setBio')?.value || ''
+  });
+  if (res.status === 200) { showToast(res.message, 'success'); personalizePage(res); }
+  else showToast(res.message, 'error');
+}
+
+async function logout() {
+  await apiRequest({ status: 'logout' });
+  clearSession();
+  location.reload();
+}
+
+
 function navigate(sectionId) {
   closeDrawer();
   closeGlobalChat();
