@@ -37,7 +37,7 @@
 </div>
 
 
-<section class="Accauthsection" id="Accauthsection" style="display:block">
+<section class="Accauthsection" id="Accauthsection" style="display:none">
   <style>
     * {
       margin: 0;
@@ -1646,251 +1646,272 @@ function switchModal(from, to) {
 
 </section>
 
-<section class="newMainaccount" style="display:none" id='newMainaccount'>
+<section class="newMainaccount" style="display:block" id='newMainaccount'>
 
   <button class="menuBtn" style="display:none">☰</button>
 
   <div class="overlay" id="overlay"></div>
 
-  <nav class="drawer" id="drawer">
-    <a id="profilenav" class="profilenav" onclick="document.getElementById('Messages').style.display='none',closeDrawer(),document.getElementById('profile').style.display='block',document.getElementById('Trending').style.display='none',document.getElementById('Research').style.display='none',document.getElementById('Explore').style.display='none',document.getElementById('Finance').style.display='none',document.getElementById('Board').style.display='none',document.getElementById('Settings').style.display='none';" style="padding:16px 20px;border-bottom:1px solid #111;margin-bottom:8px;align-items:center;gap:14px;display:flex;">
-      <pib><img src="img1" style="display:block;">&tau;&aleph;</pib>
-      <div style="display:flex;flex-direction:column;gap:2px;overflow:hidden;">
-        <un>Oshifala Israel Omobayode</un>
-        <lr>Cambridge • Biotechnology</lr>
-        <aside><marquee>Esse quam videri...</marquee></aside>
-      </div>
+<nav class="drawer" id="drawer">
+
+  <!-- Space background -->
+  <div class="dr-bg"></div>
+
+  <!-- Profile -->
+  <a id="profilenav" class="profilenav dr-profile" onclick="navigate('profile');closeDrawer()">
+    <pib><img src="img1" onerror="this.style.display='none'">&tau;&aleph;</pib>
+    <div class="dr-info">
+      <un>Oshifala Israel Omobayode</un>
+      <lr>Cambridge • Biotechnology</lr>
+      <aside><marquee>Esse quam videri...</marquee></aside>
+    </div>
+  </a>
+
+  <div class="dr-divider"></div>
+
+  <span>
+    <a onclick="navigate('Trending');closeDrawer()"><bs>↗</bs>Trending</a>
+    <a onclick="navigate('Research');closeDrawer()"><bs>∑</bs>Research</a>
+    <a onclick="navigate('Explore');closeDrawer()"><bs>◎</bs>Explore</a>
+    <a onclick="navigate('Finance');closeDrawer()"><bs>$</bs>Finance</a>
+    <a onclick="navigate('Board');closeDrawer()"><bs>✦</bs>Board</a>
+    <a onclick="navigate('Messages');closeDrawer()">
+      <bs>✉</bs>Messages
+      <span class="dr-badge" id="msgBadge">3</span>
     </a>
-       <span>
-   <a onclick="document.getElementById('Messages').style.display='none',closeDrawer(),document.getElementById('profile').style.display='none',document.getElementById('Trending').style.display='block',document.getElementById('Research').style.display='none',document.getElementById('Explore').style.display='none',document.getElementById('Finance').style.display='none',document.getElementById('Board').style.display='none',document.getElementById('Settings').style.display='none';"  href="#" style="margin-top:1vh;"><bs>⇗</bs>Trending</a>
-   <a onclick="document.getElementById('Messages').style.display='none',document.getElementById('drawer').style.display='none',document.getElementById('overlay').style.display='none',document.getElementById('profile').style.display='none',document.getElementById('Trending').style.display='none',document.getElementById('Research').style.display='block',document.getElementById('Explore').style.display='none',document.getElementById('Finance').style.display='none',document.getElementById('Board').style.display='none',document.getElementById('Settings').style.display='none';"
-   href="#"><bs>∑</bs>Research</a>
-   <a onclick="document.getElementById('Messages').style.display='none',document.getElementById('drawer').style.display='none',document.getElementById('overlay').style.display='none',document.getElementById('profile').style.display='none',document.getElementById('Trending').style.display='none',document.getElementById('Research').style.display='none',document.getElementById('Explore').style.display='block',document.getElementById('Finance').style.display='none',document.getElementById('Board').style.display='none',document.getElementById('Settings').style.display='none';"  href="#"><bs>⌕</bs>Explore</a>
-   <a onclick="document.getElementById('Messages').style.display='none',document.getElementById('drawer').style.display='none',document.getElementById('overlay').style.display='none',document.getElementById('profile').style.display='none',document.getElementById('Trending').style.display='none',document.getElementById('Research').style.display='none',document.getElementById('Explore').style.display='none',document.getElementById('Finance').style.display='block',document.getElementById('Board').style.display='none',document.getElementById('Settings').style.display='none';"
-   href="#"><bs>$</bs>Finance</a>
-   <a href="#" style="height:0vh;padding:0px;"></a>
-    <a  onclick="document.getElementById('Messages').style.display='none',document.getElementById('drawer').style.display='none',document.getElementById('overlay').style.display='none',document.getElementById('profile').style.display='none',document.getElementById('Trending').style.display='none',document.getElementById('Research').style.display='none',document.getElementById('Explore').style.display='none',document.getElementById('Finance').style.display='none',document.getElementById('Board').style.display='block',document.getElementById('Settings').style.display='none';"
-    href="#" style="border-bottom:1px solid #f0f8ff34;margin-top:5vh;padding-bottom:4vh;"><bs>&#9998;</bs>Board</a>
-       <a style="padding-top:0vh;margin-top:2vh" onclick="document.getElementById('Messages').style.display='none',document.getElementById('drawer').style.display='none',document.getElementById('overlay').style.display='none',document.getElementById('profile').style.display='none',document.getElementById('Trending').style.display='none',document.getElementById('Research').style.display='none',document.getElementById('Explore').style.display='none',document.getElementById('Finance').style.display='none',document.getElementById('Board').style.display='none',document.getElementById('Settings').style.display='block';"
-       href="#"><br><bs>&#9881;</bs>Settings</a>
-       <a id="notifBell" onclick="notifOpen()">
-         <button  style="position:relative;background:transparent;border:none;color:#fff;font-size:20px;cursor:pointer;padding:8px;width:8px;height:40px;display:flex;align-items:center;justify-content:left;border-radius:50%;transition:background 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.1)'" onmouseleave="this.style.background='transparent'">
-  🔔
-  <span id="notifBadge" style="position:absolute;top:6px;right:6px;width:8px;height:8px;background:#ef4444;border-radius:50%;display:none;"></span>
-</button>
-<a\>
-  <a><div class="drawer-item" onclick="document.getElementById('drawer').style.display='none',document.getElementById('overlay').style.display='none',document.getElementById('profile').style.display='none',document.getElementById('Trending').style.display='none',document.getElementById('Research').style.display='none',document.getElementById('Explore').style.display='none',document.getElementById('Finance').style.display='none',document.getElementById('Board').style.display='none',document.getElementById('Settings').style.display='none',document.getElementById('Messages').style.display='block';">
-  <span class="drawer-icon">💬</span>
-  <span class="drawer-label">Messages</span>
-  <span class="drawer-badge">3</span> <!-- unread count -->
-</div></a>
-  <a>
-<button id="openGlobal" class="open-global">
-  🔴 Global Community
-</button></a>
+  </span>
 
-    </span>
-    <button onclick="navigate('Create')" style="
-      margin: 16px 20px 8px;
-      width: calc(100% - 40px);
-      padding: 14px;
-      background: #fff;
-      color: #000;
-      border: none;
-      border-radius: 10px;
-      font-size: 16px;
-      font-weight: 700;
-      cursor: pointer;
-      letter-spacing: 0.5px;
-    ">+ Create Post</button>
-  </nav>
+  <div class="dr-divider"></div>
 
-  <style>
-  *{color:aliceblue;}
-    .newMainaccount {
-      position: relative;
-      height: 100vh;
-      overflow-x: hidden;
-      font-family: sans-serif;
-      color: aliceblue;
-    }
-    /* Hide scrollbars for ALL elements */
-* {
-  scrollbar-width: none; /* Firefox */
-  -ms-overflow-style: none; /* IE/Edge */
+  <span>
+    <a id="notifBell" onclick="notifOpen();closeDrawer()">
+      <bs>◉</bs>Notifications
+      <span id="notifBadge" class="dr-badge" style="display:none;"></span>
+    </a>
+    <a onclick="navigate('Settings');closeDrawer()"><bs>◈</bs>Settings</a>
+    <a onclick="openGlobalChat(),closeDrawer()">
+      <bs style="color:#ef4444">●</bs>Global Community
+    </a>
+  </span>
+
+  <button class="dr-create" onclick="navigate('Create');closeDrawer()">✦ Create Post</button>
+
+</nav>
+<style>
+* { color: aliceblue; scrollbar-width: none; -ms-overflow-style: none; }
+*::-webkit-scrollbar { display: none; }
+html, body { scrollbar-width: none; -ms-overflow-style: none; }
+html::-webkit-scrollbar, body::-webkit-scrollbar { display: none; }
+
+.newMainaccount {
+  position: relative;
+  height: 100vh;
+  overflow-x: hidden;
+  font-family: sans-serif;
+  color: aliceblue;
 }
-
-*::-webkit-scrollbar {
-  display: none; /* Chrome, Safari, Opera */
-}
-
-/* Specifically for body and html */
-html, body {
-  scrollbar-width: none;
-  -ms-overflow-style: none;
-}
-.drawer a pib img{
-  height:52px;
-  width:52px;
-  border-radius:500px;
-  object-fit:cover;
-  background-color:transparent;
-  display:block;
-}
-.drawer a pib{
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height:52px;
-  width:52px;
-  background-color:#111;
-  border-radius:500px;
-  overflow: hidden;
-  font-weight:bolder;
-  font-size: 22px;
-  letter-spacing: 1px;
-  flex-shrink:0;
-}
-
-html::-webkit-scrollbar,
-body::-webkit-scrollbar {
-  display: none;
-}
-
-    .menuBtn {
-      font-size: 24px;
-      margin: 15px;
-      z-index: 10;
-      position: relative;
-    }
-
-    .drawer {
-      position: fixed;
-      top: 0;
-      left: -100vw;
-      width: 82vw;
-      max-width: 320px;
-      height: 100vh;
-      background: #0a0a0a;
-      color: #fff;
-      transition: left 0.3s ease;
-      z-index: 1000;
-      display: flex;
-      flex-direction: column;
-      overflow-y: auto;
-      overflow-x: hidden;
-      padding-bottom: 20px;
-    }
-
-    .drawer a {
-      display: flex;
-      align-items: center;
-      color: white;
-      text-decoration: none;
-      background-color: transparent;
-      position: relative;
-      font-size: 16px;
-      font-weight: 500;
-      width: 100%;
-      padding: 10px 20px;
-      box-sizing: border-box;
-      gap: 14px;
-    }
-    .newMainaccount a {
+.newMainaccount a {
   display: block;
   padding: 12px 16px;
   border-radius: 10px;
 }
-
 .newMainaccount a:not(:empty):hover {
   background: rgba(255,255,255,0.08);
   transform: translateX(3px);
 }
-    .drawer a un{
-      display: block;
-      color: #fff;
-      font-size: 15px;
-      font-weight: 600;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      max-width: 180px;
-    }
-    .drawer a aside{
-      display: block;
-      font-size: 12px;
-      font-weight: 400;
-      color: #555;
-      background-color: transparent;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      max-width: 180px;
-    }
-    .drawer a lr{
-      display: block;
-      color: dodgerblue;
-      font-size: 12px;
-      font-weight: 500;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      max-width: 180px;
-    }
-    .drawer a fo{
-      display: block;
-      color: #555;
-      font-size: 12px;
-      font-weight: 400;
-    }
-    .drawer a fo b{
-      color: #aaa;
-      background-color: transparent;
-    }
-    .drawer span{
-      display: flex;
-      flex-direction: column;
-      flex: 1;
-      background-color: transparent;
-    }
-    .drawer span a{
-      font-size: 16px;
-      margin-block: 2px;
-      padding: 12px 20px;
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      width: 100%;
-      box-sizing: border-box;
-    }
-    .drawer span a:active {
-      background: rgba(255,255,255,0.05);
-    }
-    .drawer.open {
-      left: 0;
-    }
-    .drawer a bs{
-      color: #fff;
-      font-weight: bold;
-      font-size: 20px;
-      background-color: transparent;
-      width: 24px;
-      text-align: center;
-      flex-shrink: 0;
-    }
-    .overlay {
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,0.4);
-      display: none;
-      z-index: 999;
-    }
 
-    .overlay.show {
-      display: block;
-    }
-  </style>
+.menuBtn {
+  font-size: 24px;
+  margin: 15px;
+  z-index: 10;
+  position: relative;
+}
 
+/* ── DRAWER ── */
+.drawer {
+  position: fixed;
+  top: 0;
+  left: -100vw;
+  width: 80vw;
+  max-width: 300px;
+  height: 100vh;
+  background: #000;
+  color: #fff;
+  transition: left 0.35s cubic-bezier(0.4,0,0.2,1);
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+.drawer.open { left: 0; }
+
+/* Deep space background */
+.dr-bg {
+  position: absolute;
+  inset: 0;
+  background-image: url('https://images.unsplash.com/photo-1462331940025-496dfbfc7564?w=600&q=80');
+  background-size: cover;
+  background-position: center;
+  opacity: 0.12;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* Everything above the bg */
+.drawer > * { position: relative; z-index: 1; }
+
+/* Profile */
+.dr-profile {
+  display: flex !important;
+  align-items: center;
+  gap: 12px;
+  padding: 22px 16px 18px !important;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+.dr-info {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  overflow: hidden;
+  flex: 1;
+}
+.drawer a pib {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50px;
+  width: 50px;
+  min-width: 50px;
+  background: #111;
+  border-radius: 50%;
+  overflow: hidden;
+  font-weight: 900;
+  font-size: 18px;
+  flex-shrink: 0;
+  border: 1px solid rgba(255,255,255,0.08);
+}
+.drawer a pib img {
+  height: 50px;
+  width: 50px;
+  border-radius: 50%;
+  object-fit: cover;
+  display: block;
+}
+.drawer a un {
+  display: block;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.drawer a lr {
+  display: block;
+  color: dodgerblue;
+  font-size: 11px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.drawer a aside {
+  display: block;
+  color: #333;
+  font-size: 10px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  background: transparent;
+}
+
+/* Divider */
+.dr-divider {
+  height: 1px;
+  background: rgba(255,255,255,0.05);
+  margin: 6px 0;
+}
+
+/* Nav links */
+.drawer span {
+  display: flex;
+  flex-direction: column;
+  background: transparent;
+  padding: 4px 0;
+}
+.drawer a,
+.drawer span a {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  color: aliceblue;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+  padding: 14px 16px;
+  background: transparent;
+  width: 100%;
+  box-sizing: border-box;
+  letter-spacing: 0.2px;
+  transition: color 0.15s, background 0.15s;
+}
+.drawer a:active,
+.drawer span a:active {
+  background: rgba(255,255,255,0.04);
+  color: #fff;
+}
+.drawer a bs {
+  font-size: 16px;
+  width: 22px;
+  text-align: center;
+  flex-shrink: 0;
+  color: aliceblue;
+  background: transparent;
+}
+
+/* Badge */
+.dr-badge {
+  margin-left: auto;
+  background: #fff;
+  color: #000;
+  font-size: 9px;
+  font-weight: 800;
+  padding: 2px 6px;
+  border-radius: 20px;
+  min-width: 16px;
+  text-align: center;
+}
+
+/* Create button */
+.dr-create {
+  margin: 12px 16px 20px;
+  padding: 12px;
+  background: transparent;
+  color: #fff;
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  width: calc(100% - 32px);
+  letter-spacing: 0.5px;
+  transition: background 0.15s, border-color 0.15s;
+}
+.dr-create:active {
+  background: rgba(255,255,255,0.06);
+  border-color: rgba(255,255,255,0.3);
+}
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+  display: none;
+  z-index: 999;
+  backdrop-filter: blur(2px);
+}
+.overlay.show { display: block; }
+</style>
 <!-- GLOBAL COMMUNITY CHAT (REBUILT) -->
 <style>
 /* Global Chat Overlay */
@@ -1902,7 +1923,11 @@ body::-webkit-scrollbar {
   display: none;
   flex-direction: column;
   z-index: 9999;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-family: -apple-system,BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  overflow: hidden;
+  overscroll-behavior: contain;
+  touch-action: none;
+}
 }
 
 /* Header */
@@ -2954,6 +2979,9 @@ document.addEventListener('DOMContentLoaded', () => {
     display:none;
     flex-direction:column;
     z-index:9999;
+    overflow:hidden;
+    overscroll-behavior:contain;
+    touch-action:none;
   }
 
   .global-header {
@@ -3130,7 +3158,7 @@ document.addEventListener('DOMContentLoaded', () => {
 </div>
 </div>
 <!-- ── Global Chat Bar ── -->
-<div class="t-chat-bar" onclick="document.getElementById('globalOverlay').style.display='flex'; document.getElementById('globalMessages').scrollTop=99999;">
+<div class="t-chat-bar" onclick="document.getElementById('globalOverlay').style.display='flex',document.getElementById('globalMessages').scrollTop=99999;">
   <div class="t-chat-icon">💬</div>
   <div class="t-chat-info">
     <div class="t-chat-label">Global Community</div>
@@ -3891,7 +3919,7 @@ document.addEventListener('DOMContentLoaded', () => {
 <!-- Header -->
 <div class="research-header-top">
   <div style="display:flex; align-items:center; gap:12px;">
-    <button  onclick="document.getElementById('drawer').style.display='block'" style="background:transparent; border:none; color:#fff; font-size:22px; cursor:pointer; padding:0; line-height:1;">←</button>
+    
     <div class="research-page-title">Research</div>
   </div>
   <input type="text" class="research-search" placeholder="Search...">
@@ -4550,7 +4578,6 @@ document.addEventListener('DOMContentLoaded', () => {
 <!-- Header -->
 <div class="ex-header">
   <div class="ex-header-top">
-    <button class="ex-back" onclick="document.getElementById('drawer').style.display='block';">←</button>
     <div class="ex-search-wrap">
       <span class="ex-search-ico">
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
@@ -5136,7 +5163,6 @@ document.addEventListener('DOMContentLoaded', () => {
 <!-- HEADER -->
 <div class="fin-header">
   <div class="fin-header-top">
-    <button class="fin-back" onclick="document.getElementById('drawer').style.display='block';">←</button>
     <div class="fin-title">Finance</div>
     <div class="fin-search-wrap">
       <input class="fin-search" type="text" placeholder="Search...">
@@ -6092,7 +6118,6 @@ function finTab(tab,btn){
   <!-- Header -->
   <div class="board-header">
     <div class="board-title">Official Announcements</div>
-    <button style="display:block" class="board-close" onclick="document.getElementById('drawer').style.display='block'">×</button>
   </div>
 
   <!-- Filters & Search -->
@@ -6501,7 +6526,6 @@ function finTab(tab,btn){
 
 <!-- HEADER -->
 <div class="set-header">
-  <button class="set-back" onclick="document.getElementById('drawer').style.display='block';">←</button>
   <div class="set-title">Settings</div>
   <input class="set-search" id="setSearch" type="text" placeholder="Search..." oninput="setSearchFilter(this.value)">
 </div>
@@ -9151,7 +9175,7 @@ function initProfile() {
 <!-- HEADER -->
 <div class="cr-header">
   <div class="cr-title">Create</div>
-  <button class="cr-close" onclick="document.getElementById('Create').style.display='none';document.getElementById('newMainaccount').style.display='block'">×</button>
+  <button class="cr-close" onclick='navigate("Trending")'>×</button>
 </div>
 
 <!-- TABS -->
@@ -9924,7 +9948,6 @@ function crReset(){
 <!-- SIDEBAR -->
 <div class="msg-sidebar">
   <div class="msg-header">
-    <button class="msg-back" onclick="document.getElementById('drawer').style.display='block';">←</button>
     <div class="msg-title">Messages</div>
     <button class="msg-new" onclick="openMsgModal('newChat')">+</button>
   </div>
@@ -11482,8 +11505,8 @@ function checkLoginState() {
       if (res.status === 200) personalizePage(res);
     });
   } else {
-    document.getElementById('Accauthsection').style.display = 'block';
-    document.getElementById('newMainaccount').style.display = 'none';
+    document.getElementById('Accauthsection').style.display = 'none';
+    document.getElementById('newMainaccount').style.display = 'block';
   }
 }
 
@@ -12272,7 +12295,7 @@ function closeDrawer() {
 // INIT
 // ═══════════════════════════════════════════════════════════════
 document.addEventListener('DOMContentLoaded', () => {
-  checkLoginState();
+ checkLoginState();
   setupSearch();
 
   document.querySelector('#signinForm')?.addEventListener('submit', handleSignin);
@@ -12756,14 +12779,14 @@ let globalChatOpen = false;
 
 async function openGlobalChat() {
   globalChatOpen = true;
-  const modal = document.getElementById('globalChatModal');
+  const modal = document.getElementById('globalOverlay');
   if (modal) modal.style.display = 'flex';
   await loadGlobalMessages();
 }
 
 function closeGlobalChat() {
   globalChatOpen = false;
-  const modal = document.getElementById('globalChatModal');
+  const modal = document.getElementById('globalOverlay');
   if (modal) modal.style.display = 'none';
 }
 
@@ -12775,6 +12798,7 @@ document.getElementById('openGlobal')?.addEventListener('click', openGlobalChat)
 // ═══════════════════════════════════════════════════════════════
 function navigate(sectionId) {
   closeDrawer();
+  closeGlobalChat();
   const sections = ['Trending','Research','Explore','Finance','Board','Settings','profile','Create','Messages'];
   sections.forEach(id => {
     const el = document.getElementById(id);
@@ -12788,6 +12812,7 @@ if (el) el.style.display = id === sectionId ? 'block' : 'none';
   if (sectionId === 'Board')     initBoard();
   if (sectionId === 'Messages')  loadConversations();
   if (sectionId === 'profile')   initProfile();
+
 }
 </script>
 
