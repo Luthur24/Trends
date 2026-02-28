@@ -11427,6 +11427,7 @@ function personalizePage(data) {
     const badge = document.getElementById('notifBadge');
     if (badge) badge.style.display = 'block';
   }
+  setTimeout(() => { document.querySelector('#profilenav')?.style.removeProperty('display'); }, 200);
 }
 
 // ═══════════════════════════════════════════════════════════════
