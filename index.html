@@ -11388,16 +11388,21 @@ async function logout() {
   });
 }
 
-function checkLoginState() {
+async function checkLoginState() {
   const token = getToken();
   if (token) {
     document.getElementById('Accauthsection').style.display = 'none';
     document.getElementById('newMainaccount').style.display = 'block';
     showSection('Trending');
     loadTrendingFeed();
-    apiRequest({ status: 'get_settings' }).then(res => {
-      if (res.status === 200) personalizePage(res);
-    });
+    const res = await apiRequest({ status: 'personalize' });
+    if (res.status === 200) {
+      personalizePage(res);
+    } else {
+      clearSession();
+      document.getElementById('Accauthsection').style.display = 'block';
+      document.getElementById('newMainaccount').style.display = 'none';
+    }
   } else {
     document.getElementById('Accauthsection').style.display = 'block';
     document.getElementById('newMainaccount').style.display = 'none';
