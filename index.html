@@ -8994,9 +8994,12 @@ async function initProfile() {
     const bioEl    = document.getElementById('profileBio');
     const av       = document.getElementById('avatar');
 
-    if (nameEl && res.full_name)   nameEl.textContent   = res.full_name;
-    if (handleEl && res.username)  handleEl.textContent = '@' + res.username;
-    if (bioEl && res.bio)          bioEl.textContent    = res.bio;
+    if (nameEl && res.full_name)  nameEl.textContent  = res.full_name;
+    if (handleEl && res.username) {
+      const parts = ['@' + res.username, res.department, res.academic_level, res.university].filter(Boolean);
+      handleEl.textContent = parts.join(' • ');
+    }
+    if (bioEl) bioEl.textContent = res.bio || 'Esse quam videri.';
     const initEl = document.getElementById('avatarInitials');
     if (res.avatar) {
       if (av) { av.src = res.avatar; av.style.display = 'block'; }
@@ -11337,7 +11340,7 @@ async function handleSignup(event) {
     email:          inputs[2].value.trim(),
     password:       inputs[3].value,
     university:     document.querySelector('#university')?.value    || '',
-    department:     document.querySelector('#department')?.value    || '',
+    department:     document.querySelector('#fieldOfStudy')?.value  || '',
     academic_level: document.querySelector('#academicLevel')?.value || ''
   };
   const res = await apiRequest(data);
@@ -11398,11 +11401,13 @@ async function checkLoginState() {
     const res = await apiRequest({ status: 'personalize' });
     if (res.status === 200) {
       personalizePage(res);
-    } else {
+    } else if (res.status === 401) {
+      // Only logout if backend explicitly says unauthorized
       clearSession();
       document.getElementById('Accauthsection').style.display = 'block';
       document.getElementById('newMainaccount').style.display = 'none';
     }
+    // Any other error (network, cold start etc) — stay logged in
   } else {
     document.getElementById('Accauthsection').style.display = 'block';
     document.getElementById('newMainaccount').style.display = 'none';
