@@ -11313,7 +11313,18 @@ function personalizePage(data) {
       el.innerHTML = val;
     }
   });
-
+  if (data.setProfileName) {
+  const el = document.getElementById('profileName');
+  if (el) el.textContent = data.setProfileName;
+}
+if (data.setProfileHandle) {
+  const el = document.getElementById('profileHandle');
+  if (el) el.textContent = data.setProfileHandle.replace(/&bull;/g, '•');
+}
+if (data.setBio !== undefined) {
+  const el = document.getElementById('profileBio');
+  if (el) el.textContent = data.setBio || 'Esse quam videri.';
+}
   // token + user_key
   if (data.token)    saveSession(data.token, data.user_key);
   if (data.user_key) localStorage.setItem('user_key', data.user_key);
