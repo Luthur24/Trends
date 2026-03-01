@@ -8445,11 +8445,9 @@ function buildProfilePostHTML(post) {
 
   let body = '';
 
-  if (post.post_type === 'image') {
-    body = `<img src="${post.media_url}" style="width:100%;border-radius:8px;margin-bottom:10px;max-height:280px;object-fit:cover;">
+if (post.post_type === 'image' || (post.post_type === 'post' && post.media_url)) {    body = `<img src="${post.media_url}" style="width:100%;border-radius:8px;margin-bottom:10px;max-height:280px;object-fit:cover;">
             <div class="post-feed-text">${post.content}</div>`;
-  } else if (post.post_type === 'video') {
-    body = `<video controls style="width:100%;border-radius:8px;margin-bottom:10px;max-height:280px;background:#0a0a0a;">
+} else if (post.post_type === 'video' || (post.post_type === 'post' && post.media_url && post.media_type === 'video')) {    body = `<video controls style="width:100%;border-radius:8px;margin-bottom:10px;max-height:280px;background:#0a0a0a;">
               <source src="${post.media_url}" type="video/mp4">
             </video>
             <div class="post-feed-text">${post.content}</div>`;
