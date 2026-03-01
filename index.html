@@ -8975,15 +8975,14 @@ function fmtNum(n) {
 <div class="cr-container">
 
   <!-- USER INFO -->
-  <div class="cr-user">
-    <img src="img1" alt="avatar">
+<div class="cr-user">
+    <img id="crUserAvatar" src="" alt="avatar" style="display:none;">
+    <div id="crUserInitials" style="width:48px;height:48px;border-radius:50%;background:#1a1a1a;border:2px solid #333;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:18px;flex-shrink:0;">?</div>
     <div>
-      <div class="cr-user-name">Israel Mark</div>
-      <div class="cr-user-dept">Computer Science · LASU</div>
+      <div class="cr-user-name" id="crUserName">---</div>
+      <div class="cr-user-dept" id="crUserDept">---</div>
     </div>
-  </div>
-
-  <!-- TEXTAREA -->
+</div>  <!-- TEXTAREA -->
   <textarea id="crText" class="cr-textarea" placeholder="What's on your mind?" maxlength="2000"></textarea>
   <div id="crCounter" class="cr-counter">0 / 2000</div>
 
@@ -9249,18 +9248,22 @@ document.getElementById('crText').addEventListener('input',function(){
 });
 
 // Handle media
-function crHandleMedia(input,type){
-  if(input.files&&input.files[0]){
-    const file=input.files[0];
-    const reader=new FileReader();
-    reader.onload=function(e){
-      crMedia={type,url:e.target.result,file};
-      crDisplayMedia(type,e.target.result);
-    };
-    reader.readAsDataURL(file);
+function crHandleMedia(input, type) {
+  if (!input.files || !input.files[0]) return;
+  const file = input.files[0];
+  const maxMB = type === 'video' ? 50 : 10;
+  if (file.size > maxMB * 1024 * 1024) {
+    showToast(`File too large. Max ${maxMB}MB for ${type}.`, 'error');
+    input.value = '';
+    return;
   }
+  const reader = new FileReader();
+  reader.onload = function(e) {
+    crMedia = { type, url: e.target.result, file };
+    crDisplayMedia(type, e.target.result);
+  };
+  reader.readAsDataURL(file);
 }
-
 function crDisplayMedia(type,url){
   const preview=document.getElementById('crMedia');
   const content=document.getElementById('crMediaContent');
@@ -9355,122 +9358,6 @@ function crRemoveQuestionTag(tag){
   });
 }
 
-// Create post
-function crCreate(){
-  const content=document.getElementById('crText').value.trim();
-  const visibility=document.getElementById('crVisibility').value;
-  const allowComments=document.getElementById('crComments').classList.contains('active');
-  const showInFeed=document.getElementById('crFeed').classList.contains('active');
-  
-  if(!content&&!crMedia){
-    alert('Please add content or media');
-    return;
-  }
-  
-  const data={
-    type:crType,
-    content,
-    visibility,
-    allowComments,
-    showInFeed,
-    media:crMedia,
-    timestamp:new Date().toISOString()
-  };
-  
-  // Type-specific data
-  if(crType==='poll'){
-    const opts=[];
-    document.querySelectorAll('.cr-poll-option').forEach(inp=>{
-      if(inp.value.trim())opts.push(inp.value.trim());
-    });
-    data.pollOptions=opts;
-  }
-  
-  if(crType==='research'){
-    data.research={
-      title:document.getElementById('crResearchTitle').value,
-      authors:document.getElementById('crResearchAuthors').value,
-      abstract:document.getElementById('crResearchAbstract').value,
-      tags:crResearchTags
-    };
-  }
-  
-  if(crType==='event'){
-    data.event={
-      title:document.getElementById('crEventTitle').value,
-      date:document.getElementById('crEventDate').value,
-      time:document.getElementById('crEventTime').value,
-      location:document.getElementById('crEventLocation').value
-    };
-  }
-  
-  if(crType==='bounty'){
-    data.bounty={
-      title:document.getElementById('crBountyTitle').value,
-      amount:document.getElementById('crBountyAmount').value,
-      deadline:document.getElementById('crBountyDeadline').value,
-      category:document.getElementById('crBountyCategory').value
-    };
-  }
-  
-  if(crType==='job'){
-    data.job={
-      title:document.getElementById('crJobTitle').value,
-      company:document.getElementById('crJobCompany').value,
-      salary:document.getElementById('crJobSalary').value,
-      type:document.getElementById('crJobType').value,
-      location:document.getElementById('crJobLocation').value,
-      link:document.getElementById('crJobLink').value
-    };
-  }
-  
-  if(crType==='product'){
-    data.product={
-      name:document.getElementById('crProductName').value,
-      price:document.getElementById('crProductPrice').value,
-      condition:document.getElementById('crProductCondition').value,
-      category:document.getElementById('crProductCategory').value
-    };
-  }
-  
-  if(crType==='question'){
-    data.question={
-      title:document.getElementById('crQuestionTitle').value,
-      tags:crQuestionTags
-    };
-  }
-  
-  if(crType==='collab'){
-    data.collab={
-      title:document.getElementById('crCollabTitle').value,
-      skills:document.getElementById('crCollabSkills').value,
-      duration:document.getElementById('crCollabDuration').value
-    };
-  }
-  
-  if(crType==='ad'){
-    data.ad={
-      title:document.getElementById('crAdTitle').value,
-      company:document.getElementById('crAdCompany').value,
-      link:document.getElementById('crAdLink').value,
-      cta:document.getElementById('crAdCTA').value
-    };
-  }
-  
-  console.log('Creating post:',data);
-  
-  // TODO: Send to backend
-  // await fetch('/api/posts', {
-  //   method: 'POST',
-  //   headers: { 'Content-Type': 'application/json' },
-  //   body: JSON.stringify(data)
-  // });
-  
-  alert('Post created successfully!');
-  crReset();
-  document.getElementById('Create').style.display='none';
-  document.getElementById('newMainaccount').style.display='block';
-}
 
 // Reset
 function crReset(){
@@ -11139,6 +11026,24 @@ if (data.setBio !== undefined) {
   const el = document.getElementById('profileBio');
   if (el) el.textContent = data.setBio || 'Esse quam videri.';
 }
+// Sync Create page user info
+if (data.setProfileName) {
+  const el = document.getElementById('crUserName');
+  if (el) el.textContent = data.setProfileName;
+}
+if (data.setProfileHandle) {
+  const el = document.getElementById('crUserDept');
+  if (el) el.textContent = data.setProfileHandle.replace(/&bull;/g, '•');
+}
+if (data.avatar || data.setProfilePic) {
+  const src = data.avatar || data.setProfilePic;
+  const av  = document.getElementById('crUserAvatar');
+  const ini = document.getElementById('crUserInitials');
+  if (src) {
+    if (av)  { av.src = src; av.style.display = 'block'; }
+    if (ini) ini.style.display = 'none';
+  }
+}
   // token + user_key
   if (data.token)    saveSession(data.token, data.user_key);
   if (data.user_key) localStorage.setItem('user_key', data.user_key);
@@ -11620,6 +11525,12 @@ async function crCreate() {
       category:  document.getElementById('crProductCategory')?.value
     };
   }
+if (crType === 'question') {
+  data.question = {
+    title: document.getElementById('crQuestionTitle')?.value,
+    tags:  window.crQuestionTags || []
+  };
+}
   if (crType === 'collab') {
     data.collab = {
       title:    document.getElementById('crCollabTitle')?.value,
@@ -11636,15 +11547,21 @@ async function crCreate() {
     };
   }
 
+  const btn = document.getElementById('crPostBtn');
+  if (btn) { btn.disabled = true; btn.textContent = 'Posting...'; }
+
   const res = await apiRequest(data);
+
+  if (btn) { btn.disabled = false; btn.textContent = 'Post'; }
+
   if (res.status === 200) {
-    showToast(res.message, 'success');
+    showToast(res.message || 'Posted!', 'success');
     crReset();
-    document.getElementById('Create').style.display = 'none';
     seenKeys = [];
+    loadTrendingFeed();
     navigate('Trending');
   } else {
-    showToast(res.message, 'error');
+    showToast(res.message || 'Something went wrong.', 'error');
   }
 }
 
