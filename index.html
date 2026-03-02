@@ -9246,7 +9246,7 @@ document.getElementById('crText').addEventListener('input',function(){
 });
 
 // Handle media
-function crHandleMedia(input, type) {
+async function crHandleMedia(input, type) {
   if (!input.files || !input.files[0]) return;
   const file = input.files[0];
   const maxMB = type === 'video' ? 50 : 10;
@@ -9255,14 +9255,38 @@ function crHandleMedia(input, type) {
     input.value = '';
     return;
   }
-  const reader = new FileReader();
-  reader.onload = function(e) {
-    crMedia = { type, url: e.target.result, file };
-    crDisplayMedia(type, e.target.result);
-  };
-  reader.readAsDataURL(file);
-}
-function crDisplayMedia(type,url){
+
+  // Show local preview immediately
+  const localUrl = URL.createObjectURL(file);
+  crDisplayMedia(type, localUrl);
+  crMedia = { type, url: null, file };
+
+  // Upload directly to Cloudinary
+  showToast('Uploading media...', 'success');
+  const formData = new FormData();
+  formData.append('file', file);
+  formData.append('upload_preset', 'Trends_post');
+  formData.append('cloud_name', 'ddusfl7pi');
+
+  const resourceType = type === 'video' ? 'video' : 'image';
+  try {
+    const res = await fetch(`https://api.cloudinary.com/v1_1/ddusfl7pi/${resourceType}/upload`, {
+      method: 'POST',
+      body: formData
+    });
+    const data = await res.json();
+    if (data.secure_url) {
+      crMedia = { type, url: data.secure_url, file: null };
+      showToast('Media ready.', 'success');
+    } else {
+      showToast('Upload failed. Try again.', 'error');
+      crMedia = null;
+    }
+  } catch (err) {
+    showToast('Upload failed. Check connection.', 'error');
+    crMedia = null;
+  }
+}function crDisplayMedia(type,url){
   const preview=document.getElementById('crMedia');
   const content=document.getElementById('crMediaContent');
   content.innerHTML='';
