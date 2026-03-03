@@ -9259,8 +9259,7 @@ async function crHandleMedia(input, type) {
   // Show local preview immediately
   const localUrl = URL.createObjectURL(file);
   crDisplayMedia(type, localUrl);
-  crMedia = { type, url: null, file };
-
+  
   // Upload directly to Cloudinary
   showToast('Uploading media...', 'success');
   const formData = new FormData();
@@ -9269,24 +9268,32 @@ async function crHandleMedia(input, type) {
   formData.append('cloud_name', 'ddusfl7pi');
 
   const resourceType = type === 'video' ? 'video' : 'image';
+  
   try {
     const res = await fetch(`https://api.cloudinary.com/v1_1/ddusfl7pi/${resourceType}/upload`, {
       method: 'POST',
       body: formData
     });
     const data = await res.json();
+    
     if (data.secure_url) {
+      // Save to BOTH variables to make sure it works
+      window.crMedia = { type, url: data.secure_url, file: null };
       crMedia = { type, url: data.secure_url, file: null };
+      
       showToast('Media ready.', 'success');
     } else {
       showToast('Upload failed. Try again.', 'error');
+      window.crMedia = null;
       crMedia = null;
     }
   } catch (err) {
     showToast('Upload failed. Check connection.', 'error');
+    window.crMedia = null;
     crMedia = null;
   }
-}function crDisplayMedia(type,url){
+}
+function crDisplayMedia(type,url){
   const preview=document.getElementById('crMedia');
   const content=document.getElementById('crMediaContent');
   content.innerHTML='';
@@ -11479,20 +11486,26 @@ function shareProfile() {
     navigator.clipboard.writeText(url).then(() => showToast('Profile link copied!'));
   }
 }
-
+u
 // ═══════════════════════════════════════════════════════════════
 // CREATE POST
 // ═══════════════════════════════════════════════════════════════
 async function crCreate() {
-  const content      = document.getElementById('crText')?.value.trim();
-  const visibility   = document.getElementById('crVisibility')?.value || 'public';
-  const allowComments= document.getElementById('crComments')?.classList.contains('active');
-  const showInFeed   = document.getElementById('crFeed')?.classList.contains('active');
-  const media        = window.crMedia || null;
-  const crType       = window.crType || 'post';
+  const content       = document.getElementById('crText')?.value.trim();
+  const visibility    = document.getElementById('crVisibility')?.value || 'public';
+  const allowComments = document.getElementById('crComments')?.classList.contains('active');
+  const showInFeed    = document.getElementById('crFeed')?.classList.contains('active');
+  const media         = window.crMedia || null;
+  const crType        = window.crType || 'post';
 
   if (!content && !media) {
     showToast('Please add content or media.', 'error');
+    return;
+  }
+
+  // Block if media is still uploading
+  if (media && !media.url) {
+    showToast('Please wait, media is still uploading.', 'error');
     return;
   }
 
@@ -11547,12 +11560,12 @@ async function crCreate() {
       category:  document.getElementById('crProductCategory')?.value
     };
   }
-if (crType === 'question') {
-  data.question = {
-    title: document.getElementById('crQuestionTitle')?.value,
-    tags:  window.crQuestionTags || []
-  };
-}
+  if (crType === 'question') {
+    data.question = {
+      title: document.getElementById('crQuestionTitle')?.value,
+      tags:  window.crQuestionTags || []
+    };
+  }
   if (crType === 'collab') {
     data.collab = {
       title:    document.getElementById('crCollabTitle')?.value,
@@ -11586,7 +11599,6 @@ if (crType === 'question') {
     showToast(res.message || 'Something went wrong.', 'error');
   }
 }
-
 // ═══════════════════════════════════════════════════════════════
 // SETTINGS
 // ═══════════════════════════════════════════════════════════════
