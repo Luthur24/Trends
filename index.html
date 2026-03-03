@@ -10974,7 +10974,7 @@ async function apiRequest(body) {
     });
     const data = await res.json();
     iosLoaderDone()
-    alert(data)
+    alert(JSON.stringify(data))
     return data;
   } catch (e) {
     console.error('[API Error]', e);
@@ -12555,7 +12555,6 @@ if (el) el.style.display = id === sectionId ? 'block' : 'none';
   if (sectionId === 'profile')   initProfile();
 
 }
-alert(98)
 
 </script>
 
