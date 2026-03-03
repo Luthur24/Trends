@@ -10974,11 +10974,12 @@ async function apiRequest(body) {
     });
     const data = await res.json();
     iosLoaderDone()
-    
+    alert(data)
     return data;
   } catch (e) {
     console.error('[API Error]', e);
     iosLoaderDone()
+    alert('error')
     return { status: 500, message: 'Network error. Please try again.' };
   }
 }
@@ -11486,10 +11487,11 @@ function shareProfile() {
     navigator.clipboard.writeText(url).then(() => showToast('Profile link copied!'));
   }
 }
-u
+
 // ═══════════════════════════════════════════════════════════════
 // CREATE POST
 // ═══════════════════════════════════════════════════════════════
+
 async function crCreate() {
   const content       = document.getElementById('crText')?.value.trim();
   const visibility    = document.getElementById('crVisibility')?.value || 'public';
@@ -11599,6 +11601,7 @@ async function crCreate() {
     showToast(res.message || 'Something went wrong.', 'error');
   }
 }
+
 // ═══════════════════════════════════════════════════════════════
 // SETTINGS
 // ═══════════════════════════════════════════════════════════════
@@ -11644,6 +11647,7 @@ async function toggleSetting(setting) {
     if (el) el.classList.toggle('active', !newVal);
   }
 }
+
 
 async function changeSetting(setting, value) {
   const settingMap = {
@@ -12551,6 +12555,7 @@ if (el) el.style.display = id === sectionId ? 'block' : 'none';
   if (sectionId === 'profile')   initProfile();
 
 }
+
 </script>
 
 </body>
