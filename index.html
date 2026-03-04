@@ -1646,7 +1646,7 @@ function switchModal(from, to) {
 
 </section>
 
-<section class="newMainaccount" style="display:block" id='newMainaccount'>
+<section class="newMainaccount" style="display:none" id='newMainaccount'>
 
   <button class="menuBtn" style="display:none">☰</button>
 
@@ -8445,41 +8445,123 @@ function buildProfilePostHTML(post) {
 
   let body = '';
 
-if (post.post_type === 'image' || (post.post_type === 'post' && post.media_url)) {    body = `<img src="${post.media_url}" style="width:100%;border-radius:8px;margin-bottom:10px;max-height:280px;object-fit:cover;">
-            <div class="post-feed-text">${post.content}</div>`;
-} else if (post.post_type === 'video' || (post.post_type === 'post' && post.media_url && post.media_type === 'video')) {    body = `<video controls style="width:100%;border-radius:8px;margin-bottom:10px;max-height:280px;background:#0a0a0a;">
+  if (post.post_type === 'video' || (post.media_url && post.media_type === 'video')) {
+    body = `<video controls style="width:100%;border-radius:8px;margin-bottom:10px;max-height:280px;background:#0a0a0a;">
               <source src="${post.media_url}" type="video/mp4">
             </video>
             <div class="post-feed-text">${post.content}</div>`;
+
+  } else if (post.post_type === 'image' || (post.media_url && post.media_type === 'image')) {
+    body = `<img src="${post.media_url}" style="width:100%;border-radius:8px;margin-bottom:10px;max-height:280px;object-fit:cover;">
+            <div class="post-feed-text">${post.content}</div>`;
+
   } else if (post.post_type === 'poll') {
     const opts  = (post.extras && post.extras.poll_options) || [];
     const total = (post.extras && post.extras.total_votes)  || 0;
     const optHTML = opts.map((o, i) => `
       <div class="mini-poll-option" onclick="profileVotePoll('${post.post_key}',${i},this.closest('.poll-options'))">
-        <div class="mini-poll-bar" style="width:${total > 0 ? Math.round((o.votes / total) * 100) : 0}%"></div>
+        <div class="mini-poll-bar" style="width:${total > 0 ? Math.round((o.votes/total)*100) : 0}%"></div>
         <div class="mini-poll-text">
           <span>${o.text}</span>
-          <span>${total > 0 ? Math.round((o.votes / total) * 100) : 0}%</span>
+          <span>${total > 0 ? Math.round((o.votes/total)*100) : 0}%</span>
         </div>
       </div>`).join('');
     body = `<div class="post-feed-text" style="font-weight:600;">${post.content}</div>
             <div class="poll-options">${optHTML}</div>
             <div style="font-size:12px;color:#666;margin-top:6px;">${total} votes</div>`;
-  } else if (post.post_type === 'event') {
-    const e = post.extras || {};
-    body = `<div class="post-feed-text" style="font-weight:600;">${e.title || post.content}</div>
-            <div style="font-size:13px;color:#666;">📅 ${e.date || ''} &bull; 🕐 ${e.time || ''}</div>
-            <div style="font-size:13px;color:#666;margin-top:4px;">📍 ${e.location || ''}</div>`;
-  } else if (post.post_type === 'bounty') {
-    const b = post.extras || {};
-    body = `<div class="post-feed-text" style="font-weight:600;">${b.title || post.content}</div>
-            <div class="post-feed-text">${post.content}</div>
-            <div class="bounty-reward">${b.amount || ''}</div>`;
+
   } else if (post.post_type === 'research') {
     const r = post.extras || {};
-    body = `<div class="post-feed-text" style="font-weight:600;color:#fff;font-size:15px;">${r.title || post.content}</div>
-            <div class="post-feed-text">${(r.abstract || '').slice(0, 150)}...</div>
-            <div style="margin-top:6px;">${(r.tags || []).map(t => `<span class="post-feed-tag">${t}</span>`).join('')}</div>`;
+    body = `<div style="background:#0a0a0a;border:1px solid#222;border-radius:10px;padding:14px;margin-bottom:8px;">
+              <div style="font-size:11px;font-weight:700;color:#888;letter-spacing:1px;margin-bottom:6px;">RESEARCH</div>
+              <div style="font-weight:700;font-size:15px;color:#fff;margin-bottom:6px;">${r.title || post.content}</div>
+              <div style="font-size:12px;color:#666;margin-bottom:8px;">${r.authors || ''}</div>
+              <div style="font-size:13px;color:#aaa;">${(r.abstract || '').slice(0,150)}${r.abstract && r.abstract.length > 150 ? '...' : ''}</div>
+              <div style="margin-top:8px;">${(r.tags || []).map(t => `<span class="post-feed-tag">${t}</span>`).join('')}</div>
+            </div>`;
+
+  } else if (post.post_type === 'event') {
+    const e = post.extras || {};
+    body = `<div style="background:#0a0a0a;border:1px solid#222;border-radius:10px;padding:14px;margin-bottom:8px;">
+              <div style="font-size:11px;font-weight:700;color:#888;letter-spacing:1px;margin-bottom:6px;">EVENT</div>
+              <div style="font-weight:700;font-size:15px;color:#fff;margin-bottom:8px;">${e.title || post.content}</div>
+              <div style="font-size:13px;color:#aaa;">📅 ${e.date || ''} &nbsp;🕐 ${e.time || ''}</div>
+              <div style="font-size:13px;color:#aaa;margin-top:4px;">📍 ${e.location || ''}</div>
+              <div style="font-size:13px;color:#666;margin-top:8px;">${post.content}</div>
+            </div>`;
+
+  } else if (post.post_type === 'bounty') {
+    const b = post.extras || {};
+    body = `<div style="background:#0a0a0a;border:1px solid#222;border-radius:10px;padding:14px;margin-bottom:8px;">
+              <div style="font-size:11px;font-weight:700;color:#f97316;letter-spacing:1px;margin-bottom:6px;">BOUNTY</div>
+              <div style="font-weight:700;font-size:15px;color:#fff;margin-bottom:6px;">${b.title || post.content}</div>
+              <div style="font-size:13px;color:#aaa;margin-bottom:8px;">${post.content}</div>
+              <div style="display:flex;gap:10px;flex-wrap:wrap;">
+                ${b.amount ? `<span style="background:#1a1a1a;border:1px solid#333;padding:4px 10px;border-radius:6px;font-size:12px;font-weight:700;color:#22c55e;">₦${b.amount}</span>` : ''}
+                ${b.deadline ? `<span style="background:#1a1a1a;border:1px solid#333;padding:4px 10px;border-radius:6px;font-size:12px;color:#888;">⏰ ${b.deadline}</span>` : ''}
+                ${b.category ? `<span style="background:#1a1a1a;border:1px solid#333;padding:4px 10px;border-radius:6px;font-size:12px;color:#888;">${b.category}</span>` : ''}
+              </div>
+            </div>`;
+
+  } else if (post.post_type === 'job') {
+    const j = post.extras || {};
+    body = `<div style="background:#0a0a0a;border:1px solid#222;border-radius:10px;padding:14px;margin-bottom:8px;">
+              <div style="font-size:11px;font-weight:700;color:#3b82f6;letter-spacing:1px;margin-bottom:6px;">JOB</div>
+              <div style="font-weight:700;font-size:15px;color:#fff;margin-bottom:4px;">${j.title || post.content}</div>
+              <div style="font-size:13px;color:#888;margin-bottom:8px;">${j.company || ''}</div>
+              <div style="font-size:13px;color:#aaa;margin-bottom:8px;">${post.content}</div>
+              <div style="display:flex;gap:10px;flex-wrap:wrap;">
+                ${j.salary ? `<span style="background:#1a1a1a;border:1px solid#333;padding:4px 10px;border-radius:6px;font-size:12px;color:#22c55e;">${j.salary}</span>` : ''}
+                ${j.type ? `<span style="background:#1a1a1a;border:1px solid#333;padding:4px 10px;border-radius:6px;font-size:12px;color:#888;">${j.type}</span>` : ''}
+                ${j.location ? `<span style="background:#1a1a1a;border:1px solid#333;padding:4px 10px;border-radius:6px;font-size:12px;color:#888;">📍 ${j.location}</span>` : ''}
+              </div>
+              ${j.link ? `<a href="${j.link}" target="_blank" style="display:inline-block;margin-top:10px;padding:8px 16px;background:#fff;color:#000;border-radius:8px;font-size:13px;font-weight:700;text-decoration:none;">Apply →</a>` : ''}
+            </div>`;
+
+  } else if (post.post_type === 'product') {
+    const p = post.extras || {};
+    body = `<div style="background:#0a0a0a;border:1px solid#222;border-radius:10px;padding:14px;margin-bottom:8px;">
+              <div style="font-size:11px;font-weight:700;color:#a855f7;letter-spacing:1px;margin-bottom:6px;">PRODUCT</div>
+              <div style="font-weight:700;font-size:15px;color:#fff;margin-bottom:4px;">${p.name || post.content}</div>
+              <div style="font-size:13px;color:#aaa;margin-bottom:8px;">${post.content}</div>
+              <div style="display:flex;gap:10px;flex-wrap:wrap;">
+                ${p.price ? `<span style="background:#1a1a1a;border:1px solid#333;padding:4px 10px;border-radius:6px;font-size:12px;font-weight:700;color:#22c55e;">₦${p.price}</span>` : ''}
+                ${p.condition ? `<span style="background:#1a1a1a;border:1px solid#333;padding:4px 10px;border-radius:6px;font-size:12px;color:#888;">${p.condition}</span>` : ''}
+                ${p.category ? `<span style="background:#1a1a1a;border:1px solid#333;padding:4px 10px;border-radius:6px;font-size:12px;color:#888;">${p.category}</span>` : ''}
+              </div>
+            </div>`;
+
+  } else if (post.post_type === 'question') {
+    const q = post.extras || {};
+    body = `<div style="background:#0a0a0a;border:1px solid#222;border-radius:10px;padding:14px;margin-bottom:8px;">
+              <div style="font-size:11px;font-weight:700;color:#eab308;letter-spacing:1px;margin-bottom:6px;">QUESTION</div>
+              <div style="font-weight:700;font-size:15px;color:#fff;margin-bottom:6px;">${q.title || post.content}</div>
+              <div style="font-size:13px;color:#aaa;margin-bottom:8px;">${post.content}</div>
+              <div style="margin-top:6px;">${(q.tags || []).map(t => `<span class="post-feed-tag">${t}</span>`).join('')}</div>
+            </div>`;
+
+  } else if (post.post_type === 'collab') {
+    const c = post.extras || {};
+    body = `<div style="background:#0a0a0a;border:1px solid#222;border-radius:10px;padding:14px;margin-bottom:8px;">
+              <div style="font-size:11px;font-weight:700;color:#06b6d4;letter-spacing:1px;margin-bottom:6px;">COLLAB</div>
+              <div style="font-weight:700;font-size:15px;color:#fff;margin-bottom:6px;">${c.title || post.content}</div>
+              <div style="font-size:13px;color:#aaa;margin-bottom:8px;">${post.content}</div>
+              <div style="display:flex;gap:10px;flex-wrap:wrap;">
+                ${c.duration ? `<span style="background:#1a1a1a;border:1px solid#333;padding:4px 10px;border-radius:6px;font-size:12px;color:#888;">⏱ ${c.duration}</span>` : ''}
+                ${c.skills ? `<span style="background:#1a1a1a;border:1px solid#333;padding:4px 10px;border-radius:6px;font-size:12px;color:#888;">🛠 ${c.skills}</span>` : ''}
+              </div>
+            </div>`;
+
+  } else if (post.post_type === 'ad') {
+    const a = post.extras || {};
+    body = `<div style="background:#0a0a0a;border:1px solid#222;border-radius:10px;padding:14px;margin-bottom:8px;">
+              <div style="font-size:11px;font-weight:700;color:#666;letter-spacing:1px;margin-bottom:6px;">SPONSORED</div>
+              <div style="font-weight:700;font-size:15px;color:#fff;margin-bottom:4px;">${a.title || post.content}</div>
+              <div style="font-size:13px;color:#888;margin-bottom:8px;">${a.company || ''}</div>
+              <div style="font-size:13px;color:#aaa;margin-bottom:8px;">${post.content}</div>
+              ${a.link ? `<a href="${a.link}" target="_blank" style="display:inline-block;padding:8px 16px;background:#fff;color:#000;border-radius:8px;font-size:13px;font-weight:700;text-decoration:none;">${a.cta || 'Learn More'} →</a>` : ''}
+            </div>`;
+
   } else {
     body = `<div class="post-feed-text">${post.content}</div>`;
   }
@@ -8503,9 +8585,7 @@ if (post.post_type === 'image' || (post.post_type === 'post' && post.media_url))
   return `<div class="post-feed-card" data-post-key="${post.post_key}" onclick="openPostViewer('${post.post_key}')">
     ${header}${body}${actions}
   </div>`;
-}
-
-// ── PROFILE TAB INFINITE SCROLL ────────────────────────────────
+}// ── PROFILE TAB INFINITE SCROLL ────────────────────────────────
 document.getElementById('profile')?.addEventListener('scroll', function () {
   const { scrollTop, scrollHeight, clientHeight } = this;
   if (scrollHeight - scrollTop - clientHeight < 400) {
@@ -9028,8 +9108,11 @@ function fmtNum(n) {
     <input type="text" id="crResearchTitle" class="cr-input" placeholder="Paper Title">
     <input type="text" id="crResearchAuthors" class="cr-input" placeholder="Authors (comma-separated)">
     <textarea id="crResearchAbstract" class="cr-input" style="min-height:100px;resize:vertical;" placeholder="Abstract"></textarea>
-    <input type="text" id="crResearchTagInput" class="cr-input" placeholder="Add tags (press Enter)">
-    <div id="crResearchTags" class="cr-tags"></div>
+    <div style="display:flex;gap:8px;">
+      <input type="text" id="crResearchTagInput" class="cr-input" placeholder="Type tag and press Enter or comma">
+      <button type="button" onclick="crAddResearchTag()" style="padding:10px 14px;background:#fff;color:#000;border:none;border-radius:8px;font-weight:700;cursor:pointer;flex-shrink:0;">+</button>
+    </div>
+    <div id="crResearchTags" class="cr-tags" style="margin-top:8px;"></div>
   </div>
 
   <!-- EVENT SECTION -->
@@ -9107,8 +9190,11 @@ function fmtNum(n) {
   <div id="crQuestion" class="cr-section">
     <div class="cr-label">Question Details</div>
     <input type="text" id="crQuestionTitle" class="cr-input" placeholder="Question Title">
-    <input type="text" id="crQuestionTagInput" class="cr-input" placeholder="Add tags (press Enter)">
-    <div id="crQuestionTags" class="cr-tags"></div>
+    <div style="display:flex;gap:8px;">
+      <input type="text" id="crQuestionTagInput" class="cr-input" placeholder="Type tag and press Enter or comma">
+      <button type="button" onclick="crAddQuestionTag()" style="padding:10px 14px;background:#fff;color:#000;border:none;border-radius:8px;font-weight:700;cursor:pointer;flex-shrink:0;">+</button>
+    </div>
+    <div id="crQuestionTags" class="cr-tags" style="margin-top:8px;"></div>
   </div>
 
   <!-- COLLAB SECTION -->
@@ -9187,42 +9273,53 @@ let crResearchTags=[];
 let crQuestionTags=[];
 
 // Switch tabs
-function crSwitch(type,btn){
-  document.querySelectorAll('.cr-tab').forEach(t=>t.classList.remove('active'));
+function crSwitch(type, btn) {
+  document.querySelectorAll('.cr-tab').forEach(t => t.classList.remove('active'));
   btn.classList.add('active');
-  crType=type;
-  
+  crType = type;
+  window.crType = type;
+
   // Update placeholder
-  const placeholders={
-    post:"What's on your mind?",
-    research:"Share your research findings...",
-    poll:"Ask a question...",
-    event:"What's the event about?",
-    bounty:"Describe the task...",
-    job:"Describe the role and requirements...",
-    product:"Describe your product...",
-    question:"Describe your problem in detail...",
-    collab:"Describe your project and what help you need...",
-    ad:"Describe what you're promoting..."
+  const placeholders = {
+    post:     "What's on your mind?",
+    research: "Share your research findings...",
+    poll:     "Ask a question...",
+    event:    "What's the event about?",
+    bounty:   "Describe the task...",
+    job:      "Describe the role and requirements...",
+    product:  "Describe your product...",
+    question: "Describe your problem in detail...",
+    collab:   "Describe your project and what help you need...",
+    ad:       "Describe what you're promoting..."
   };
-  document.getElementById('crText').placeholder=placeholders[type]||"What's on your mind?";
-  
+  document.getElementById('crText').placeholder = placeholders[type] || "What's on your mind?";
+
   // Hide all sections
-  document.querySelectorAll('.cr-section').forEach(s=>s.classList.remove('active'));
-  
+  document.querySelectorAll('.cr-section').forEach(s => s.classList.remove('active'));
+
   // Show relevant section
-  const sections={
-    research:'crResearch',
-    poll:'crPoll',
-    event:'crEvent',
-    bounty:'crBounty',
-    job:'crJob',
-    product:'crProduct',
-    question:'crQuestion',
-    collab:'crCollab',
-    ad:'crAd'
+  const sections = {
+    research: 'crResearch',
+    poll:     'crPoll',
+    event:    'crEvent',
+    bounty:   'crBounty',
+    job:      'crJob',
+    product:  'crProduct',
+    question: 'crQuestion',
+    collab:   'crCollab',
+    ad:       'crAd'
   };
-  if(sections[type]) document.getElementById(sections[type]).classList.add('active');
+  if (sections[type]) document.getElementById(sections[type]).classList.add('active');
+
+  // Clear all section inputs when switching
+  document.querySelectorAll('.cr-input').forEach(inp => {
+    if (inp.tagName === 'SELECT') inp.selectedIndex = 0;
+    else inp.value = '';
+  });
+  crResearchTags = [];
+  crQuestionTags = [];
+  document.getElementById('crResearchTags').innerHTML = '';
+  document.getElementById('crQuestionTags').innerHTML = '';
 }
 
 // Toggle section (for poll button)
@@ -9293,14 +9390,14 @@ async function crHandleMedia(input, type) {
     crMedia = null;
   }
 }
-function crDisplayMedia(type,url){
-  const preview=document.getElementById('crMedia');
-  const content=document.getElementById('crMediaContent');
-  content.innerHTML='';
-  if(type==='image'){
-    content.innerHTML=`<img src="${url}">`;
-  }else if(type==='video'){
-    content.innerHTML=`<video src="${url}" controls></video>`;
+function crDisplayMedia(type, url) {
+  const preview = document.getElementById('crMedia');
+  const content = document.getElementById('crMediaContent');
+  content.innerHTML = '';
+  if (type === 'image') {
+    content.innerHTML = `<img src="${url}">`;
+  } else if (type === 'video') {
+    content.innerHTML = `<video src="${url}" controls></video>`;
   }else if(type==='doc'){
     content.innerHTML=`<div class="cr-media-doc">📄 Document uploaded</div>`;
   }
@@ -9330,80 +9427,93 @@ function crAddPollOption(){
 }
 
 // Research tags
-document.getElementById('crResearchTagInput')?.addEventListener('keypress',function(e){
-  if(e.key==='Enter'&&this.value.trim()){
+function crAddResearchTag(val) {
+  const tag = (val || document.getElementById('crResearchTagInput').value).trim();
+  if (!tag) return;
+  if (!crResearchTags.includes(tag)) {
+    crResearchTags.push(tag);
+    crRenderTags('crResearchTags', crResearchTags, 'crRemoveResearchTag');
+  }
+  document.getElementById('crResearchTagInput').value = '';
+}
+
+document.getElementById('crResearchTagInput')?.addEventListener('keydown', function(e) {
+  if (e.key === 'Enter' || e.key === ',') {
     e.preventDefault();
-    const tag=this.value.trim();
-    if(!crResearchTags.includes(tag)){
-      crResearchTags.push(tag);
-      const container=document.getElementById('crResearchTags');
-      const el=document.createElement('div');
-      el.className='cr-tag';
-      el.innerHTML=`${tag} <span class="cr-tag-remove" onclick="crRemoveResearchTag('${tag}')">×</span>`;
-      container.appendChild(el);
-    }
-    this.value='';
+    crAddResearchTag(this.value);
   }
 });
 
-function crRemoveResearchTag(tag){
-  crResearchTags=crResearchTags.filter(t=>t!==tag);
-  const container=document.getElementById('crResearchTags');
-  container.innerHTML='';
-  crResearchTags.forEach(t=>{
-    const el=document.createElement('div');
-    el.className='cr-tag';
-    el.innerHTML=`${t} <span class="cr-tag-remove" onclick="crRemoveResearchTag('${t}')">×</span>`;
-    container.appendChild(el);
-  });
+function crRemoveResearchTag(tag) {
+  crResearchTags = crResearchTags.filter(t => t !== tag);
+  crRenderTags('crResearchTags', crResearchTags, 'crRemoveResearchTag');
 }
 
 // Question tags
-document.getElementById('crQuestionTagInput')?.addEventListener('keypress',function(e){
-  if(e.key==='Enter'&&this.value.trim()){
+function crAddQuestionTag(val) {
+  const tag = (val || document.getElementById('crQuestionTagInput').value).trim();
+  if (!tag) return;
+  if (!crQuestionTags.includes(tag)) {
+    crQuestionTags.push(tag);
+    crRenderTags('crQuestionTags', crQuestionTags, 'crRemoveQuestionTag');
+  }
+  document.getElementById('crQuestionTagInput').value = '';
+}
+
+document.getElementById('crQuestionTagInput')?.addEventListener('keydown', function(e) {
+  if (e.key === 'Enter' || e.key === ',') {
     e.preventDefault();
-    const tag=this.value.trim();
-    if(!crQuestionTags.includes(tag)){
-      crQuestionTags.push(tag);
-      const container=document.getElementById('crQuestionTags');
-      const el=document.createElement('div');
-      el.className='cr-tag';
-      el.innerHTML=`${tag} <span class="cr-tag-remove" onclick="crRemoveQuestionTag('${tag}')">×</span>`;
-      container.appendChild(el);
-    }
-    this.value='';
+    crAddQuestionTag(this.value);
   }
 });
 
-function crRemoveQuestionTag(tag){
-  crQuestionTags=crQuestionTags.filter(t=>t!==tag);
-  const container=document.getElementById('crQuestionTags');
-  container.innerHTML='';
-  crQuestionTags.forEach(t=>{
-    const el=document.createElement('div');
-    el.className='cr-tag';
-    el.innerHTML=`${t} <span class="cr-tag-remove" onclick="crRemoveQuestionTag('${t}')">×</span>`;
+function crRemoveQuestionTag(tag) {
+  crQuestionTags = crQuestionTags.filter(t => t !== tag);
+  crRenderTags('crQuestionTags', crQuestionTags, 'crRemoveQuestionTag');
+}
+
+// Shared tag renderer
+function crRenderTags(containerId, tagsArr, removeFn) {
+  const container = document.getElementById(containerId);
+  if (!container) return;
+  container.innerHTML = '';
+  tagsArr.forEach(t => {
+    const el = document.createElement('div');
+    el.className = 'cr-tag';
+    el.innerHTML = `${t} <span class="cr-tag-remove" onclick="${removeFn}('${t}')">×</span>`;
     container.appendChild(el);
   });
 }
 
 
 // Reset
-function crReset(){
-  document.getElementById('crText').value='';
-  document.getElementById('crCounter').textContent='0 / 2000';
+function crReset() {
+  document.getElementById('crText').value = '';
+  document.getElementById('crCounter').textContent = '0 / 2000';
+  document.getElementById('crCounter').classList.remove('warn', 'danger');
   crRemoveMedia();
-  document.querySelectorAll('.cr-poll-option').forEach((inp,i)=>{
-    if(i<2)inp.value='';
+  document.querySelectorAll('.cr-poll-option').forEach((inp, i) => {
+    if (i < 2) inp.value = '';
     else inp.remove();
   });
-  crPollCount=2;
-  crResearchTags=[];
-  crQuestionTags=[];
-  document.getElementById('crResearchTags').innerHTML='';
-  document.getElementById('crQuestionTags').innerHTML='';
-  document.querySelectorAll('.cr-input').forEach(inp=>inp.value='');
-  document.querySelectorAll('.cr-section').forEach(s=>s.classList.remove('active'));
+  crPollCount = 2;
+  crResearchTags = [];
+  crQuestionTags = [];
+  document.getElementById('crResearchTags').innerHTML = '';
+  document.getElementById('crQuestionTags').innerHTML = '';
+  document.querySelectorAll('.cr-input').forEach(inp => {
+    if (inp.tagName === 'SELECT') inp.selectedIndex = 0;
+    else inp.value = '';
+  });
+  document.querySelectorAll('.cr-section').forEach(s => s.classList.remove('active'));
+  // Reset type to post
+  crType = 'post';
+  window.crType = 'post';
+  document.querySelectorAll('.cr-tab').forEach(t => t.classList.remove('active'));
+  const postTab = document.querySelector('.cr-tab[data-type="post"]');
+  if (postTab) postTab.classList.add('active');
+  document.getElementById('crText').placeholder = "What's on your mind?";
+  document.getElementById('crPostBtn').disabled = false;
 }
 </script>
 
@@ -11518,6 +11628,11 @@ async function crCreate() {
     document.querySelectorAll('.cr-poll-option').forEach(inp => {
       if (inp.value.trim()) opts.push(inp.value.trim());
     });
+    if (opts.length < 2) {
+      showToast('Poll needs at least 2 options.', 'error');
+      if (btn) { btn.disabled = false; btn.textContent = 'Post'; }
+      return;
+    }
     data.pollOptions = opts;
   }
   if (crType === 'research') {
@@ -11583,6 +11698,10 @@ async function crCreate() {
       cta:     document.getElementById('crAdCTA')?.value
     };
   }
+
+  // Extract hashtags from content
+  const hashtags = (content.match(/#[\w]+/g) || []).map(t => t.slice(1));
+  if (hashtags.length > 0) data.hashtags = hashtags;
 
   const btn = document.getElementById('crPostBtn');
   if (btn) { btn.disabled = true; btn.textContent = 'Posting...'; }
