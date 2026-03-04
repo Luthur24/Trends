@@ -8427,19 +8427,34 @@ async function loadProfileTab(tab, append = false) {
 }
 
 // ── PROFILE POST HTML ──────────────────────────────────────────
+function renderHashtags(text) {
+  if (!text) return '';
+  return text.replace(/#(\w+)/g, '<span style="color:#4f8ef7;cursor:pointer;" onclick="searchHashtag(\'$1\')">#$1</span>');
+}
+
+function searchHashtag(tag) {
+  showToast('#' + tag, 'success');
+  // TODO: wire to search/explore page
+}
+
 function buildProfilePostHTML(post) {
-  const tick   = post.account_level === 'premium' ? ' ✓' : '';
-  const pic    = post.profilepicurl || '';
+  const tick        = post.account_level === 'premium' ? ' <span style="color:#f59e0b;">✓</span>' : '';
+  const pic         = post.profilepicurl || '';
+  const isLiked     = post.is_liked     ? 'liked'      : '';
+  const isBookmarked= post.is_bookmarked ? 'bookmarked' : '';
+  const heartIcon   = post.is_liked     ? '♥' : '♡';
+  const bookmarkIcon= post.is_bookmarked ? '🔖' : '🔖';
+
   const avatar = pic
     ? `<img src="${pic}" class="post-feed-avatar">`
-    : `<div class="post-feed-avatar" style="display:flex;align-items:center;justify-content:center;background:#111;font-weight:700;">${(post.full_name || '?')[0]}</div>`;
+    : `<div class="post-feed-avatar" style="display:flex;align-items:center;justify-content:center;background:#1a1a1a;font-weight:700;font-size:18px;color:#fff;">${(post.full_name || '?')[0].toUpperCase()}</div>`;
 
   const header = `
     <div class="post-feed-header">
       ${avatar}
       <div style="flex:1;">
         <div class="post-feed-name">${post.full_name}${tick}</div>
-        <div class="post-feed-time">${post.time_ago || ''}</div>
+        <div class="post-feed-time" style="color:#555;font-size:12px;">${post.time_ago || ''}</div>
       </div>
     </div>`;
 
@@ -8566,19 +8581,25 @@ function buildProfilePostHTML(post) {
     body = `<div class="post-feed-text">${post.content}</div>`;
   }
 
+  // Render hashtags in content
+  body = body.replace(/>(.*?)</gs, (match, text) => {
+    if (!text.trim()) return match;
+    return '>' + renderHashtags(text) + '<';
+  });
+
   const actions = `
-    <div class="post-feed-stats" style="margin-top:10px;display:flex;gap:16px;align-items:center;">
-      <button class="viewer-action-btn" onclick="event.stopPropagation();profileToggleLike('${post.post_key}',this)">
-        ♡ <span class="like-count">${post.like_count || 0}</span>
+    <div class="post-feed-stats" style="margin-top:12px;padding-top:10px;border-top:1px solid #111;display:flex;gap:16px;align-items:center;">
+      <button class="viewer-action-btn ${isLiked}" onclick="event.stopPropagation();profileToggleLike('${post.post_key}',this)" style="color:${post.is_liked ? '#ef4444' : '#666'};display:flex;align-items:center;gap:5px;">
+        ${heartIcon} <span class="like-count">${post.like_count || 0}</span>
       </button>
-      <button class="viewer-action-btn" onclick="event.stopPropagation();openPostViewer('${post.post_key}')">
-        💬 ${post.comment_count || 0}
+      <button class="viewer-action-btn" onclick="event.stopPropagation();openPostViewer('${post.post_key}')" style="color:#666;display:flex;align-items:center;gap:5px;">
+        💬 <span>${post.comment_count || 0}</span>
       </button>
-      <button class="viewer-action-btn" onclick="event.stopPropagation();profileShare('${post.post_key}')">
-        ↗ ${post.share_count || 0}
+      <button class="viewer-action-btn" onclick="event.stopPropagation();profileShare('${post.post_key}')" style="color:#666;display:flex;align-items:center;gap:5px;">
+        ↗ <span>${post.share_count || 0}</span>
       </button>
-      <button class="viewer-action-btn" style="margin-left:auto;" onclick="event.stopPropagation();profileToggleBookmark('${post.post_key}',this)">
-        🔖
+      <button class="viewer-action-btn ${isBookmarked}" style="margin-left:auto;color:${post.is_bookmarked ? '#f59e0b' : '#666'};" onclick="event.stopPropagation();profileToggleBookmark('${post.post_key}',this)">
+        ${bookmarkIcon}
       </button>
     </div>`;
 
@@ -8599,14 +8620,20 @@ async function profileToggleLike(postKey, btn) {
   if (res.status === 200) {
     const count = btn.querySelector('.like-count');
     if (count) count.textContent = res.like_count;
-    btn.classList.toggle('liked', res.action === 'liked');
+    const liked = res.action === 'liked';
+    btn.classList.toggle('liked', liked);
+    btn.style.color = liked ? '#ef4444' : '#666';
+    btn.innerHTML = (liked ? '♥' : '♡') + ' <span class="like-count">' + res.like_count + '</span>';
   } else showToast(res.message, 'error');
 }
 
 async function profileToggleBookmark(postKey, btn) {
   const res = await apiRequest({ status: 'toggle_bookmark', post_key: postKey });
   if (res.status === 200) {
-    btn.classList.toggle('liked', res.action === 'bookmarked');
+    const bookmarked = res.action === 'bookmarked';
+    btn.classList.toggle('bookmarked', bookmarked);
+    btn.style.color = bookmarked ? '#f59e0b' : '#666';
+    showToast(bookmarked ? 'Saved' : 'Removed', 'success');
   } else showToast(res.message, 'error');
 }
 
@@ -8647,15 +8674,12 @@ async function openPostViewer(postKey) {
   feed.innerHTML = '<div style="padding:40px;text-align:center;color:#555;">Loading...</div>';
 
   const [postRes, commentRes] = await Promise.all([
-    apiRequest({ status: 'get_comments', post_key: postKey }),
+    apiRequest({ status: 'get_post', post_key: postKey }),
     apiRequest({ status: 'get_comments', post_key: postKey })
   ]);
 
   const comments = commentRes.comments || [];
-
-  // Find post from already-rendered DOM
-  const card   = document.querySelector(`[data-post-key="${postKey}"]`);
-  const postObj = card ? extractPostFromCard(card, postKey) : null;
+  const postObj  = postRes.post || null;
 
   if (!postObj) {
     feed.innerHTML = '<div style="padding:40px;text-align:center;color:#555;">Post not found.</div>';
@@ -8711,12 +8735,12 @@ function buildViewerHTML(post, comments) {
   let bodyHTML  = '';
   let extraHTML = '';
 
-  if (post.post_type === 'image') {
-    mediaHTML = `<img src="${post.media_url}" class="viewer-post-media">`;
-    bodyHTML  = `<div class="viewer-post-text">${post.content}</div>`;
-  } else if (post.post_type === 'video') {
+  if (post.media_url && post.media_type === 'video') {
     mediaHTML = `<video controls class="viewer-post-media"><source src="${post.media_url}" type="video/mp4"></video>`;
-    bodyHTML  = `<div class="viewer-post-text">${post.content}</div>`;
+    bodyHTML  = `<div class="viewer-post-text">${renderHashtags(post.content)}</div>`;
+  } else if (post.media_url) {
+    mediaHTML = `<img src="${post.media_url}" class="viewer-post-media" style="width:100%;max-height:400px;object-fit:cover;border-radius:12px;">`;
+    bodyHTML  = `<div class="viewer-post-text">${renderHashtags(post.content)}</div>`;
   } else if (post.post_type === 'poll') {
     const opts  = (post.extras && post.extras.poll_options) || [];
     const total = (post.extras && post.extras.total_votes)  || 0;
@@ -9309,7 +9333,11 @@ function crSwitch(type, btn) {
     collab:   'crCollab',
     ad:       'crAd'
   };
-  if (sections[type]) document.getElementById(sections[type]).classList.add('active');
+if (sections[type]) document.getElementById(sections[type]).classList.add('active');
+
+  // Hide poll option button when on poll tab
+  const pollOptionBtn = document.querySelector('.cr-option[onclick*="crToggleSection"]');
+  if (pollOptionBtn) pollOptionBtn.style.display = type === 'poll' ? 'none' : '';
 
   // Clear all section inputs when switching
   document.querySelectorAll('.cr-input').forEach(inp => {
@@ -11623,7 +11651,9 @@ async function crCreate() {
 
   const data = { status: 'create_post', type: crType, content, visibility, allowComments, showInFeed, media };
 
-  if (crType === 'poll') {
+// Collect poll options for ALL post types
+  const pollSection = document.getElementById('crPoll');
+  if (pollSection && pollSection.classList.contains('active')) {
     const opts = [];
     document.querySelectorAll('.cr-poll-option').forEach(inp => {
       if (inp.value.trim()) opts.push(inp.value.trim());
@@ -11634,8 +11664,7 @@ async function crCreate() {
       return;
     }
     data.pollOptions = opts;
-  }
-  if (crType === 'research') {
+  }  if (crType === 'research') {
     data.research = {
       title:    document.getElementById('crResearchTitle')?.value,
       authors:  document.getElementById('crResearchAuthors')?.value,
