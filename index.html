@@ -9519,10 +9519,10 @@ async function crCreate() {
 // ═══════════════════════════════════════════════════════════════
 // SETTINGS
 // ═══════════════════════════════════════════════════════════════
-async // toggleSetting defined earlier
+//async // toggleSetting defined earlier
 
 
-async // changeSetting defined earlier
+// async // changeSetting defined earlier
 
 async function submitSettingsUpdate(type) {
   let data = { status: type };
@@ -9552,9 +9552,7 @@ async function submitSettingsUpdate(type) {
   }
 }
 
-async // handleProfilePicChange defined earlier
-
-async // removeProfilePic defined earlier
+//  async // handleProfilePicChange defined earlier
 
 async function loadBlockedAccounts() {
   const res = await apiRequest({ status: 'get_blocked_users' });
@@ -9734,7 +9732,6 @@ async function markAllNotificationsRead() {
 // ═══════════════════════════════════════════════════════════════
 // MESSAGES
 // ═══════════════════════════════════════════════════════════════
-let currentConvoKey = null;
 
 async function loadConversations() {
   const res = await apiRequest({ status: 'get_conversations' });
@@ -10720,7 +10717,7 @@ if (el) el.style.display = id === sectionId ? 'block' : 'none';
   if (sectionId === 'Settings')  initSettings();
 
 }
-
+alert(899)
 </script>
 
 </body>
