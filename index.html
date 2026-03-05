@@ -9558,10 +9558,10 @@ async function crCreate() {
 // ═══════════════════════════════════════════════════════════════
 // SETTINGS
 // ═══════════════════════════════════════════════════════════════
-async // toggleSetting defined earlier
+//async // toggleSetting defined earlier
 
 
-async // changeSetting defined earlier
+//async // changeSetting defined earlier
 
 async function submitSettingsUpdate(type) {
   let data = { status: type };
@@ -9591,9 +9591,9 @@ async function submitSettingsUpdate(type) {
   }
 }
 
-async // handleProfilePicChange defined earlier
+//async // handleProfilePicChange defined earlier
 
-async // removeProfilePic defined earlier
+//async // removeProfilePic defined earlier
 
 async function loadBlockedAccounts() {
   const res = await apiRequest({ status: 'get_blocked_users' });
@@ -9774,7 +9774,6 @@ async function markAllNotificationsRead() {
 // ═══════════════════════════════════════════════════════════════
 // MESSAGES
 // ═══════════════════════════════════════════════════════════════
-let currentConvoKey = null;
 
 async function loadConversations() {
   const res = await apiRequest({ status: 'get_conversations' });
@@ -10851,7 +10850,7 @@ function navigate(sectionId) {
   if (sectionId === 'Settings' && pageStale('settings')) { initSettings();     pageTouch('settings'); }
   if (sectionId !== 'Messages') stopMsgPolling();
 }
-
+alert('Newwww')
 </script>
 
 </body>
