@@ -3430,17 +3430,21 @@ document.addEventListener('DOMContentLoaded', () => {
 
 <!-- Header -->
 <div class="research-header-top">
-  <div style="display:flex; align-items:center; gap:12px;">
-    
+  <div style="display:flex;align-items:center;gap:12px;">
     <div class="research-page-title">Research</div>
   </div>
-  <input type="text" class="research-search" placeholder="Search...">
+  <input type="text" class="research-search" id="researchSearch" placeholder="Search papers..." oninput="filterResearch(this.value)">
+</div>
+<!-- Filter tabs -->
+<div style="display:flex;gap:0;border-bottom:1px solid #1a1a1a;overflow-x:auto;scrollbar-width:none;background:#000;position:sticky;top:52px;z-index:99;">
+  <button class="r-filter-btn active" data-filter="all" onclick="switchResearchFilter('all',this)" style="padding:12px 16px;font-size:13px;font-weight:700;color:#fff;border-bottom:2px solid #fff;background:none;border-top:none;border-left:none;border-right:none;white-space:nowrap;font-family:inherit;cursor:pointer;flex-shrink:0;">All</button>
+  <button class="r-filter-btn" data-filter="trending" onclick="switchResearchFilter('trending',this)" style="padding:12px 16px;font-size:13px;font-weight:700;color:#555;border-bottom:2px solid transparent;background:none;border-top:none;border-left:none;border-right:none;white-space:nowrap;font-family:inherit;cursor:pointer;flex-shrink:0;transition:all 0.2s;">Trending</button>
+  <button class="r-filter-btn" data-filter="myfield" onclick="switchResearchFilter('myfield',this)" style="padding:12px 16px;font-size:13px;font-weight:700;color:#555;border-bottom:2px solid transparent;background:none;border-top:none;border-left:none;border-right:none;white-space:nowrap;font-family:inherit;cursor:pointer;flex-shrink:0;transition:all 0.2s;">My Field</button>
+  <button class="r-filter-btn" data-filter="mine" onclick="switchResearchFilter('mine',this)" style="padding:12px 16px;font-size:13px;font-weight:700;color:#555;border-bottom:2px solid transparent;background:none;border-top:none;border-left:none;border-right:none;white-space:nowrap;font-family:inherit;cursor:pointer;flex-shrink:0;transition:all 0.2s;">Mine</button>
 </div>
 <!-- Body -->
 <div class="research-body">
-
-  <div class="r-section-label">Latest Papers</div>
-<div id="researchFeed"></div>
+  <div id="researchFeed"></div>
 
   
   
@@ -6602,6 +6606,10 @@ let activeTab         = 'posts';
 async function loadProfileTab(tab, append = false) {
   if (profileScrollLock[tab]) return;
   profileScrollLock[tab] = true;
+  const container = document.getElementById(`tab-${tab}`);
+  if (container && !append && !container.innerHTML.trim()) {
+    container.innerHTML = '<div class="loading-state"><div class="spin"></div></div>';
+  }
   activeTab = tab;
 
   if (!append) profileSeenKeys[tab] = [];
@@ -7183,6 +7191,7 @@ async function initProfile() {
   // Fetch profile data from backend every time to keep stats fresh
   const res = await apiRequest({ status: 'get_profile' });
   if (res && res.status === 200) {
+    window.currentProfileKey = res.user_key || getUserKey();
     const nameEl   = document.getElementById('profileName');
     const handleEl = document.getElementById('profileHandle');
     const bioEl    = document.getElementById('profileBio');
@@ -8087,9 +8096,10 @@ function crReset() {
 
 <!-- MAIN CHAT AREA -->
 <div class="msg-main" id="msgMain">
-  <div class="msg-empty" id="msgEmptyState">
-    <div class="msg-empty-icon">💬</div>
-    <div class="msg-empty-text">Select a conversation to start messaging</div>
+  <div id="msgEmptyState" style="display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;color:#333;gap:12px;padding:40px;">
+    <div style="font-size:40px;">💬</div>
+    <div style="font-size:15px;font-weight:700;color:#555;">No conversation selected</div>
+    <div style="font-size:13px;color:#333;text-align:center;">Select a chat or start a new message</div>
   </div>
   <!-- Chat view (hidden until conversation selected) -->
   <div id="msgChatView" style="display:none;flex-direction:column;height:100%;">
@@ -8801,6 +8811,10 @@ async function apiRequest(body) {
 // ═══════════════════════════════════════════════════════════════
 // UI HELPERS
 // ═══════════════════════════════════════════════════════════════
+function emptyState(icon, title, sub) {
+  return `<div class="empty-state"><div class="icon">${icon}</div><div class="title">${title}</div><div class="sub">${sub}</div></div>`;
+}
+
 function showToast(message, type = 'info') {
   const existing = document.getElementById('toastMsg');
   if (existing) existing.remove();
@@ -8858,6 +8872,10 @@ function personalizePage(data) {
       el.innerHTML = val;
     }
   });
+  // Cache user data for local use
+  if (data.department) localStorage.setItem('userDept', data.department);
+  if (data.user_key)   localStorage.setItem('user_key', data.user_key);
+
   if (data.setProfileName) {
   const el = document.getElementById('profileName');
   if (el) el.textContent = data.setProfileName;
@@ -8956,6 +8974,9 @@ async function handleSignin(event) {
 async function logout() {
   if (!confirm('Are you sure you want to logout?')) return;
   await apiRequest({ status: 'logout' });
+  localStorage.removeItem('user_key');
+  localStorage.removeItem('userDept');
+  pageBustAll();
   clearSession();
   document.getElementById('Accauthsection').style.display = 'block';
   document.getElementById('newMainaccount').style.display = 'none';
@@ -9033,7 +9054,7 @@ async function loadTrendingFeed() {
       injectTrendingTopics(res.trending_topics_html);
     }
     if (!res.posts || res.posts.length === 0) {
-      if (seenKeys.length === 0) container.innerHTML = '<div class="userpostedstuffs">The feed is quiet. Be the first to say something worth reading.</div>';
+      if (seenKeys.length === 0) container.innerHTML = emptyState('✦', 'Feed is quiet', 'Be the first to post something worth reading');
       isFetching = false;
       return;
     }
@@ -9286,8 +9307,25 @@ async function toggleFollow(targetKey, btn) {
   const res = await apiRequest({ status: 'toggle_follow', target_key: targetKey });
   if (res.status === 200) {
     const isFollowing = res.action === 'followed';
-    btn.textContent   = isFollowing ? 'Following' : 'Follow';
-    btn.classList.toggle('following', isFollowing);
+    // Update all follow buttons for this user
+    document.querySelectorAll(`[onclick*="toggleFollow('${targetKey}'"]`).forEach(b => {
+      b.textContent = isFollowing ? 'Following' : 'Follow';
+      b.classList.toggle('following', isFollowing);
+    });
+    if (btn) {
+      btn.textContent = isFollowing ? 'Following' : 'Follow';
+      btn.classList.toggle('following', isFollowing);
+    }
+    // Update follower count on profile page if viewing that user
+    const profileFollowersEl = document.getElementById('profileFollowers');
+    const currentProfileKey = window.currentProfileKey;
+    if (profileFollowersEl && currentProfileKey === targetKey) {
+      const count = parseInt(profileFollowersEl.textContent || '0');
+      profileFollowersEl.textContent = isFollowing ? count + 1 : Math.max(0, count - 1);
+    }
+    // Bust profile cache so it reloads fresh next time
+    pageBust('profile');
+    showToast(isFollowing ? 'Following ✓' : 'Unfollowed', 'success');
   } else showToast(res.message, 'error');
 }
 
@@ -9506,10 +9544,11 @@ async function crCreate() {
   if (btn) { btn.disabled = false; btn.textContent = 'Post'; }
 
   if (res.status === 200) {
-    showToast(res.message || 'Posted!', 'success');
+    showToast(res.message || 'Posted! 🔥', 'success');
     crReset();
     seenKeys = [];
-    loadTrendingFeed();
+    pageBust('trending');
+    pageBust('profile');
     navigate('Trending');
   } else {
     showToast(res.message || 'Something went wrong.', 'error');
@@ -9519,10 +9558,10 @@ async function crCreate() {
 // ═══════════════════════════════════════════════════════════════
 // SETTINGS
 // ═══════════════════════════════════════════════════════════════
-//async // toggleSetting defined earlier
+async // toggleSetting defined earlier
 
 
-// async // changeSetting defined earlier
+async // changeSetting defined earlier
 
 async function submitSettingsUpdate(type) {
   let data = { status: type };
@@ -9552,7 +9591,9 @@ async function submitSettingsUpdate(type) {
   }
 }
 
-//  async // handleProfilePicChange defined earlier
+async // handleProfilePicChange defined earlier
+
+async // removeProfilePic defined earlier
 
 async function loadBlockedAccounts() {
   const res = await apiRequest({ status: 'get_blocked_users' });
@@ -9680,7 +9721,8 @@ async function notifOpen() {
 }
 
 function notifClose() {
-  document.getElementById('notifPanel').style.right = '-100%';
+  document.getElementById('notifPanel')?.classList.remove('open');
+  document.getElementById('notifPanel')?.style && (document.getElementById('notifPanel').style.right = '');
 }
 
 function renderNotifications(notifications) {
@@ -9732,6 +9774,7 @@ async function markAllNotificationsRead() {
 // ═══════════════════════════════════════════════════════════════
 // MESSAGES
 // ═══════════════════════════════════════════════════════════════
+let currentConvoKey = null;
 
 async function loadConversations() {
   const res = await apiRequest({ status: 'get_conversations' });
@@ -9896,11 +9939,64 @@ document.addEventListener('DOMContentLoaded', () => {
 let researchSeenKeys = [];
 let researchFetching = false;
 
+let researchFilter = 'all';
+let allResearchPosts = [];
+
 async function initResearch() {
   researchSeenKeys = [];
-  const container  = document.getElementById('researchFeed');
-  if (container) container.innerHTML = '';
+  researchFilter = 'all';
+  allResearchPosts = [];
   await loadResearchFeed();
+}
+
+function switchResearchFilter(filter, btn) {
+  researchFilter = filter;
+  document.querySelectorAll('.r-filter-btn').forEach(b => {
+    b.style.color = '#555';
+    b.style.borderBottomColor = 'transparent';
+  });
+  btn.style.color = '#fff';
+  btn.style.borderBottomColor = '#fff';
+  renderResearchFiltered();
+}
+
+function filterResearch(query) {
+  const q = query.toLowerCase();
+  const container = document.getElementById('researchFeed');
+  if (!container) return;
+  const filtered = allResearchPosts.filter(p => {
+    const e = p.extras || {};
+    return (e.title||'').toLowerCase().includes(q) ||
+           (e.authors||'').toLowerCase().includes(q) ||
+           (e.abstract||'').toLowerCase().includes(q) ||
+           (p.content||'').toLowerCase().includes(q);
+  });
+  container.innerHTML = filtered.length
+    ? filtered.map(p => buildResearchCard(p)).join('')
+    : emptyState('🔬', 'No results', 'Try a different search term');
+}
+
+function renderResearchFiltered() {
+  const container = document.getElementById('researchFeed');
+  if (!container || !allResearchPosts.length) return;
+  const myDept = (localStorage.getItem('userDept') || '').toLowerCase();
+  let posts = [...allResearchPosts];
+  if (researchFilter === 'trending') {
+    posts = posts.sort((a,b) => (b.like_count||0) - (a.like_count||0));
+  } else if (researchFilter === 'myfield') {
+    posts = posts.filter(p => {
+      const e = p.extras || {};
+      return (e.tags||[]).some(t => t.toLowerCase().includes(myDept)) ||
+             (p.department||'').toLowerCase().includes(myDept);
+    });
+    if (!posts.length) posts = allResearchPosts; // fallback to all
+  } else if (researchFilter === 'mine') {
+    const myKey = getUserKey();
+    posts = posts.filter(p => p.user_key === myKey);
+  }
+  container.innerHTML = posts.length
+    ? posts.map(p => buildResearchCard(p)).join('')
+    : emptyState('🔬', 'Nothing here yet', researchFilter === 'mine' ? 'Share your research' : 'No papers in this category');
 }
 
 async function loadResearchFeed(append = false) {
@@ -9918,12 +10014,13 @@ async function loadResearchFeed(append = false) {
   if (!container) return;
 
   if (!res.posts || res.posts.length === 0) {
-    if (!append) container.innerHTML = '<div class="userpostedstuffs">No research papers yet.</div>';
+    if (!append) container.innerHTML = emptyState('🔬','No research yet','Be the first to share a paper');
     return;
   }
 
   if (!append) container.innerHTML = '';
 
+  allResearchPosts = append ? [...allResearchPosts, ...res.posts] : res.posts;
   res.posts.forEach(post => {
     researchSeenKeys.push(post.post_key);
     const el = document.createElement('div');
@@ -10100,58 +10197,70 @@ function setupExploreSearch() {
 async function loadExploreSection(section) {
   const container = document.getElementById('exResults');
   if (!container) return;
+  container.innerHTML = '<div class="loading-state"><div class="spin"></div></div>';
 
-  if (section === 'all' || section === 'people') {
-    const res = await apiRequest({ status: 'get_suggestions', all: true });
-    if (res.status === 200 && section === 'people') {
-      container.innerHTML = renderExplorePeople(res.users || []);
+  try {
+    if (section === 'people') {
+      const res = await apiRequest({ status: 'get_suggestions', all: true });
+      container.innerHTML = res.status === 200
+        ? renderExplorePeople(res.users || [])
+        : emptyState('👥', 'No people yet', 'Check back soon');
       return;
     }
-  }
 
-  if (section === 'all' || section === 'bounties') {
-    const res = await apiRequest({ status: 'get_feed', seen_keys: [], n: 10, type_filter: 'bounty' });
-    if (res.status === 200 && section === 'bounties') {
-      container.innerHTML = renderExploreBounties(res.posts || []);
+    if (section === 'bounties') {
+      const res = await apiRequest({ status: 'get_feed', seen_keys: [], n: 20, type_filter: 'bounty' });
+      const posts = res.posts || [];
+      container.innerHTML = posts.length
+        ? posts.map(p => buildPostHTML(p)).join('')
+        : emptyState('💰', 'No bounties yet', 'Be the first to post a bounty');
       return;
     }
-  }
 
-  if (section === 'all' || section === 'events') {
-    const res = await apiRequest({ status: 'get_feed', seen_keys: [], n: 10, type_filter: 'event' });
-    if (res.status === 200 && section === 'events') {
-      container.innerHTML = renderExploreEvents(res.posts || []);
+    if (section === 'events') {
+      const res = await apiRequest({ status: 'get_feed', seen_keys: [], n: 20, type_filter: 'event' });
+      const posts = res.posts || [];
+      container.innerHTML = posts.length
+        ? posts.map(p => buildPostHTML(p)).join('')
+        : emptyState('📅', 'No events yet', 'Post an upcoming event');
       return;
     }
-  }
 
-  if (section === 'all' || section === 'polls') {
-    const res = await apiRequest({ status: 'get_feed', seen_keys: [], n: 10, type_filter: 'poll' });
-    if (res.status === 200 && section === 'polls') {
-      container.innerHTML = renderExplorePolls(res.posts || []);
+    if (section === 'polls') {
+      const res = await apiRequest({ status: 'get_feed', seen_keys: [], n: 20, type_filter: 'poll' });
+      const posts = res.posts || [];
+      container.innerHTML = posts.length
+        ? posts.map(p => buildPostHTML(p)).join('')
+        : emptyState('📊', 'No polls yet', 'Start a poll to get opinions');
       return;
     }
-  }
 
-  if (section === 'papers') {
-    const res = await apiRequest({ status: 'get_user_posts', tab: 'research', seen_keys: [], global: true });
-    container.innerHTML = (res.posts || []).map(p => buildResearchCard(p)).join('');
-    return;
-  }
+    if (section === 'papers') {
+      const res = await apiRequest({ status: 'get_global_research', seen_keys: [] });
+      const posts = res.posts || [];
+      container.innerHTML = posts.length
+        ? posts.map(p => buildResearchCard(p)).join('')
+        : emptyState('🔬', 'No research yet', 'Share your research papers');
+      return;
+    }
 
-  // all — show everything mixed
-  if (section === 'all') {
-    container.innerHTML = '<div style="padding:20px;color:#555;text-align:center;">Loading...</div>';
+    // 'all' — people suggestions + feed mix
     const [sugRes, feedRes] = await Promise.all([
       apiRequest({ status: 'get_suggestions' }),
-      apiRequest({ status: 'get_feed', seen_keys: [], n: 15 })
+      apiRequest({ status: 'get_feed', seen_keys: [], n: 12 })
     ]);
     let html = '';
-    if (sugRes.status === 200) html += `<div style="margin-bottom:20px;">${sugRes.suggestions_html || ''}</div>`;
-    if (feedRes.status === 200) {
-      (feedRes.posts || []).slice(0, 10).forEach(p => { html += buildProfilePostHTML(p); });
+    if (sugRes.status === 200 && (sugRes.users||[]).length) {
+      html += `<div style="padding:12px 16px 8px;font-size:11px;font-weight:700;color:#555;letter-spacing:2px;text-transform:uppercase;">PEOPLE TO FOLLOW</div>`;
+      html += renderExplorePeople((sugRes.users||[]).slice(0,5));
+      html += `<div style="padding:12px 16px 8px;font-size:11px;font-weight:700;color:#555;letter-spacing:2px;text-transform:uppercase;border-top:1px solid #111;margin-top:8px;">TRENDING</div>`;
     }
-    container.innerHTML = html || '<div style="padding:20px;color:#555;text-align:center;">Nothing to explore yet.</div>';
+    if (feedRes.status === 200 && (feedRes.posts||[]).length) {
+      (feedRes.posts||[]).forEach(p => { html += buildPostHTML(p); });
+    }
+    container.innerHTML = html || emptyState('🔍', 'Nothing to explore yet', 'Follow people to see their content here');
+  } catch(e) {
+    container.innerHTML = emptyState('⚠️', 'Something went wrong', 'Pull to refresh');
   }
 }
 
@@ -10227,10 +10336,18 @@ function renderExplorePolls(posts) {
 function renderExploreResults(res, query) {
   const container = document.getElementById('exResults');
   if (!container) return;
-  let html = `<div style="font-size:13px;color:#555;padding:10px 0;">Results for "${query}"</div>`;
-  if (res.users && res.users.length) html += renderExplorePeople(res.users);
-  if (res.posts && res.posts.length) html += res.posts.map(p => buildProfilePostHTML(p)).join('');
-  if (!res.users?.length && !res.posts?.length) html += '<div class="empty-tab">No results found.</div>';
+  let html = `<div style="padding:12px 16px;font-size:13px;color:#555;border-bottom:1px solid #111;">Results for <strong style="color:#aaa;">"${query}"</strong></div>`;
+  if (res.users && res.users.length) {
+    html += `<div style="padding:10px 16px 4px;font-size:11px;font-weight:700;color:#444;letter-spacing:1.5px;text-transform:uppercase;">PEOPLE</div>`;
+    html += renderExplorePeople(res.users);
+  }
+  if (res.posts && res.posts.length) {
+    html += `<div style="padding:10px 16px 4px;font-size:11px;font-weight:700;color:#444;letter-spacing:1.5px;text-transform:uppercase;border-top:1px solid #111;">POSTS</div>`;
+    html += res.posts.map(p => buildPostHTML(p)).join('');
+  }
+  if (!res.users?.length && !res.posts?.length) {
+    html += emptyState('🔍', 'No results', `Nothing found for "${query}"`);
+  }
   container.innerHTML = html;
 }
 
@@ -10262,7 +10379,12 @@ function finTab(tab, btn) {
 }
 
 async function initFinance() {
-  financeLoaded = { overview: false, bounties: false, earnings: false, wallet: false, marketplace: false };
+  financeLoaded = {};
+  // Set first tab active
+  const firstTab = document.querySelector('.fin-tab');
+  const firstSection = document.querySelector('.fin-section');
+  if (firstTab && !document.querySelector('.fin-tab.active')) firstTab.classList.add('active');
+  if (firstSection && !document.querySelector('.fin-section.active')) firstSection.classList.add('active');
   await loadFinanceTab('overview');
   financeLoaded['overview'] = true;
 }
@@ -10272,7 +10394,7 @@ async function loadFinanceMarketplace() {
   if (!container) return;
   const res = await apiRequest({ status: 'get_feed', seen_keys: [], n: 12, type_filter: 'product' });
   if (!res.posts || res.posts.length === 0) {
-    container.innerHTML = '<div style="padding:20px;text-align:center;color:#555;">No products listed yet.</div>';
+    container.innerHTML = emptyState('🛍️', 'Marketplace is empty', 'Be the first to list a product');
     return;
   }
   container.innerHTML = res.posts.map(p => {
@@ -10697,27 +10819,39 @@ async function initSettings() {
   }
 }
 
+// Page cache
+const pageCache = {};
+const PAGE_TTL  = 30000;
+function pageStale(k){ return !pageCache[k] || (Date.now()-pageCache[k])>PAGE_TTL; }
+function pageTouch(k){ pageCache[k] = Date.now(); }
+function pageBust(k) { delete pageCache[k]; }
+function pageBustAll(){ Object.keys(pageCache).forEach(k=>delete pageCache[k]); }
+
 function navigate(sectionId) {
   closeDrawer();
   closeGlobalChat();
   const sections = ['Trending','Research','Explore','Finance','Board','Settings','profile','Create','Messages'];
   sections.forEach(id => {
     const el = document.getElementById(id);
-if (el) el.style.display = id === sectionId ? 'block' : 'none';
+    if (el) el.style.display = id === sectionId ? 'block' : 'none';
+  });
+  // Update drawer active link
+  document.querySelectorAll('#drawer a[onclick]').forEach(a => {
+    a.style.color = a.getAttribute('onclick')?.includes(`'${sectionId}'`) ? '#fff' : '';
+    a.style.fontWeight = a.getAttribute('onclick')?.includes(`'${sectionId}'`) ? '800' : '';
   });
 
-  if (sectionId === 'Trending')  loadTrendingFeed();
-  if (sectionId === 'Research')  initResearch();
-  if (sectionId === 'Explore')   initExplore();
-  if (sectionId === 'Finance')   initFinance();
-  if (sectionId === 'Board')     initBoard();
-  if (sectionId === 'Messages')  loadConversations();
-  if (sectionId !== 'Messages')  stopMsgPolling();
-  if (sectionId === 'profile')   initProfile();
-  if (sectionId === 'Settings')  initSettings();
-
+  if (sectionId === 'Trending' && pageStale('trending')) { loadTrendingFeed(); pageTouch('trending'); }
+  if (sectionId === 'Research' && pageStale('research')) { initResearch();     pageTouch('research'); }
+  if (sectionId === 'Explore')                           { initExplore(); }
+  if (sectionId === 'Finance'  && pageStale('finance'))  { initFinance();      pageTouch('finance'); }
+  if (sectionId === 'Board'    && pageStale('board'))    { initBoard();        pageTouch('board'); }
+  if (sectionId === 'Messages' && pageStale('messages')) { loadConversations();pageTouch('messages'); }
+  if (sectionId === 'profile'  && pageStale('profile'))  { initProfile();      pageTouch('profile'); }
+  if (sectionId === 'Settings' && pageStale('settings')) { initSettings();     pageTouch('settings'); }
+  if (sectionId !== 'Messages') stopMsgPolling();
 }
-alert(899)
+
 </script>
 
 </body>
