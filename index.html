@@ -9284,7 +9284,6 @@ function notifMarkAllRead() {
   notifRender();
   showToast('All cleared', 'success');
 }
-
 // Initialize - show badge if unread
 document.addEventListener('DOMContentLoaded', () => {
   const unreadCount = notifData.filter(n => n.unread).length;
@@ -9307,14 +9306,13 @@ document.addEventListener('click', (e) => {
 
 </section>
 <script>
-
-
-
 // run immediately when page loads
+
 checkLoginState();
-setTimeout(refreshMsgBadge, 3000); // Load msg badge after login
+// Load msg badge after login
 // Profile image click — full screen viewer
-document.querySelector('.avatar').addEventListener('click', function() {
+
+document.querySelector('.avatar')?.addEventListener('click', function() {
   const src = this.src;
   if (!src || src.includes('undefined') || src.trim() === '') return;
 
@@ -9347,6 +9345,7 @@ document.querySelector('.avatar').addEventListener('click', function() {
     animation: popIn 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
   `;
 
+
   // Close on overlay click
   overlay.addEventListener('click', function() {
     overlay.style.animation = 'fadeOutOverlay 0.2s ease forwards';
@@ -9366,7 +9365,6 @@ document.querySelectorAll('.event-actions .event-btn').forEach(btn => {
     this.classList.add('btn-primary');
   });
 });
-
 // Form listeners registered in DOMContentLoaded below
 
 
@@ -9416,6 +9414,8 @@ async function showErrorScreen(msg) {
   document.body.appendChild(div);
 }
 const API_BASE = 'https://trends-backend-srju.onrender.com/';
+alert(777)
+
 async function apiRequest(body) {
   iosLoaderStart()
   const token = getToken();
@@ -13736,7 +13736,6 @@ window.loadConversations = async function() {
 };
 
 // ─ Open chat messages
-const _origOpenMsgChat = openMsgChat;
 window.openMsgChat = async function(convoKey, otherKey) {
   const c = document.getElementById('msgMessages');
   if (c) c.innerHTML = skMessages(5);
