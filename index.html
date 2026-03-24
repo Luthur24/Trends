@@ -13869,7 +13869,8 @@ console.log('[Treℵds] Skeleton loaders active across all pages ✓');
 </script>
 <script>
   document.addEventListener('DOMContentLoaded', () => {
-    document.getElementById('profilenav').innerHTML = `
+  const _pnav = document.getElementById('profilenav');
+if (_pnav && !_pnav.querySelector('img, .dr-info')) _pnav.innerHTML = `
       <pib><div class="sk" style="width:50px;height:50px;border-radius:50%;background:linear-gradient(90deg,#111 25%,#1a1a1a 50%,#111 75%);background-size:800px 100%;animation:skShim 1.4s infinite linear;"></div></pib>
       <div class="dr-info">
         <div class="sk" style="width:120px;height:12px;border-radius:4px;margin-bottom:6px;background:linear-gradient(90deg,#111 25%,#1a1a1a 50%,#111 75%);background-size:800px 100%;animation:skShim 1.4s infinite linear;"></div>
