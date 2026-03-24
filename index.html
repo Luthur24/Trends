@@ -9671,6 +9671,7 @@ async function checkLoginState() {
     const res = await apiRequest({ status: 'personalize' });
     if (res.status === 200) {
       personalizePage(res);
+      setTimeout(() => personalizePage(res), 300);
       updateNotifBadge();
       if (res.suggestions_html) injectSuggestions(res.suggestions_html);
       setInterval(updateNotifBadge, 60000);
