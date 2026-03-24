@@ -1442,7 +1442,7 @@ function iosLoaderDone() {
           <label class="form-label">Password</label>
           <input maxlength="64" type="password" class="form-input" placeholder="Enter password" required>
         </div>
-        <button id="signinSubmitBtn type="submit" class="btn btn-primary" style="width: 100%;">Sign in</button>
+        <button id="signinSubmitBtn" type="submit" class="btn btn-primary" style="width: 100%;">Sign in</button>
       </form>
       
       <div class="form-footer">
@@ -2437,7 +2437,7 @@ function switchModal(from, to) {
 
   <button class="menuBtn" style="display:none" onclick="document.getElementById('drawer').style.left='0vw';">☰</button>
 
-  <div class="overlay" id="overlay"></div>
+ 
 
 <nav class="drawer" id="drawer">
 
@@ -2754,8 +2754,8 @@ html::-webkit-scrollbar, body::-webkit-scrollbar { display: none; }
   inset: 0;
   background: rgba(0,0,0,0.6);
   display: none;
-  z-index: 999;
-  backdrop-filter: blur(2px);
+  z-index: 19;
+  backdrop-filter: blur(0px);
 }
 .overlay.show { display: block; }
 </style>
@@ -5248,7 +5248,7 @@ document.addEventListener('DOMContentLoaded', () => {
     <div class="set-item">
       <div class="set-item-info">
         <div class="set-item-label">Password</div>
-        <div class="set-item-desc" id="setPasswordDate">Last changed 3 months ago</div>
+        <div class="set-item-desc" id="setPasswordDate"></div>
       </div>
       <button class="set-btn primary" onclick="openSetModal('changePassword')">Change</button>
     </div>
@@ -5355,7 +5355,7 @@ document.addEventListener('DOMContentLoaded', () => {
     <div class="set-item">
       <div class="set-item-info">
         <div class="set-item-label">Connected Apps</div>
-        <div class="set-item-desc" id="setConnectedApps">0 apps connected</div>
+        <div class="set-item-desc" id="setConnectedApps"></div>
       </div>
       <button class="set-btn" onclick="openSetModal('connectedApps')">Manage</button>
     </div>
@@ -9413,8 +9413,7 @@ async function showErrorScreen(msg) {
     <button onclick="document.getElementById('errorScreen').remove();location.reload()" style="padding:12px 24px;background:#fff;color:#000;border:none;border-radius:10px;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit;">Reload</button>`;
   document.body.appendChild(div);
 }
-const API_BASE = 'https://trends-backend-srju.onrender.com/';
-alert(777)
+const API_BASE = 'https://trends-backend-1.onrender.com/';
 
 async function apiRequest(body) {
   iosLoaderStart()
@@ -15005,7 +15004,110 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
 });
-alert(10)
+</script>
+<script>document.addEventListener('DOMContentLoaded', () => {
+  const boardPage = document.getElementById('Board');
+  if (!boardPage) return;
+
+  // ── CSS ───────────────────────────────────────────────────────
+  const st = document.createElement('style');
+  st.textContent = ` 
+    @keyframes flash {
+      0%,100%{opacity:1}
+      50%{opacity:0.4}
+    }
+    .skeleton {
+      animation: flash 2s ease infinite;
+      background: #1a1a1a;
+      border-radius: 4px;
+    }
+    .skeleton-text {
+      height: 12px;
+      margin-bottom: 8px;
+    }
+    .skeleton-image {
+      height: 200px;
+      margin-bottom: 12px;
+    }
+    .skeleton-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+    }
+    .skeleton-header {
+      height: 20px;
+      margin-bottom: 12px;
+    }
+  `;
+  document.head.appendChild(st);
+
+  // ── BUILD SKELETON ────────────────────────────────────────
+  const skeleton = `
+    <div style="padding:20px;max-width:600px;margin:0 auto;">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:20px;">
+        <div class="skeleton skeleton-avatar"></div>
+        <div>
+          <div class="skeleton skeleton-text" style="width:120px;"></div>
+          <div class="skeleton skeleton-text" style="width:80px;"></div>
+        </div>
+      </div>
+      <div class="skeleton skeleton-header" style="width:80%;"></div>
+      <div class="skeleton skeleton-image"></div>
+      <div class="skeleton skeleton-text" style="width:100%;"></div>
+      <div class="skeleton skeleton-text" style="width:80%;"></div>
+      <div style="display:flex;gap:8px;margin-top:12px;">
+        <div class="skeleton" style="width:60px;height:20px;"></div>
+        <div class="skeleton" style="width:60px;height:20px;"></div>
+      </div>
+    </div>
+  `;
+
+  // ── INJECT ────────────────────────────────────────────────────
+  boardPage.innerHTML += `
+    ${skeleton}
+    ${skeleton}
+    ${skeleton}
+  `;
+});</script>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const crUserDept = document.getElementById('crUserDept');
+  const crUserName = document.getElementById('crUserName');
+
+  if (crUserDept) {
+    crUserDept.innerHTML = `
+      <span>
+        <div style="width:120px;height:10px;background:#1a1a1a;border-radius:13px;"></div>
+      </span>
+    `;
+  }
+
+  if (crUserName) {
+    crUserName.innerHTML = `
+      <span>
+        <div style="width:80px;height:10px;background:#1a1a1a;border-radius:13px;margin-bottom:4px;"></div>
+      </span>
+    `;
+  }
+});
+</script>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const setConnectedApps = document.getElementById('setConnectedApps');
+  const setPasswordDate = document.getElementById('setPasswordDate');
+
+  if (setConnectedApps) {
+    setConnectedApps.innerHTML = `
+      <div style="width:150px;height:12px;background:#1a1a1a;border-radius:3px;"></div>
+    `;
+  }
+
+  if (setPasswordDate) {
+    setPasswordDate.innerHTML = `
+      <div style="width:120px;height:12px;background:#1a1a1a;border-radius:3px;"></div>
+    `;
+  }
+});
 </script>
 </body>
 </html>
