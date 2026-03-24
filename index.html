@@ -9666,6 +9666,7 @@ if (token) {
     const res = await apiRequest({ status: 'personalize' });
     if (res.status === 200) {
       personalizePage(res);
+      setTimeout(() => { const pnav = document.querySelector('.profilenav'); if (pnav && res.profilenav) pnav.innerHTML = res.profilenav; }, 200);
       showSection('Trending');
       document.getElementById('Accauthsection').style.display = 'none';
       document.getElementById('newMainaccount').style.display = 'block';
