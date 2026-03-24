@@ -9662,19 +9662,19 @@ async function logout() {
 
 async function checkLoginState() {
   const token = getToken();
-  if (token) {
-    document.getElementById('Accauthsection').style.display = 'none';
-    document.getElementById('newMainaccount').style.display = 'block';
-    showSection('Trending');
-    showBottomNav();
-    // Personalize (user data) then load feed
+if (token) {
     const res = await apiRequest({ status: 'personalize' });
     if (res.status === 200) {
       personalizePage(res);
-      setTimeout(() => personalizePage(res), 300);
+      showSection('Trending');
+      document.getElementById('Accauthsection').style.display = 'none';
+      document.getElementById('newMainaccount').style.display = 'block';
+      loadTrendingFeed();
+      showBottomNav();
       updateNotifBadge();
       if (res.suggestions_html) injectSuggestions(res.suggestions_html);
       setInterval(updateNotifBadge, 60000);
+      pageTouch('trending');
     } else if (res.status === 401) {
       clearSession();
       sessionStorage.removeItem('seenKeys');
@@ -9683,8 +9683,6 @@ async function checkLoginState() {
       showToast('Session expired. Please sign in again.', 'error');
       return;
     }
-    loadTrendingFeed();
-    pageTouch('trending');
   } else {
     document.getElementById('Accauthsection').style.display = 'block';
     document.getElementById('newMainaccount').style.display = 'none';
