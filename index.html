@@ -9514,10 +9514,11 @@ function personalizePage(data) {
     } else if (id.startsWith('toggle')) {
       if (val === 'active') el.classList.add('active');
       else                  el.classList.remove('active');
-    } else if (id === 'profilenav') {
-      const pnav = document.querySelector('.profilenav');
-      if (pnav) pnav.innerHTML = val;
-    } else {
+} else if (id === 'profilenav') {
+  const pnav = document.querySelector('.profilenav');
+  if (pnav) pnav.innerHTML = val;
+  setTimeout(() => { const p = document.querySelector('.profilenav'); if(p) p.innerHTML = val; }, 600);
+} else {
       el.innerHTML = val;
     }
   });
