@@ -9517,7 +9517,7 @@ function personalizePage(data) {
 } else if (id === 'profilenav') {
   const pnav = document.querySelector('.profilenav');
   if (pnav) pnav.innerHTML = val;
-  setTimeout(() => { const p = document.querySelector('.profilenav'); if(p) p.innerHTML = val; }, 600);
+  else{ const p = document.querySelector('.profilenav'); if(p) p.innerHTML = val; };
 } else {
       el.innerHTML = val;
     }
@@ -9671,26 +9671,23 @@ async function checkLoginState() {
     const res = await apiRequest({ status: 'personalize' });
     if (res.status === 200) {
       personalizePage(res);
-      setTimeout(() => { const pnav = document.querySelector('.profilenav'); if (pnav && res.profilenav) pnav.innerHTML = res.profilenav; }, 200);
       updateNotifBadge();
       if (res.suggestions_html) injectSuggestions(res.suggestions_html);
       setInterval(updateNotifBadge, 60000);
+      loadTrendingFeed();
+      pageTouch('trending');
     } else if (res.status === 401) {
       clearSession();
       sessionStorage.removeItem('seenKeys');
       document.getElementById('Accauthsection').style.display = 'block';
       document.getElementById('newMainaccount').style.display = 'none';
       showToast('Session expired. Please sign in again.', 'error');
-      return;
     }
-    loadTrendingFeed();
-    pageTouch('trending');
   } else {
     document.getElementById('Accauthsection').style.display = 'block';
     document.getElementById('newMainaccount').style.display = 'none';
   }
-}
-// ═══════════════════════════════════════════════════════════════
+}// ═══════════════════════════════════════════════════════════════
 // NAVIGATION
 // ═══════════════════════════════════════════════════════════════
 function showSection(sectionId) {
@@ -15097,5 +15094,19 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 });
 </script>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  if (localStorage.getItem('token')) return;
+  const _pnav = document.getElementById('profilenav');
+  if (_pnav) _pnav.innerHTML = `
+      <pib><div class="sk" style="width:50px;height:50px;border-radius:50%;background:linear-gradient(90deg,#111 25%,#1a1a1a 50%,#111 75%);background-size:800px 100%;animation:skShim 1.4s infinite linear;"></div></pib>
+      <div class="dr-info">
+        <div class="sk" style="width:120px;height:12px;border-radius:4px;margin-bottom:6px;background:linear-gradient(90deg,#111 25%,#1a1a1a 50%,#111 75%);background-size:800px 100%;animation:skShim 1.4s infinite linear;"></div>
+        <div class="sk" style="width:80px;height:10px;border-radius:4px;background:linear-gradient(90deg,#111 25%,#1a1a1a 50%,#111 75%);background-size:800px 100%;animation:skShim 1.4s infinite linear;"></div>
+      </div>`;
+  const st = document.createElement('style');
+  st.textContent = `@keyframes skShim{0%{background-position:-800px 0}100%{background-position:800px 0}}`;
+  document.head.appendChild(st);
+});</script>
 </body>
 </html>
