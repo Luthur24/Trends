@@ -3809,13 +3809,651 @@ document.addEventListener('DOMContentLoaded', () => {
 .t-header-title{width:100vw;font-size:10px;text-align:left;padding-left:10vw}
 </style>
 
+<style>
+.post-feed-card { padding: 16px; border-bottom: 1px solid #111; }
+.post-feed-header { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
+.post-feed-avatar { width: 40px; height: 40px; border-radius: 50%; flex-shrink: 0; }
+.post-feed-name { font-size: 14px; font-weight: 700; color: #f0f0f0; }
+.post-feed-time { font-size: 12px; color: #888; margin-top: 2px; }
+.post-feed-text { font-size: 14px; color: #ccc; line-height: 1.5; margin-bottom: 10px; }
+.post-feed-tag { display: inline-block; background: #111; border: 1px solid #222; padding: 3px 8px; border-radius: 20px; font-size: 11px; color: #666; margin-right: 4px; margin-top: 4px; }
+.mini-poll-option { position: relative; background: #111; border: 1px solid #222; border-radius: 8px; padding: 10px 12px; margin-bottom: 6px; overflow: hidden; cursor: pointer; }
+.mini-poll-bar { position: absolute; top: 0; left: 0; height: 100%; background: #1e1e1e; border-radius: 8px; }
+.mini-poll-text { position: relative; display: flex; justify-content: space-between; font-size: 13px; color: #ccc; }
 
-<!-- ── Header ── -->
+/* ── ACTION BARS ── */
+.post-actions { display: flex; align-items: center; gap: 4px; margin-top: 12px; padding-top: 10px; border-top: 1px solid #111; }
+.pa-btn { display: flex; align-items: center; gap: 5px; background: none; border: none; cursor: pointer; padding: 6px 8px; border-radius: 8px; font-size: 13px; font-weight: 600; color: #555; font-family: inherit; transition: color 0.15s; }
+.pa-btn:active { opacity: 0.7; }
+.pa-btn svg { flex-shrink: 0; }
+.pa-btn span { font-size: 13px; font-weight: 600; }
+.pa-like { color: #555; }
+.pa-like.liked { color: #ef4444; }
+.pa-comment { color: #555; }
+.pa-share { color: #555; }
+.pa-save { color: #555; margin-left: auto; }
+.pa-save.saved { color: #f59e0b; }
+.pa-up { color: #555; }
+.pa-up.voted { color: #22c55e; }
+.pa-down { color: #555; }
+.pa-menu { color: #444; margin-left: auto; }
+</style>
+
 <div class="t-header">
   <div class="t-header-title">Trending</div>
-  </div>
+</div>
 
+<!-- TEXT -->
+<div class="post-feed-card">
+  <div class="post-feed-header">
+    <div class="post-feed-avatar" style="display:flex;align-items:center;justify-content:center;background:#1a1a1a;font-weight:700;color:#fff;">A</div>
+    <div style="flex:1;"><div class="post-feed-name">Amara Osei ✓</div><div class="post-feed-time">2m ago</div></div>
+    <button class="pa-btn pa-menu">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><circle cx="5" cy="12" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="19" cy="12" r="2"/></svg>
+    </button>
+  </div>
+  <div class="post-feed-text">The gap between knowing and doing is where most people live permanently. Close it. #discipline #growth</div>
+  <div class="post-actions">
+    <button class="pa-btn pa-like">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+      <span>142</span>
+    </button>
+    <button class="pa-btn pa-comment">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+      <span>38</span>
+    </button>
+    <button class="pa-btn pa-share">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+      <span>12</span>
+    </button>
+    <button class="pa-btn pa-save">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+    </button>
+  </div>
+</div>
+
+<!-- IMAGE -->
+<div class="post-feed-card">
+  <div class="post-feed-header">
+    <div class="post-feed-avatar" style="display:flex;align-items:center;justify-content:center;background:#1a1a1a;font-weight:700;color:#fff;">Z</div>
+    <div style="flex:1;"><div class="post-feed-name">Zara Mensah</div><div class="post-feed-time">15m ago</div></div>
+    <button class="pa-btn pa-menu">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><circle cx="5" cy="12" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="19" cy="12" r="2"/></svg>
+    </button>
+  </div>
+  <img src="https://images.unsplash.com/photo-1532094349884-543559db7a2f?w=600" style="width:100%;border-radius:8px;margin-bottom:10px;max-height:280px;object-fit:cover;">
+  <div class="post-feed-text">Late night in the lab. This research won't complete itself. #academia</div>
+  <div class="post-actions">
+    <button class="pa-btn pa-like liked">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+      <span>311</span>
+    </button>
+    <button class="pa-btn pa-comment">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+      <span>54</span>
+    </button>
+    <button class="pa-btn pa-share">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+      <span>27</span>
+    </button>
+    <button class="pa-btn pa-save">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+    </button>
+  </div>
+</div>
+
+<!-- VIDEO -->
+<div class="post-feed-card">
+  <div class="post-feed-header">
+    <div class="post-feed-avatar" style="display:flex;align-items:center;justify-content:center;background:#1a1a1a;font-weight:700;color:#fff;">K</div>
+    <div style="flex:1;"><div class="post-feed-name">Kofi Adekunle</div><div class="post-feed-time">30m ago</div></div>
+    <button class="pa-btn pa-menu">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><circle cx="5" cy="12" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="19" cy="12" r="2"/></svg>
+    </button>
+  </div>
+  <video controls style="width:100%;border-radius:8px;margin-bottom:10px;max-height:280px;background:#0a0a0a;">
+    <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
+  </video>
+  <div class="post-feed-text">Full-stack app in 30 minutes. Watch till the end. #coding #tutorial</div>
+  <div class="post-actions">
+    <button class="pa-btn pa-like">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+      <span>721</span>
+    </button>
+    <button class="pa-btn pa-comment">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+      <span>198</span>
+    </button>
+    <button class="pa-btn pa-share">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+      <span>84</span>
+    </button>
+    <button class="pa-btn pa-save">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+    </button>
+  </div>
+</div>
+
+<!-- POLL -->
+<div class="post-feed-card">
+  <div class="post-feed-header">
+    <div class="post-feed-avatar" style="display:flex;align-items:center;justify-content:center;background:#1a1a1a;font-weight:700;color:#fff;">T</div>
+    <div style="flex:1;"><div class="post-feed-name">Tunde Fashola</div><div class="post-feed-time">1h ago</div></div>
+    <button class="pa-btn pa-menu">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><circle cx="5" cy="12" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="19" cy="12" r="2"/></svg>
+    </button>
+  </div>
+  <div class="post-feed-text" style="font-weight:600;">What kills your productivity the most?</div>
+  <div class="poll-options">
+    <div class="mini-poll-option"><div class="mini-poll-bar" style="width:47%"></div><div class="mini-poll-text"><span>Social media</span><span>47%</span></div></div>
+    <div class="mini-poll-option"><div class="mini-poll-bar" style="width:20%"></div><div class="mini-poll-text"><span>Meetings</span><span>20%</span></div></div>
+    <div class="mini-poll-option"><div class="mini-poll-bar" style="width:11%"></div><div class="mini-poll-text"><span>Noise</span><span>11%</span></div></div>
+    <div class="mini-poll-option"><div class="mini-poll-bar" style="width:22%"></div><div class="mini-poll-text"><span>Hunger</span><span>22%</span></div></div>
+  </div>
+  <div style="font-size:12px;color:#666;margin-top:6px;">900 votes</div>
+  <div class="post-actions">
+    <button class="pa-btn pa-like">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+      <span>87</span>
+    </button>
+    <button class="pa-btn pa-comment">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+      <span>22</span>
+    </button>
+    <button class="pa-btn pa-share">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+      <span>9</span>
+    </button>
+    <button class="pa-btn pa-save saved">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+    </button>
+  </div>
+</div>
+
+<!-- RESEARCH — upvote/downvote instead of like -->
+<div class="post-feed-card">
+  <div class="post-feed-header">
+    <div class="post-feed-avatar" style="display:flex;align-items:center;justify-content:center;background:#1a1a1a;font-weight:700;color:#fff;">D</div>
+    <div style="flex:1;"><div class="post-feed-name">Dr. Ifeoma Chukwu ✓</div><div class="post-feed-time">2h ago</div></div>
+    <button class="pa-btn pa-menu">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><circle cx="5" cy="12" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="19" cy="12" r="2"/></svg>
+    </button>
+  </div>
+  <div style="background:#0a0a0a;border:1px solid#222;border-radius:10px;padding:14px;margin-bottom:8px;">
+    <div style="font-size:11px;font-weight:700;color:#888;letter-spacing:1px;margin-bottom:6px;">RESEARCH</div>
+    <div style="font-weight:700;font-size:15px;color:#fff;margin-bottom:6px;">Neural Plasticity Under Academic Stress: A Longitudinal Study</div>
+    <div style="font-size:12px;color:#666;margin-bottom:4px;">Chukwu I., Adeyemi B., Okonkwo T.</div>
+    <div style="font-size:11px;color:#555;margin-bottom:4px;">Journal of African Neuroscience · DOI: 10.1000/jan2025</div>
+    <div style="font-size:13px;color:#aaa;margin-bottom:8px;">This study examines how prolonged academic pressure reshapes neural pathways in students aged 15–22, with significant implications for curriculum design...</div>
+    <div><span class="post-feed-tag">neuroscience</span><span class="post-feed-tag">academia</span><span class="post-feed-tag">mental health</span><span class="post-feed-tag">Africa</span></div>
+  </div>
+  <div class="post-actions">
+    <button class="pa-btn pa-up voted">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"/></svg>
+      <span>204</span>
+    </button>
+    <button class="pa-btn pa-down">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+      <span>6</span>
+    </button>
+    <button class="pa-btn pa-comment">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+      <span>61</span>
+    </button>
+    <button class="pa-btn pa-share">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+      <span>33</span>
+    </button>
+    <button class="pa-btn pa-save">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+    </button>
+  </div>
+</div>
+
+<!-- EVENT -->
+<div class="post-feed-card">
+  <div class="post-feed-header">
+    <div class="post-feed-avatar" style="display:flex;align-items:center;justify-content:center;background:#1a1a1a;font-weight:700;color:#fff;">S</div>
+    <div style="flex:1;"><div class="post-feed-name">Sola Afolabi</div><div class="post-feed-time">3h ago</div></div>
+    <button class="pa-btn pa-menu">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><circle cx="5" cy="12" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="19" cy="12" r="2"/></svg>
+    </button>
+  </div>
+  <div style="background:#0a0a0a;border:1px solid#222;border-radius:10px;padding:14px;margin-bottom:8px;">
+    <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;">
+      <span style="font-size:11px;font-weight:700;color:#888;letter-spacing:1px;">EVENT</span>
+      <span style="font-size:10px;font-weight:700;color:#22c55e;background:#22c55e18;padding:2px 8px;border-radius:10px;">UPCOMING</span>
+    </div>
+    <div style="font-weight:700;font-size:15px;color:#fff;margin-bottom:8px;">WestAfriTech Summit 2025</div>
+    <div style="font-size:13px;color:#aaa;">📅 2025-09-14 &nbsp;🕐 10:00</div>
+    <div style="font-size:13px;color:#aaa;margin-top:4px;">📍 Eko Convention Centre, Lagos</div>
+    <div style="font-size:13px;color:#666;margin-top:8px;">Join us for the biggest student tech summit in West Africa. Limited seats.</div>
+    <div style="display:flex;gap:8px;margin-top:10px;">
+      <button style="flex:1;padding:8px;background:#fff;color:#000;border:none;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;">RSVP</button>
+      <button style="padding:8px 12px;background:#1a1a1a;border:none;color:#aaa;border-radius:8px;font-size:12px;cursor:pointer;">Attendees</button>
+    </div>
+  </div>
+  <div class="post-actions">
+    <button class="pa-btn pa-like liked">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+      <span>519</span>
+    </button>
+    <button class="pa-btn pa-comment">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+      <span>93</span>
+    </button>
+    <button class="pa-btn pa-share">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+      <span>41</span>
+    </button>
+    <button class="pa-btn pa-save saved">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+    </button>
+  </div>
+</div>
+
+<!-- BOUNTY -->
+<div class="post-feed-card">
+  <div class="post-feed-header">
+    <div class="post-feed-avatar" style="display:flex;align-items:center;justify-content:center;background:#1a1a1a;font-weight:700;color:#fff;">N</div>
+    <div style="flex:1;"><div class="post-feed-name">Nkechi Obi</div><div class="post-feed-time">4h ago</div></div>
+    <button class="pa-btn pa-menu">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><circle cx="5" cy="12" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="19" cy="12" r="2"/></svg>
+    </button>
+  </div>
+  <div style="background:#0a0a0a;border:1px solid#222;border-radius:10px;padding:14px;margin-bottom:8px;">
+    <div style="font-size:11px;font-weight:700;color:#f97316;letter-spacing:1px;margin-bottom:6px;">BOUNTY</div>
+    <div style="font-weight:700;font-size:15px;color:#fff;margin-bottom:6px;">Build Student Marketplace REST API</div>
+    <div style="font-size:13px;color:#aaa;margin-bottom:8px;">Need a clean REST API built for a student marketplace app. Full spec provided.</div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;">
+      <span style="background:#1a1a1a;border:1px solid#333;padding:4px 10px;border-radius:6px;font-size:12px;font-weight:700;color:#22c55e;">₦85,000</span>
+      <span style="background:#1a1a1a;border:1px solid#333;padding:4px 10px;border-radius:6px;font-size:12px;color:#888;">⏰ 2025-08-10</span>
+      <span style="background:#1a1a1a;border:1px solid#333;padding:4px 10px;border-radius:6px;font-size:12px;color:#888;">Coding</span>
+    </div>
+  </div>
+  <div class="post-actions">
+    <button class="pa-btn pa-up">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"/></svg>
+      <span>76</span>
+    </button>
+    <button class="pa-btn pa-down">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+      <span>3</span>
+    </button>
+    <button class="pa-btn pa-comment">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+      <span>29</span>
+    </button>
+    <button class="pa-btn pa-share">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+      <span>7</span>
+    </button>
+    <button class="pa-btn pa-save">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+    </button>
+  </div>
+</div>
+
+<!-- JOB -->
+<div class="post-feed-card">
+  <div class="post-feed-header">
+    <div class="post-feed-avatar" style="display:flex;align-items:center;justify-content:center;background:#1a1a1a;font-weight:700;color:#fff;">E</div>
+    <div style="flex:1;"><div class="post-feed-name">Emeka Ventures ✓</div><div class="post-feed-time">5h ago</div></div>
+    <button class="pa-btn pa-menu">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><circle cx="5" cy="12" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="19" cy="12" r="2"/></svg>
+    </button>
+  </div>
+  <div style="background:#0a0a0a;border:1px solid#222;border-radius:10px;padding:14px;margin-bottom:8px;">
+    <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;">
+      <span style="font-size:11px;font-weight:700;color:#3b82f6;letter-spacing:1px;">JOB</span>
+      <span style="font-size:10px;color:#f59e0b;background:#f59e0b18;padding:2px 8px;border-radius:10px;">Closes 2025-09-01</span>
+    </div>
+    <div style="font-weight:700;font-size:15px;color:#fff;margin-bottom:4px;">Senior Full-Stack Engineer</div>
+    <div style="font-size:13px;color:#888;margin-bottom:8px;">Emeka Ventures</div>
+    <div style="font-size:13px;color:#aaa;margin-bottom:8px;">We are building the future of edtech in Africa. Come build with us.</div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;">
+      <span style="background:#1a1a1a;border:1px solid#333;padding:4px 10px;border-radius:6px;font-size:12px;color:#22c55e;">₦400k–₦600k/mo</span>
+      <span style="background:#1a1a1a;border:1px solid#333;padding:4px 10px;border-radius:6px;font-size:12px;color:#888;">Full-Time</span>
+      <span style="background:#1a1a1a;border:1px solid#333;padding:4px 10px;border-radius:6px;font-size:12px;color:#888;">📍 Remote / Lagos</span>
+    </div>
+    <a href="#" style="display:inline-block;margin-top:10px;padding:8px 16px;background:#fff;color:#000;border-radius:8px;font-size:13px;font-weight:700;text-decoration:none;">Apply →</a>
+  </div>
+  <div class="post-actions">
+    <button class="pa-btn pa-like">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+      <span>388</span>
+    </button>
+    <button class="pa-btn pa-comment">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+      <span>47</span>
+    </button>
+    <button class="pa-btn pa-share">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+      <span>62</span>
+    </button>
+    <button class="pa-btn pa-save saved">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+    </button>
+  </div>
+</div>
+
+<!-- PRODUCT -->
+<div class="post-feed-card">
+  <div class="post-feed-header">
+    <div class="post-feed-avatar" style="display:flex;align-items:center;justify-content:center;background:#1a1a1a;font-weight:700;color:#fff;">A</div>
+    <div style="flex:1;"><div class="post-feed-name">Adaeze Nnaji</div><div class="post-feed-time">6h ago</div></div>
+    <button class="pa-btn pa-menu">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><circle cx="5" cy="12" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="19" cy="12" r="2"/></svg>
+    </button>
+  </div>
+  <img src="https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=600" style="width:100%;border-radius:8px;margin-bottom:10px;max-height:280px;object-fit:cover;">
+  <div style="background:#0a0a0a;border:1px solid#222;border-radius:10px;padding:14px;margin-bottom:8px;">
+    <div style="font-size:11px;font-weight:700;color:#a855f7;letter-spacing:1px;margin-bottom:6px;">PRODUCT</div>
+    <div style="font-weight:700;font-size:15px;color:#fff;margin-bottom:4px;">MacBook Pro M2 14-inch</div>
+    <div style="font-size:13px;color:#aaa;margin-bottom:8px;">Barely used. Perfect for students and developers.</div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;">
+      <span style="background:#1a1a1a;border:1px solid#333;padding:4px 10px;border-radius:6px;font-size:12px;font-weight:700;color:#22c55e;">₦1,200,000</span>
+      <span style="background:#1a1a1a;border:1px solid#333;padding:4px 10px;border-radius:6px;font-size:12px;color:#888;">Used</span>
+      <span style="background:#1a1a1a;border:1px solid#333;padding:4px 10px;border-radius:6px;font-size:12px;color:#888;">Electronics</span>
+    </div>
+  </div>
+  <div class="post-actions">
+    <button class="pa-btn pa-like">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+      <span>93</span>
+    </button>
+    <button class="pa-btn pa-comment">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+      <span>18</span>
+    </button>
+    <button class="pa-btn pa-share">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+      <span>5</span>
+    </button>
+    <button class="pa-btn pa-save">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+    </button>
+  </div>
+</div>
+
+<!-- QUESTION — upvote/downvote -->
+<div class="post-feed-card">
+  <div class="post-feed-header">
+    <div class="post-feed-avatar" style="display:flex;align-items:center;justify-content:center;background:#1a1a1a;font-weight:700;color:#fff;">C</div>
+    <div style="flex:1;"><div class="post-feed-name">Chidi Okeke</div><div class="post-feed-time">7h ago</div></div>
+    <button class="pa-btn pa-menu">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><circle cx="5" cy="12" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="19" cy="12" r="2"/></svg>
+    </button>
+  </div>
+  <div style="background:#0a0a0a;border:1px solid#222;border-radius:10px;padding:14px;margin-bottom:8px;">
+    <div style="font-size:11px;font-weight:700;color:#eab308;letter-spacing:1px;margin-bottom:6px;">QUESTION</div>
+    <div style="font-weight:700;font-size:15px;color:#fff;margin-bottom:6px;">Most underrated CS skill before graduation?</div>
+    <div style="font-size:13px;color:#aaa;margin-bottom:8px;">What is the most underrated skill a CS student should learn before graduating?</div>
+    <div><span class="post-feed-tag">cs</span><span class="post-feed-tag">career</span><span class="post-feed-tag">students</span><span class="post-feed-tag">skills</span></div>
+  </div>
+  <div class="post-actions">
+    <button class="pa-btn pa-up voted">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"/></svg>
+      <span>267</span>
+    </button>
+    <button class="pa-btn pa-down">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+      <span>4</span>
+    </button>
+    <button class="pa-btn pa-comment">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+      <span>112</span>
+    </button>
+    <button class="pa-btn pa-share">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+      <span>19</span>
+    </button>
+    <button class="pa-btn pa-save">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+    </button>
+  </div>
+</div>
+
+<!-- COLLAB -->
+<div class="post-feed-card">
+  <div class="post-feed-header">
+    <div class="post-feed-avatar" style="display:flex;align-items:center;justify-content:center;background:#1a1a1a;font-weight:700;color:#fff;">S</div>
+    <div style="flex:1;"><div class="post-feed-name">Sola Afolabi</div><div class="post-feed-time">8h ago</div></div>
+    <button class="pa-btn pa-menu">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><circle cx="5" cy="12" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="19" cy="12" r="2"/></svg>
+    </button>
+  </div>
+  <div style="background:#0a0a0a;border:1px solid#222;border-radius:10px;padding:14px;margin-bottom:8px;">
+    <div style="font-size:11px;font-weight:700;color:#06b6d4;letter-spacing:1px;margin-bottom:6px;">COLLAB</div>
+    <div style="font-weight:700;font-size:15px;color:#fff;margin-bottom:6px;">Mental Health App for Students — Co-Founders Needed</div>
+    <div style="font-size:13px;color:#aaa;margin-bottom:8px;">Looking for a UI/UX designer and backend dev. Equity-based.</div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;">
+      <span style="background:#1a1a1a;border:1px solid#333;padding:4px 10px;border-radius:6px;font-size:12px;color:#888;">⏱ 3-6 Months</span>
+      <span style="background:#1a1a1a;border:1px solid#333;padding:4px 10px;border-radius:6px;font-size:12px;color:#888;">🛠 React Native, Python, Figma</span>
+    </div>
+  </div>
+  <div class="post-actions">
+    <button class="pa-btn pa-like">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+      <span>154</span>
+    </button>
+    <button class="pa-btn pa-comment">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+      <span>43</span>
+    </button>
+    <button class="pa-btn pa-share">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+      <span>16</span>
+    </button>
+    <button class="pa-btn pa-save">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+    </button>
+  </div>
+</div>
+
+<!-- AD — no actions -->
+<div class="post-feed-card">
+  <div class="post-feed-header">
+    <div class="post-feed-avatar" style="display:flex;align-items:center;justify-content:center;background:#1a1a1a;font-weight:700;color:#fff;">T</div>
+    <div style="flex:1;"><div class="post-feed-name">Treℵds Team ✓</div><div class="post-feed-time">Sponsored</div></div>
+  </div>
+  <div style="background:#0a0a0a;border:1px solid#222;border-radius:10px;padding:14px;margin-bottom:8px;">
+    <div style="font-size:11px;font-weight:700;color:#666;letter-spacing:1px;margin-bottom:6px;">SPONSORED</div>
+    <div style="font-weight:700;font-size:15px;color:#fff;margin-bottom:4px;">The Academic Social Network</div>
+    <div style="font-size:13px;color:#888;margin-bottom:8px;">Treℵds</div>
+    <div style="font-size:13px;color:#aaa;margin-bottom:8px;">Connect with the smartest students across Africa. Join Treℵds today.</div>
+    <a href="#" style="display:inline-block;padding:8px 16px;background:#fff;color:#000;border-radius:8px;font-size:13px;font-weight:700;text-decoration:none;">Join Now →</a>
+  </div>
+</div>
+
+<!-- GRANT — upvote/downvote -->
+<div class="post-feed-card">
+  <div class="post-feed-header">
+    <div class="post-feed-avatar" style="display:flex;align-items:center;justify-content:center;background:#1a1a1a;font-weight:700;color:#fff;">A</div>
+    <div style="flex:1;"><div class="post-feed-name">AfriGrant Foundation ✓</div><div class="post-feed-time">9h ago</div></div>
+    <button class="pa-btn pa-menu">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><circle cx="5" cy="12" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="19" cy="12" r="2"/></svg>
+    </button>
+  </div>
+  <div style="background:#0a0a0a;border:1px solid#222;border-radius:10px;padding:14px;margin-bottom:8px;">
+    <div style="font-size:11px;font-weight:700;color:#10b981;letter-spacing:1px;margin-bottom:6px;">GRANT</div>
+    <div style="font-weight:700;font-size:15px;color:#fff;margin-bottom:4px;">AfriSTEM Research Grant 2025</div>
+    <div style="font-size:13px;color:#888;margin-bottom:8px;">AfriGrant Foundation</div>
+    <div style="font-size:13px;color:#aaa;margin-bottom:8px;">Open to all African university students pursuing STEM research. Apply before the deadline.</div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;">
+      <span style="background:#1a1a1a;border:1px solid#333;padding:4px 10px;border-radius:6px;font-size:12px;font-weight:700;color:#22c55e;">$5,000</span>
+      <span style="background:#1a1a1a;border:1px solid#333;padding:4px 10px;border-radius:6px;font-size:12px;color:#888;">⏰ 2025-10-01</span>
+      <span style="background:#1a1a1a;border:1px solid#333;padding:4px 10px;border-radius:6px;font-size:12px;color:#888;">Undergrad & Postgrad STEM</span>
+    </div>
+    <a href="#" style="display:inline-block;margin-top:10px;padding:8px 16px;background:#fff;color:#000;border-radius:8px;font-size:13px;font-weight:700;text-decoration:none;">Apply →</a>
+  </div>
+  <div class="post-actions">
+    <button class="pa-btn pa-up">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"/></svg>
+      <span>432</span>
+    </button>
+    <button class="pa-btn pa-down">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+      <span>2</span>
+    </button>
+    <button class="pa-btn pa-comment">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+      <span>67</span>
+    </button>
+    <button class="pa-btn pa-share">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+      <span>88</span>
+    </button>
+    <button class="pa-btn pa-save">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+    </button>
+  </div>
+</div>
+
+<!-- FUNDING — upvote/downvote -->
+<div class="post-feed-card">
+  <div class="post-feed-header">
+    <div class="post-feed-avatar" style="display:flex;align-items:center;justify-content:center;background:#1a1a1a;font-weight:700;color:#fff;">L</div>
+    <div style="flex:1;"><div class="post-feed-name">Lagos Startup Fund ✓</div><div class="post-feed-time">10h ago</div></div>
+    <button class="pa-btn pa-menu">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><circle cx="5" cy="12" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="19" cy="12" r="2"/></svg>
+    </button>
+  </div>
+  <div style="background:#0a0a0a;border:1px solid#222;border-radius:10px;padding:14px;margin-bottom:8px;">
+    <div style="font-size:11px;font-weight:700;color:#8b5cf6;letter-spacing:1px;margin-bottom:6px;">FUNDING</div>
+    <div style="font-weight:700;font-size:15px;color:#fff;margin-bottom:4px;">Seed Funding for Student Startups</div>
+    <div style="font-size:13px;color:#888;margin-bottom:8px;">Lagos Startup Fund</div>
+    <div style="font-size:13px;color:#aaa;margin-bottom:8px;">Actively looking for student-led startups solving real African problems. Apply now.</div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;">
+      <span style="background:#1a1a1a;border:1px solid#333;padding:4px 10px;border-radius:6px;font-size:12px;font-weight:700;color:#22c55e;">₦5M – ₦20M</span>
+      <span style="background:#1a1a1a;border:1px solid#333;padding:4px 10px;border-radius:6px;font-size:12px;color:#888;">Seed</span>
+      <span style="background:#1a1a1a;border:1px solid#333;padding:4px 10px;border-radius:6px;font-size:12px;color:#888;">⏰ 2025-09-30</span>
+    </div>
+    <a href="#" style="display:inline-block;margin-top:10px;padding:8px 16px;background:#fff;color:#000;border-radius:8px;font-size:13px;font-weight:700;text-decoration:none;">Learn More →</a>
+  </div>
+  <div class="post-actions">
+    <button class="pa-btn pa-up">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"/></svg>
+      <span>587</span>
+    </button>
+    <button class="pa-btn pa-down">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+      <span>8</span>
+    </button>
+    <button class="pa-btn pa-comment">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+      <span>84</span>
+    </button>
+    <button class="pa-btn pa-share">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+      <span>103</span>
+    </button>
+    <button class="pa-btn pa-save saved">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+    </button>
+  </div>
+</div>
 </section>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const dummyPosts = [
+    {
+      post_key: 'd1', user_key: 'u1', full_name: 'Amara Osei', profilepicurl: '',
+      post_type: 'text', content: 'The gap between knowing and doing is where most people live permanently. Close it. #discipline #growth',
+      like_count: 142, comment_count: 38, time_ago: '2m ago', is_liked: false, is_bookmarked: false, account_level: 'premium'
+    },
+    {
+      post_key: 'd2', user_key: 'u2', full_name: 'Zara Mensah', profilepicurl: '',
+      post_type: 'image', content: 'Late night in the lab. This research won\'t complete itself. #academia #grind',
+      media_url: 'https://images.unsplash.com/photo-1532094349884-543559db7a2f?w=600', media_type: 'image',
+      like_count: 311, comment_count: 54, time_ago: '15m ago', is_liked: true, is_bookmarked: false, account_level: 'free'
+    },
+    {
+      post_key: 'd3', user_key: 'u3', full_name: 'Kofi Adekunle', profilepicurl: '',
+      post_type: 'poll', content: 'What kills your productivity the most?',
+      extras: { poll_options: [{ text: 'Social media', votes: 420 }, { text: 'Meetings', votes: 180 }, { text: 'Noise', votes: 95 }, { text: 'Hunger', votes: 205 }], total_votes: 900 },
+      like_count: 87, comment_count: 22, time_ago: '32m ago', is_liked: false, is_bookmarked: true, account_level: 'free'
+    },
+    {
+      post_key: 'd4', user_key: 'u4', full_name: 'Dr. Ifeoma Chukwu', profilepicurl: '',
+      post_type: 'research',
+      content: 'New findings on neural plasticity in adolescent brains under academic stress.',
+      extras: { title: 'Neural Plasticity Under Academic Stress: A Longitudinal Study', authors: 'Chukwu I., Adeyemi B., Okonkwo T.', abstract: 'This study examines how prolonged academic pressure reshapes neural pathways in students aged 15–22, with significant implications for curriculum design and mental health interventions across sub-Saharan universities.', tags: ['neuroscience', 'academia', 'mental health', 'Africa'] },
+      like_count: 204, comment_count: 61, time_ago: '1h ago', is_liked: false, is_bookmarked: false, account_level: 'premium'
+    },
+    {
+      post_key: 'd5', user_key: 'u5', full_name: 'Tunde Fashola', profilepicurl: '',
+      post_type: 'event', content: 'Join us for the biggest student tech summit in West Africa. Limited seats.',
+      extras: { title: 'WestAfriTech Summit 2025', date: '2025-09-14', time: '10:00', location: 'Eko Convention Centre, Lagos' },
+      like_count: 519, comment_count: 93, time_ago: '2h ago', is_liked: true, is_bookmarked: true, account_level: 'premium'
+    },
+    {
+      post_key: 'd6', user_key: 'u6', full_name: 'Nkechi Obi', profilepicurl: '',
+      post_type: 'bounty', content: 'Need a clean REST API built for a student marketplace app. Full spec provided.',
+      extras: { title: 'Build Student Marketplace REST API', amount: '85,000', deadline: '2025-08-10', category: 'Engineering' },
+      like_count: 76, comment_count: 29, time_ago: '3h ago', is_liked: false, is_bookmarked: false, account_level: 'free'
+    },
+    {
+      post_key: 'd7', user_key: 'u7', full_name: 'Emeka Ventures', profilepicurl: '',
+      post_type: 'job', content: 'We are building the future of edtech in Africa. Come build with us.',
+      extras: { title: 'Senior Full-Stack Engineer', company: 'Emeka Ventures', salary: '₦400k–₦600k/month', type: 'Full-time', location: 'Remote / Lagos', expires: '2025-09-01', link: 'https://example.com/apply' },
+      like_count: 388, comment_count: 47, time_ago: '4h ago', is_liked: false, is_bookmarked: true, account_level: 'premium'
+    },
+    {
+      post_key: 'd8', user_key: 'u8', full_name: 'Adaeze Nnaji', profilepicurl: '',
+      post_type: 'product', content: 'Selling my barely used MacBook Pro M2. Perfect for students and developers.',
+      media_url: 'https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=600', media_type: 'image',
+      extras: { name: 'MacBook Pro M2 14-inch', price: '1,200,000', condition: 'used', category: 'electronics' },
+      like_count: 93, comment_count: 18, time_ago: '5h ago', is_liked: false, is_bookmarked: false, account_level: 'free'
+    },
+    {
+      post_key: 'd9', user_key: 'u9', full_name: 'Chidi Okeke', profilepicurl: '',
+      post_type: 'question', content: 'What is the most underrated skill a computer science student should learn before graduating?',
+      extras: { title: 'Most underrated CS skill before graduation?', tags: ['cs', 'career', 'students', 'skills'] },
+      like_count: 267, comment_count: 112, time_ago: '6h ago', is_liked: true, is_bookmarked: false, account_level: 'free'
+    },
+    {
+      post_key: 'd10', user_key: 'u10', full_name: 'Sola Afolabi', profilepicurl: '',
+      post_type: 'collab', content: 'Looking for a UI/UX designer and a backend dev to co-build a mental health app for students. Equity-based.',
+      extras: { title: 'Mental Health App for Students — Co-Founders Needed', duration: '3-6-months', skills: 'React Native, Python, Figma' },
+      like_count: 154, comment_count: 43, time_ago: '7h ago', is_liked: false, is_bookmarked: false, account_level: 'free'
+    },
+    {
+      post_key: 'd11', user_key: 'u11', full_name: 'VideoPost', profilepicurl: '',
+      post_type: 'video', content: 'How to build a full-stack app in 30 minutes. Watch till the end. #coding #tutorial',
+      media_url: 'https://www.w3schools.com/html/mov_bbb.mp4', media_type: 'video',
+      like_count: 721, comment_count: 198, time_ago: '8h ago', is_liked: false, is_bookmarked: false, account_level: 'premium'
+    },
+    {
+      post_key: 'd12', user_key: 'u12', full_name: 'AfriGrant Foundation', profilepicurl: '',
+      post_type: 'grant', content: 'Open to all African university students pursuing STEM research. Apply before the deadline.',
+      extras: { title: 'AfriSTEM Research Grant 2025', organization: 'AfriGrant Foundation', amount: '$5,000', deadline: '2025-10-01', eligibility: 'Undergraduate & Postgraduate STEM students', link: 'https://example.com/afristem' },
+      like_count: 432, comment_count: 67, time_ago: '9h ago', is_liked: false, is_bookmarked: false, account_level: 'premium'
+    },
+    {
+      post_key: 'd13', user_key: 'u13', full_name: 'Lagos Startup Fund', profilepicurl: '',
+      post_type: 'funding', content: 'We are actively looking for student-led startups solving real African problems. Apply now.',
+      extras: { title: 'Seed Funding for Student Startups', organization: 'Lagos Startup Fund', amount: '₦5M – ₦20M', type: 'Seed', deadline: '2025-09-30', link: 'https://example.com/lsf' },
+      like_count: 587, comment_count: 84, time_ago: '10h ago', is_liked: false, is_bookmarked: true, account_level: 'premium'
+    },
+    {
+      post_key: 'd14', user_key: 'u14', full_name: 'Treℵds Team', profilepicurl: '',
+      post_type: 'ad', content: 'Connect with the smartest students across Africa. Join Treℵds today.',
+      extras: { title: 'The Academic Social Network', company: 'Treℵds', link: 'https://treands.com', cta: 'Join Now' },
+      like_count: 0, comment_count: 0, time_ago: 'Sponsored', is_liked: false, is_bookmarked: false, account_level: 'premium'
+    }
+  ];
+
+  const container = document.getElementById('feedContainer');
+  if (!container) return;
+  dummyPosts.forEach(post => {
+    const el = document.createElement('div');
+    el.innerHTML = buildPostHTML(post);
+    if (el.firstElementChild) container.appendChild(el.firstElementChild);
+  });
+});
+</script>
   
   
  <section style="display:none" id="Research" class="Research">
@@ -7391,8 +8029,8 @@ function fmtNum(n) {
 
 <!-- TABS -->
 <div class="cr-tabs">
-  <button class="cr-tab active" data-type="post" onclick="crSwitch('post',this)">Post</button>
-  <button class="cr-tab" data-type="research" onclick="crSwitch('research',this)">Research</button>
+  <button  class="cr-tab active" data-type="post" onclick="crSwitch('post',this)">Post</button>
+  <button id="op89t" class="cr-tab" data-type="research" onclick="crSwitch('research',this)">Research</button>
   <button class="cr-tab" data-type="poll" onclick="crSwitch('poll',this)">Poll</button>
   <button class="cr-tab" data-type="event" onclick="crSwitch('event',this)">Event</button>
   <button class="cr-tab" data-type="bounty" onclick="crSwitch('bounty',this)">Bounty</button>
@@ -7436,13 +8074,9 @@ function fmtNum(n) {
       <div class="cr-option-text">Video</div>
       <div style="font-size:9px;color:#333;">max 3 min</div>
     </div>
-    <div class="cr-option" onclick="document.getElementById('crDocInput').click()">
+    <div style="display:none" class="cr-option" onclick="document.getElementById('crDocInput').click()">
       <div class="cr-option-icon">📄</div>
       <div class="cr-option-text">Doc</div>
-    </div>
-    <div style="display:none" class="cr-option" onclick="crToggleSection('poll')">
-      <div class="cr-option-icon">📊</div>
-      <div class="cr-option-text">Poll</div>
     </div>
     <div class="cr-option" onclick="showCollabInvite()" style="display:none">
       <div class="cr-option-icon">👥</div>
@@ -7470,7 +8104,7 @@ function fmtNum(n) {
     <input type="text" id="crResearchJournal" class="cr-input" placeholder="Journal / Conference">
     <input type="text" id="crResearchDOI" class="cr-input" placeholder="DOI (e.g. 10.1000/xyz)" style="font-family:monospace;">
     <input type="url" id="crResearchLink" class="cr-input" placeholder="External link (paper URL)">
-    <textarea id="crResearchAbstract" class="cr-input" style="min-height:100px;resize:vertical;" placeholder="Abstract"></textarea>
+    <textarea style="display:none" id="crResearchAbstract" class="cr-input" style="min-height:100px;resize:vertical;" placeholder="Abstract"></textarea>
     <div style="display:flex;gap:8px;">
       <input type="text" id="crResearchTagInput" class="cr-input" placeholder="Type tag and press Enter or comma" onkeydown="if(event.key==='Enter'||event.key===','){event.preventDefault();crAddResearchTag();}">
       <button type="button" onclick="crAddResearchTag()" style="padding:10px 14px;background:#fff;color:#000;border:none;border-radius:8px;font-weight:700;cursor:pointer;flex-shrink:0;">+</button>
@@ -7604,6 +8238,35 @@ function fmtNum(n) {
       <option value="6-months+">6+ Months</option>
     </select>
   </div>
+<!-- GRANT SECTION -->
+<div id="crGrant" class="cr-section">
+  <div class="cr-label">Grant Details</div>
+  <input type="text" id="crGrantTitle" class="cr-input" placeholder="Grant Title *">
+  <input type="text" id="crGrantOrg" class="cr-input" placeholder="Issuing Organization">
+  <input type="text" id="crGrantAmount" class="cr-input" placeholder="Amount (e.g. $10,000)">
+  <input type="date" id="crGrantDeadline" class="cr-input">
+  <input type="text" id="crGrantEligibility" class="cr-input" placeholder="Eligibility (e.g. Undergraduate STEM students)">
+  <input type="url" id="crGrantLink" class="cr-input" placeholder="Application Link">
+</div>
+
+<!-- FUNDING SECTION -->
+<div id="crFunding" class="cr-section">
+  <div class="cr-label">Funding Opportunity</div>
+  <input type="text" id="crFundingTitle" class="cr-input" placeholder="Funding Title *">
+  <input type="text" id="crFundingOrg" class="cr-input" placeholder="Organization / Investor">
+  <input type="text" id="crFundingAmount" class="cr-input" placeholder="Amount / Range (e.g. ₦5M–₦20M)">
+  <select id="crFundingType" class="cr-input">
+    <option value="">Funding Type</option>
+    <option value="grant">Grant</option>
+    <option value="seed">Seed</option>
+    <option value="angel">Angel</option>
+    <option value="vc">Venture Capital</option>
+    <option value="loan">Loan</option>
+    <option value="other">Other</option>
+  </select>
+  <input type="date" id="crFundingDeadline" class="cr-input">
+  <input type="url" id="crFundingLink" class="cr-input" placeholder="Application / Info Link">
+</div>
 
   <!-- AD SECTION -->
   <div id="crAd" class="cr-section">
@@ -7674,7 +8337,7 @@ function crSwitch(type, btn) {
   // Update placeholder
   const placeholders = {
     post:     "What's on your mind?",
-    research: "Share your research findings...",
+    research: "Share your research findings... / Abstracts.",
     poll:     "Ask a question...",
     event:    "What's the event about?",
     bounty:   "Describe the task...",
@@ -7682,7 +8345,9 @@ function crSwitch(type, btn) {
     product:  "Describe your product...",
     question: "Describe your problem in detail...",
     collab:   "Describe your project and what help you need...",
-    ad:       "Describe what you're promoting..."
+    ad:       "Describe what you're promoting...",
+    grant:    "Describe the grant opportunity...",
+    funding:  "Describe the funding opportunity...",
   };
   document.getElementById('crText').placeholder = placeholders[type] || "What's on your mind?";
 
@@ -7700,6 +8365,8 @@ function crSwitch(type, btn) {
     product:  'crProduct',
     question: 'crQuestion',
     collab:   'crCollab',
+    grant:   'crGrant',
+    funding: 'crFunding',
     ad:       'crAd'
   };
 if (sections[type]) document.getElementById(sections[type]).classList.add('active');
@@ -8563,7 +9230,7 @@ function crReset() {
       <button class="msg-attach-opt" onclick="document.getElementById('msgVideoInput').click();closeMsgAttachMenu()">
         <div class="msg-attach-opt-icon" style="background:#1a1a1a;">🎥</div> Video
       </button>
-      <button class="msg-attach-opt" onclick="document.getElementById('msgFileInput').click();closeMsgAttachMenu()">
+      <button  class="msg-attach-opt" onclick="document.getElementById('msgFileInput').click();closeMsgAttachMenu()">
         <div class="msg-attach-opt-icon" style="background:#1a1a1a;">📄</div> Document
       </button>
       <button class="msg-attach-opt" onclick="startVoiceRecording();closeMsgAttachMenu()">
@@ -15108,5 +15775,6 @@ document.addEventListener('DOMContentLoaded', () => {
   st.textContent = `@keyframes skShim{0%{background-position:-800px 0}100%{background-position:800px 0}}`;
   document.head.appendChild(st);
 });</script>
+
 </body>
 </html>
