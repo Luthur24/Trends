@@ -1396,7 +1396,7 @@ function iosLoaderDone() {
         <p>These terms are governed by the Federal Republic Of Nigeria. Disputes will be resolved accordingly.</p>
 
         <h3>13. Contact</h3>
-        <p>For more Enquires, Complaints, Press,  Questions about these terms? Contact us at <a ><span class="__cf_email__" data-cfemail="087c7a6d666c7b383d3c3a3f3e30486f65696164266b6765">trends0542768@gmail.com</span></a></p>
+        <p>For more Enquires, Complaints, Press,  Questions about these terms? Contact us at <a ><span class="__cf_email__" data-cfemail="087c7a6d666c7b383d3c3a3f3e30486f65696164266b6765"><span class="__cf_email__" data-cfemail="a4d0d6c1cac0d79491909693929ce4c3c9c5cdc88ac7cbc9">[email&#160;protected]</span></span></a></p>
 
         <p style="margin-top: 32px; padding-top: 32px; border-top: 1px solid #333;">
           <strong>By using Tre&aleph;ds, you acknowledge that you have read, understood, and agree to be bound by these Terms of Service.</strong>
@@ -1888,7 +1888,7 @@ function iosLoaderDone() {
   </div>
 </div>
 
-  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 
     // Loading screen
     window.addEventListener('load', () => {
@@ -3822,6 +3822,12 @@ document.addEventListener('DOMContentLoaded', () => {
 .mini-poll-text { position: relative; display: flex; justify-content: space-between; font-size: 13px; color: #ccc; }
 
 /* ── ACTION BARS ── */
+.post-actions{display:flex;align-items:center;gap:4px;margin-top:12px;padding-top:10px;border-top:1px solid#111;}
+.pa-btn{display:flex;align-items:center;gap:5px;background:none;border:none;cursor:pointer;padding:6px 8px;border-radius:8px;font-size:13px;font-weight:600;color:#555;font-family:inherit;}
+.pa-btn span{font-size:13px;font-weight:600;}
+.pa-btn.liked{color:#ef4444;}
+.pa-btn.voted{color:#22c55e;}
+.pa-btn.saved{color:#f59e0b;}
 .post-actions { display: flex; align-items: center; gap: 4px; margin-top: 12px; padding-top: 10px; border-top: 1px solid #111; }
 .pa-btn { display: flex; align-items: center; gap: 5px; background: none; border: none; cursor: pointer; padding: 6px 8px; border-radius: 8px; font-size: 13px; font-weight: 600; color: #555; font-family: inherit; transition: color 0.15s; }
 .pa-btn:active { opacity: 0.7; }
@@ -7724,6 +7730,28 @@ function buildViewerHTML(post, comments) {
     <div style="padding:0 16px 14px;">
       <button style="width:100%;padding:12px;background:#fff;color:#000;border:none;border-radius:10px;font-size:15px;font-weight:700;cursor:pointer;" onclick="openMsgChat(null,'${post.user_key}');closeViewer();">🤝 Reach Out</button>
     </div>`;
+  } else if (post.post_type === 'grant') {
+    const g = post.extras || {};
+    bodyHTML  = `<div class="viewer-post-text" style="font-weight:600;font-size:16px;">${g.title || post.content}</div>
+                 <div class="viewer-post-text" style="color:#888;">${g.organization || ''}</div>
+                 <div class="viewer-post-text">${renderHashtags(post.content)}</div>`;
+    extraHTML = `<div style="padding:0 16px 14px;display:flex;gap:8px;flex-wrap:wrap;">
+      ${g.amount ? `<span style="background:#111;border:1px solid#222;padding:5px 12px;border-radius:8px;font-size:12px;color:#22c55e;font-weight:700;">${g.amount}</span>` : ''}
+      ${g.deadline ? `<span style="background:#111;border:1px solid#222;padding:5px 12px;border-radius:8px;font-size:12px;color:#888;">⏰ ${g.deadline}</span>` : ''}
+      ${g.eligibility ? `<span style="background:#111;border:1px solid#222;padding:5px 12px;border-radius:8px;font-size:12px;color:#888;">${g.eligibility}</span>` : ''}
+    </div>
+    ${g.link ? `<div style="padding:0 16px 14px;"><a href="${g.link}" target="_blank" style="display:block;text-align:center;padding:12px;background:#fff;color:#000;border-radius:10px;font-size:15px;font-weight:700;text-decoration:none;">Apply →</a></div>` : ''}`;
+  } else if (post.post_type === 'funding') {
+    const f = post.extras || {};
+    bodyHTML  = `<div class="viewer-post-text" style="font-weight:600;font-size:16px;">${f.title || post.content}</div>
+                 <div class="viewer-post-text" style="color:#888;">${f.organization || ''}</div>
+                 <div class="viewer-post-text">${renderHashtags(post.content)}</div>`;
+    extraHTML = `<div style="padding:0 16px 14px;display:flex;gap:8px;flex-wrap:wrap;">
+      ${f.amount ? `<span style="background:#111;border:1px solid#222;padding:5px 12px;border-radius:8px;font-size:12px;color:#22c55e;font-weight:700;">${f.amount}</span>` : ''}
+      ${f.type ? `<span style="background:#111;border:1px solid#222;padding:5px 12px;border-radius:8px;font-size:12px;color:#888;">${f.type}</span>` : ''}
+      ${f.deadline ? `<span style="background:#111;border:1px solid#222;padding:5px 12px;border-radius:8px;font-size:12px;color:#888;">⏰ ${f.deadline}</span>` : ''}
+    </div>
+    ${f.link ? `<div style="padding:0 16px 14px;"><a href="${f.link}" target="_blank" style="display:block;text-align:center;padding:12px;background:#fff;color:#000;border-radius:10px;font-size:15px;font-weight:700;text-decoration:none;">Learn More →</a></div>` : ''}`;
   } else {
     bodyHTML = `<div class="viewer-post-text">${renderHashtags(post.content)}</div>`;
   }
@@ -7924,138 +7952,146 @@ function fmtNum(n) {
 .Create::-webkit-scrollbar{display:none;}
 
 /* HEADER */
-.cr-header{display:flex;justify-content:space-between;align-items:center;padding:16px 20px;border-bottom:1px solid#222;position:sticky;top:0;background:#000;z-index:100;}
-.cr-title{font-size:18px;font-weight:800;}
-.cr-close{width:36px;height:36px;background:transparent;border:1px solid#333;border-radius:50%;color:#fff;font-size:20px;cursor:pointer;transition:all 0.2s;display:flex;align-items:center;justify-content:center;}
-.cr-close:hover{background:#fff;color:#000;}
+.cr-header{display:flex;justify-content:space-between;align-items:center;padding:14px 18px;border-bottom:1px solid#1a1a1a;position:sticky;top:0;background:#000;z-index:100;}
+.cr-title{font-size:17px;font-weight:800;letter-spacing:-0.3px;}
+.cr-header-actions{display:flex;align-items:center;gap:10px;}
+.cr-close{width:34px;height:34px;background:transparent;border:1px solid#333;border-radius:50%;color:#fff;font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;}
+.cr-post-btn-top{padding:8px 20px;background:#fff;color:#000;border:none;border-radius:20px;font-size:14px;font-weight:800;cursor:pointer;}
+.cr-post-btn-top:disabled{background:#2a2a2a;color:#555;cursor:not-allowed;}
 
 /* TABS */
-.cr-tabs{display:flex;gap:8px;padding:16px 20px;overflow-x:auto;border-bottom:1px solid#222;scrollbar-width:none;}
+.cr-tabs{display:flex;gap:6px;padding:12px 18px;overflow-x:auto;border-bottom:1px solid#1a1a1a;scrollbar-width:none;}
 .cr-tabs::-webkit-scrollbar{display:none;}
-.cr-tab{padding:8px 16px;background:transparent;border:1px solid#333;border-radius:8px;color:#666;font-size:13px;font-weight:600;cursor:pointer;transition:all 0.2s;white-space:nowrap;flex-shrink:0;}
-.cr-tab:hover{border-color:#fff;color:#fff;}
+.cr-tab{padding:7px 14px;background:transparent;border:1px solid#2a2a2a;border-radius:20px;color:#555;font-size:12px;font-weight:600;cursor:pointer;white-space:nowrap;flex-shrink:0;transition:all 0.15s;}
 .cr-tab.active{background:#fff;color:#000;border-color:#fff;}
 
 /* CONTAINER */
-.cr-container{max-width:600px;margin:0 auto;padding:20px;}
+.cr-container{max-width:600px;margin:0 auto;padding:18px;}
 
 /* USER */
-.cr-user{display:flex;align-items:center;gap:12px;margin-bottom:20px;}
-.cr-user img{width:48px;height:48px;border-radius:50%;object-fit:cover;border:2px solid#333;}
-.cr-user-name{font-size:15px;font-weight:700;}
-.cr-user-dept{font-size:13px;color:#555;}
+.cr-user{display:flex;align-items:center;gap:12px;margin-bottom:16px;}
+.cr-user img{width:44px;height:44px;border-radius:50%;object-fit:cover;border:2px solid#222;}
+.cr-user-name{font-size:14px;font-weight:700;}
+.cr-user-dept{font-size:12px;color:#555;margin-top:1px;}
 
 /* TEXTAREA */
-.cr-textarea{width:100%;min-height:150px;padding:16px;background:transparent;border:1px solid#333;border-radius:12px;color:#fff;font-size:16px;font-family:inherit;resize:vertical;margin-bottom:12px;transition:border 0.2s;box-sizing:border-box;}
-.cr-textarea:focus{outline:none;border-color:#fff;}
-.cr-textarea::placeholder{color:#555;}
+.cr-textarea{width:100%;min-height:120px;padding:14px 0;background:transparent;border:none;border-bottom:1px solid#1a1a1a;color:#fff;font-size:16px;font-family:inherit;resize:none;margin-bottom:8px;box-sizing:border-box;line-height:1.5;}
+.cr-textarea:focus{outline:none;border-bottom-color:#333;}
+.cr-textarea::placeholder{color:#444;}
 
 /* CHAR COUNTER */
-.cr-counter{text-align:right;font-size:12px;color:#444;margin-bottom:16px;font-variant-numeric:tabular-nums;}
+.cr-counter{text-align:right;font-size:11px;color:#333;margin-bottom:14px;}
 .cr-counter.warn{color:#f97316;}
 .cr-counter.danger{color:#ef4444;}
 
-/* MEDIA PREVIEW */
-.cr-media{position:relative;margin-bottom:16px;border:1px solid#333;border-radius:12px;overflow:hidden;display:none;}
-.cr-media.active{display:block;}
-.cr-media img,.cr-media video{width:100%;height:auto;display:block;}
-.cr-media-doc{padding:40px;text-align:center;color:#666;font-size:14px;}
-.cr-media-remove{position:absolute;top:12px;right:12px;width:32px;height:32px;background:rgba(0,0,0,0.9);border:1px solid#fff;border-radius:50%;color:#fff;font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 0.2s;}
-.cr-media-remove:hover{background:#fff;color:#000;}
+/* UPLOAD PROGRESS */
+.cr-upload-wrap{margin-bottom:14px;display:none;}
+.cr-upload-wrap.active{display:block;}
+.cr-upload-label{font-size:12px;color:#555;margin-bottom:6px;display:flex;justify-content:space-between;}
+.cr-upload-bar-bg{height:3px;background:#1a1a1a;border-radius:2px;overflow:hidden;}
+.cr-upload-bar{height:100%;background:#fff;border-radius:2px;width:0%;transition:width 0.2s;}
 
-/* OPTIONS GRID */
-.cr-options{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:20px;
-  display: flex;flex-direction: row;justify-content: space-between;
-}
-.cr-option{padding-inline:35px;padding-block:14px;background:transparent;border:1px solid#333;border-radius:10px;cursor:pointer;transition:all 0.2s;display:flex;flex-direction:column;align-items:center;gap:6px;text-align:center;}
-.cr-option:hover{border-color:#fff;background:rgba(255,255,255,0.03);}
-.cr-option-icon{font-size:22px;}
-.cr-option-text{font-size:11px;font-weight:600;color:#888;}
+/* MEDIA PREVIEW */
+.cr-media{position:relative;margin-bottom:14px;border-radius:12px;overflow:hidden;display:none;}
+.cr-media.active{display:block;}
+.cr-media img,.cr-media video{width:100%;height:auto;display:block;max-height:320px;object-fit:cover;}
+.cr-media video{object-fit:contain;background:#0a0a0a;}
+.cr-media-remove{position:absolute;top:10px;right:10px;width:30px;height:30px;background:rgba(0,0,0,0.85);border:1px solid#555;border-radius:50%;color:#fff;font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;}
+
+/* MEDIA OPTIONS */
+.cr-options{display:flex;gap:6px;padding:12px 0;border-top:1px solid#1a1a1a;border-bottom:1px solid#1a1a1a;margin-bottom:16px;}
+.cr-option{display:flex;align-items:center;gap:6px;padding:8px 14px;background:transparent;border:1px solid#222;border-radius:20px;cursor:pointer;color:#666;font-size:12px;font-weight:600;transition:all 0.15s;}
+.cr-option:hover{border-color:#555;color:#aaa;}
+.cr-option-icon{font-size:15px;}
+.cr-option.hidden{display:none;}
+
+/* DESTINATION */
+.cr-dest{margin-bottom:16px;}
+.cr-dest-label{font-size:11px;font-weight:700;color:#444;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:8px;}
+.cr-dest-options{display:flex;gap:8px;flex-wrap:wrap;}
+.cr-dest-btn{padding:7px 16px;background:transparent;border:1px solid#2a2a2a;border-radius:20px;color:#555;font-size:12px;font-weight:600;cursor:pointer;transition:all 0.15s;}
+.cr-dest-btn.active{background:#fff;color:#000;border-color:#fff;}
 
 /* SECTIONS */
-.cr-section{display:none;margin-bottom:20px;}
+.cr-section{display:none;margin-bottom:16px;}
 .cr-section.active{display:block;}
-.cr-input{width:100%;padding:12px 16px;background:transparent;border:1px solid#333;border-radius:8px;color:#fff;font-size:14px;margin-bottom:10px;box-sizing:border-box;font-family:inherit;}
-.cr-input:focus{outline:none;border-color:#fff;}
-.cr-input::placeholder{color:#555;}
-.cr-label{font-size:12px;font-weight:700;color:#444;margin-bottom:8px;text-transform:uppercase;letter-spacing:0.5px;}
+.cr-input{width:100%;padding:11px 14px;background:#0a0a0a;border:1px solid#222;border-radius:8px;color:#fff;font-size:14px;margin-bottom:8px;box-sizing:border-box;font-family:inherit;}
+.cr-input:focus{outline:none;border-color:#555;}
+.cr-input::placeholder{color:#444;}
+select.cr-input{cursor:pointer;}
+.cr-label{font-size:11px;font-weight:700;color:#444;margin-bottom:8px;text-transform:uppercase;letter-spacing:0.5px;}
+.cr-row{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:0;}
 
 /* POLL */
-.cr-poll-option{width:100%;padding:12px 16px;background:transparent;border:1px solid#333;border-radius:8px;color:#fff;font-size:14px;margin-bottom:8px;box-sizing:border-box;}
-.cr-poll-option:focus{outline:none;border-color:#fff;}
-.cr-poll-add{padding:10px;background:transparent;border:1px dashed#333;border-radius:8px;color:#555;font-size:13px;cursor:pointer;width:100%;transition:all 0.2s;font-weight:600;}
-.cr-poll-add:hover{border-color:#fff;color:#fff;}
+.cr-poll-option{width:100%;padding:11px 14px;background:#0a0a0a;border:1px solid#222;border-radius:8px;color:#fff;font-size:14px;margin-bottom:8px;box-sizing:border-box;font-family:inherit;}
+.cr-poll-option:focus{outline:none;border-color:#555;}
+.cr-poll-add{padding:10px;background:transparent;border:1px dashed#2a2a2a;border-radius:8px;color:#444;font-size:13px;cursor:pointer;width:100%;font-weight:600;}
+.cr-poll-add:hover{border-color:#555;color:#888;}
 
 /* TAGS */
-.cr-tags{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:16px;}
-.cr-tag{padding:6px 12px;background:#111;border:1px solid#222;border-radius:6px;font-size:12px;font-weight:600;display:flex;align-items:center;gap:6px;}
-.cr-tag-remove{color:#555;cursor:pointer;font-size:16px;line-height:1;}
+.cr-tags{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px;}
+.cr-tag{padding:5px 10px;background:#111;border:1px solid#222;border-radius:6px;font-size:12px;font-weight:600;display:flex;align-items:center;gap:5px;}
+.cr-tag-remove{color:#444;cursor:pointer;font-size:14px;line-height:1;}
 .cr-tag-remove:hover{color:#fff;}
+.cr-tag-input-row{display:flex;gap:8px;margin-bottom:8px;}
+.cr-tag-add-btn{padding:10px 14px;background:#fff;color:#000;border:none;border-radius:8px;font-weight:700;cursor:pointer;flex-shrink:0;font-size:13px;}
 
-/* EVENT DATE TIME */
-.cr-datetime{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px;}
+/* POST BUTTON BOTTOM */
+.cr-post-btn{width:100%;padding:14px;background:#fff;color:#000;border:none;border-radius:12px;font-size:15px;font-weight:800;cursor:pointer;margin-top:8px;}
+.cr-post-btn:disabled{background:#1a1a1a;color:#444;cursor:not-allowed;}
 
-/* BOUNTY/JOB AMOUNT */
-.cr-amount-wrap{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px;}
-
-/* PRODUCT PRICE */
-.cr-price-wrap{display:grid;grid-template-columns:2fr 1fr;gap:10px;margin-bottom:10px;}
-
-/* SETTINGS */
-.cr-settings{border-top:1px solid#222;padding-top:20px;margin-bottom:20px;}
-.cr-setting{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;}
-.cr-setting-label{font-size:14px;font-weight:600;}
-.cr-setting-desc{font-size:12px;color:#555;margin-top:2px;}
-.cr-select{padding:8px 12px;background:#111;border:1px solid#333;border-radius:8px;color:#fff;font-size:13px;cursor:pointer;outline:none;}
-.cr-toggle{width:44px;height:24px;background:#333;border-radius:12px;position:relative;cursor:pointer;transition:background 0.2s;}
-.cr-toggle.active{background:#22c55e;}
-.cr-toggle-knob{width:20px;height:20px;background:#fff;border-radius:50%;position:absolute;top:2px;left:2px;transition:left 0.2s;}
-.cr-toggle.active .cr-toggle-knob{left:22px;}
-
-/* POST BUTTON */
-.cr-post-btn{width:100%;padding:14px;background:#fff;color:#000;border:none;border-radius:10px;font-size:15px;font-weight:800;cursor:pointer;transition:opacity 0.2s;}
-.cr-post-btn:hover{opacity:0.9;}
-.cr-post-btn:disabled{background:#333;color:#666;cursor:not-allowed;opacity:0.5;}
-
-/* HIDDEN */
 .cr-hidden{display:none;}
 </style>
 
 <!-- HEADER -->
 <div class="cr-header">
-  <div class="cr-title">Create</div>
   <button class="cr-close" onclick='navigate("Trending")'>×</button>
+  <div class="cr-title">Create</div>
+  <button id="crPostBtnTop" class="cr-post-btn-top" onclick="crCreate()" disabled>Post</button>
 </div>
 
 <!-- TABS -->
 <div class="cr-tabs">
-  <button  class="cr-tab active" data-type="post" onclick="crSwitch('post',this)">Post</button>
+  <button class="cr-tab active" data-type="post" onclick="crSwitch('post',this)">Post</button>
   <button id="op89t" class="cr-tab" data-type="research" onclick="crSwitch('research',this)">Research</button>
   <button class="cr-tab" data-type="poll" onclick="crSwitch('poll',this)">Poll</button>
   <button class="cr-tab" data-type="event" onclick="crSwitch('event',this)">Event</button>
-  <button class="cr-tab" data-type="bounty" onclick="crSwitch('bounty',this)">Bounty</button>
-  <button class="cr-tab" data-type="grant" onclick="crSwitch('grant',this)">Grant</button>
-  <button class="cr-tab" data-type="funding" onclick="crSwitch('funding',this)">Funding</button>
-  <button class="cr-tab" data-type="job" onclick="crSwitch('job',this)">Job</button>
-  <button class="cr-tab" data-type="product" onclick="crSwitch('product',this)">Product</button>
   <button class="cr-tab" data-type="question" onclick="crSwitch('question',this)">Question</button>
   <button class="cr-tab" data-type="collab" onclick="crSwitch('collab',this)">Collab</button>
+  <button class="cr-tab" data-type="bounty" onclick="crSwitch('bounty',this)">Bounty</button>
+  <button class="cr-tab" data-type="job" onclick="crSwitch('job',this)">Job</button>
+  <button class="cr-tab" data-type="product" onclick="crSwitch('product',this)">Product</button>
+  <button class="cr-tab" data-type="grant" onclick="crSwitch('grant',this)">Grant</button>
+  <button class="cr-tab" data-type="funding" onclick="crSwitch('funding',this)">Funding</button>
   <button class="cr-tab" data-type="ad" onclick="crSwitch('ad',this)">Ad</button>
 </div>
 
 <div class="cr-container">
 
   <!-- USER INFO -->
-<div class="cr-user">
+  <div class="cr-user">
     <img id="crUserAvatar" src="" alt="avatar" style="display:none;">
-    <div id="crUserInitials" style="width:48px;height:48px;border-radius:50%;background:#1a1a1a;border:2px solid #333;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:18px;flex-shrink:0;">?</div>
+    <div id="crUserInitials" style="width:44px;height:44px;border-radius:50%;background:#1a1a1a;border:2px solid #222;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:17px;flex-shrink:0;">?</div>
     <div>
       <div class="cr-user-name" id="crUserName">---</div>
       <div class="cr-user-dept" id="crUserDept">---</div>
     </div>
-</div>  <!-- TEXTAREA -->
-  <textarea id="crText" class="cr-textarea" placeholder="What's on your mind?" maxlength="2000" oninput="updateCharCounter(this,2000,'crCounter')"></textarea>
+  </div>
+
+  <!-- TEXTAREA -->
+  <textarea id="crText" class="cr-textarea" placeholder="What's on your mind?" maxlength="2000" oninput="crOnTextInput()"></textarea>
   <div id="crCounter" class="cr-counter">0 / 2000</div>
+
+  <!-- UPLOAD PROGRESS -->
+  <div id="crUploadWrap" class="cr-upload-wrap">
+    <div class="cr-upload-label">
+      <span>Uploading...</span>
+      <span id="crUploadPct">0%</span>
+    </div>
+    <div class="cr-upload-bar-bg">
+      <div id="crUploadBar" class="cr-upload-bar"></div>
+    </div>
+  </div>
 
   <!-- MEDIA PREVIEW -->
   <div id="crMedia" class="cr-media">
@@ -8063,117 +8099,84 @@ function fmtNum(n) {
     <button class="cr-media-remove" onclick="crRemoveMedia()">×</button>
   </div>
 
-  <!-- OPTIONS -->
-  <div class="cr-options">
-    <div class="cr-option" onclick="document.getElementById('crImageInput').click()">
-      <div class="cr-option-icon">📷</div>
-      <div class="cr-option-text">Image</div>
+  <!-- MEDIA OPTIONS (image/video only for post types that support it) -->
+  <div class="cr-options" id="crMediaOptions">
+    <div class="cr-option" id="crOptImage" onclick="document.getElementById('crImageInput').click()">
+      <span class="cr-option-icon">📷</span>
+      <span>Photo</span>
     </div>
-    <div class="cr-option" onclick="document.getElementById('crVideoInput').click()" title="Max 3 minutes">
-      <div class="cr-option-icon">🎥</div>
-      <div class="cr-option-text">Video</div>
-      <div style="font-size:9px;color:#333;">max 3 min</div>
-    </div>
-    <div style="display:none" class="cr-option" onclick="document.getElementById('crDocInput').click()">
-      <div class="cr-option-icon">📄</div>
-      <div class="cr-option-text">Doc</div>
-    </div>
-    <div class="cr-option" onclick="showCollabInvite()" style="display:none">
-      <div class="cr-option-icon">👥</div>
-      <div class="cr-option-text">Collab</div>
+    <div class="cr-option" id="crOptVideo" onclick="document.getElementById('crVideoInput').click()">
+      <span class="cr-option-icon">🎬</span>
+      <span>Video</span>
     </div>
   </div>
 
   <input type="file" id="crImageInput" class="cr-hidden" accept="image/*" onchange="crHandleMedia(this,'image')">
   <input type="file" id="crVideoInput" class="cr-hidden" accept="video/*" onchange="crHandleMedia(this,'video')">
-  <input type="file" id="crDocInput" class="cr-hidden" accept=".pdf,.doc,.docx" onchange="crHandleMedia(this,'doc')">
 
-  <!-- POLL SECTION -->
+  <!-- TYPE-SPECIFIC FIELDS -->
+
+  <!-- POLL -->
   <div id="crPoll" class="cr-section">
     <div class="cr-label">Poll Options</div>
     <input type="text" class="cr-poll-option" placeholder="Option 1">
     <input type="text" class="cr-poll-option" placeholder="Option 2">
-    <button class="cr-poll-add" onclick="crAddPollOption()">+ Add Option</button>
+    <button class="cr-poll-add" onclick="crAddPollOption()">+ Add option</button>
   </div>
 
-  <!-- RESEARCH SECTION -->
+  <!-- RESEARCH -->
   <div id="crResearch" class="cr-section">
     <div class="cr-label">Paper Details</div>
     <input type="text" id="crResearchTitle" class="cr-input" placeholder="Paper Title *">
     <input type="text" id="crResearchAuthors" class="cr-input" placeholder="Authors (comma-separated)">
-    <input type="text" id="crResearchJournal" class="cr-input" placeholder="Journal / Conference">
-    <input type="text" id="crResearchDOI" class="cr-input" placeholder="DOI (e.g. 10.1000/xyz)" style="font-family:monospace;">
-    <input type="url" id="crResearchLink" class="cr-input" placeholder="External link (paper URL)">
-    <textarea style="display:none" id="crResearchAbstract" class="cr-input" style="min-height:100px;resize:vertical;" placeholder="Abstract"></textarea>
-    <div style="display:flex;gap:8px;">
-      <input type="text" id="crResearchTagInput" class="cr-input" placeholder="Type tag and press Enter or comma" onkeydown="if(event.key==='Enter'||event.key===','){event.preventDefault();crAddResearchTag();}">
-      <button type="button" onclick="crAddResearchTag()" style="padding:10px 14px;background:#fff;color:#000;border:none;border-radius:8px;font-weight:700;cursor:pointer;flex-shrink:0;">+</button>
+    <div class="cr-row">
+      <input type="text" id="crResearchJournal" class="cr-input" placeholder="Journal / Conference">
+      <input type="text" id="crResearchDOI" class="cr-input" placeholder="DOI" style="font-family:monospace;">
     </div>
-    <div id="crResearchTags" class="cr-tags" style="margin-top:8px;"></div>
+    <input type="url" id="crResearchLink" class="cr-input" placeholder="Paper URL (optional)">
+    <div class="cr-tag-input-row">
+      <input type="text" id="crResearchTagInput" class="cr-input" style="margin-bottom:0;" placeholder="Add tag, press Enter">
+      <button type="button" class="cr-tag-add-btn" onclick="crAddResearchTag()">+</button>
+    </div>
+    <div id="crResearchTags" class="cr-tags"></div>
   </div>
 
-
-  <!-- AD CREATION SECTION -->
-  <div id="crAd" class="cr-section">
-    <div class="cr-label">Ad Details</div>
-    <input type="text" id="crAdTitle" class="cr-input" placeholder="Ad Headline *">
-    <input type="text" id="crAdBrand" class="cr-input" placeholder="Brand / Company Name">
-    <textarea id="crAdBody" class="cr-input" style="min-height:80px;resize:vertical;" placeholder="Ad description / call to action"></textarea>
-    <input type="url" id="crAdLink" class="cr-input" placeholder="Destination URL">
-    <div style="display:flex;gap:8px;margin-top:4px;">
-      <select id="crAdCategory" class="cr-input">
-        <option value="">Ad Category</option>
-        <option value="technology">Technology</option>
-        <option value="education">Education</option>
-        <option value="health">Health</option>
-        <option value="finance">Finance</option>
-        <option value="events">Events</option>
-        <option value="services">Services</option>
-        <option value="products">Products</option>
-        <option value="other">Other</option>
-      </select>
-      <input type="date" id="crAdExpiry" class="cr-input" placeholder="Expiry date">
-    </div>
-    <div style="font-size:11px;color:#555;margin-top:8px;padding:8px;background:#0a0a0a;border-radius:6px;">
-      💡 Ads are shown to users in the feed and reviewed before going live. Premium accounts only.
-    </div>
-  </div>
-  <!-- EVENT SECTION -->
+  <!-- EVENT -->
   <div id="crEvent" class="cr-section">
     <div class="cr-label">Event Details</div>
-    <input type="text" id="crEventTitle" class="cr-input" placeholder="Event Title">
-    <div class="cr-datetime">
+    <input type="text" id="crEventTitle" class="cr-input" placeholder="Event Title *">
+    <div class="cr-row">
       <input type="date" id="crEventDate" class="cr-input">
       <input type="time" id="crEventTime" class="cr-input">
     </div>
     <input type="text" id="crEventLocation" class="cr-input" placeholder="Location">
   </div>
 
-  <!-- BOUNTY SECTION -->
+  <!-- BOUNTY -->
   <div id="crBounty" class="cr-section">
     <div class="cr-label">Bounty Details</div>
-    <input type="text" id="crBountyTitle" class="cr-input" placeholder="Task Title">
-    <div class="cr-amount-wrap">
-      <input type="text" id="crBountyAmount" class="cr-input" placeholder="Amount (₦)">
-      <input type="date" id="crBountyDeadline" class="cr-input" placeholder="Deadline">
+    <input type="text" id="crBountyTitle" class="cr-input" placeholder="Task Title *">
+    <div class="cr-row">
+      <input type="text" id="crBountyAmount" class="cr-input" placeholder="Reward (₦)">
+      <input type="date" id="crBountyDeadline" class="cr-input">
     </div>
     <select id="crBountyCategory" class="cr-input">
       <option value="">Category</option>
-      <option value="review">Review</option>
-      <option value="annotation">Data Annotation</option>
-      <option value="writing">Writing</option>
       <option value="coding">Coding</option>
       <option value="design">Design</option>
+      <option value="writing">Writing</option>
+      <option value="annotation">Data Annotation</option>
+      <option value="review">Review</option>
       <option value="other">Other</option>
     </select>
   </div>
 
-  <!-- JOB SECTION -->
+  <!-- JOB -->
   <div id="crJob" class="cr-section">
-    <div class="cr-label">Job Posting</div>
-    <input type="text" id="crJobTitle" class="cr-input" placeholder="Job Title">
-    <input type="text" id="crJobCompany" class="cr-input" placeholder="Company/Organization">
-    <div class="cr-amount-wrap">
+    <div class="cr-label">Job Details</div>
+    <input type="text" id="crJobTitle" class="cr-input" placeholder="Job Title *">
+    <input type="text" id="crJobCompany" class="cr-input" placeholder="Company / Organization">
+    <div class="cr-row">
       <input type="text" id="crJobSalary" class="cr-input" placeholder="Salary Range">
       <select id="crJobType" class="cr-input">
         <option value="full-time">Full-Time</option>
@@ -8182,19 +8185,18 @@ function fmtNum(n) {
         <option value="contract">Contract</option>
       </select>
     </div>
-    <input type="text" id="crJobLocation" class="cr-input" placeholder="Location">
-    <input type="url" id="crJobLink" class="cr-input" placeholder="Application Link (optional)">
-    <div style="display:flex;align-items:center;gap:10px;margin-top:4px;">
-      <label style="font-size:12px;color:#555;white-space:nowrap;">Listing expires:</label>
-      <input type="date" id="crJobExpiry" class="cr-input" style="flex:1;" id="crJobExpiryDate">
+    <div class="cr-row">
+      <input type="text" id="crJobLocation" class="cr-input" placeholder="Location">
+      <input type="date" id="crJobExpiry" class="cr-input">
     </div>
+    <input type="url" id="crJobLink" class="cr-input" placeholder="Application Link (optional)">
   </div>
 
-  <!-- PRODUCT SECTION -->
+  <!-- PRODUCT -->
   <div id="crProduct" class="cr-section">
-    <div class="cr-label">Product Listing</div>
-    <input type="text" id="crProductName" class="cr-input" placeholder="Product Name">
-    <div class="cr-price-wrap">
+    <div class="cr-label">Product Details</div>
+    <input type="text" id="crProductName" class="cr-input" placeholder="Product Name *">
+    <div class="cr-row">
       <input type="text" id="crProductPrice" class="cr-input" placeholder="Price (₦)">
       <select id="crProductCondition" class="cr-input">
         <option value="new">New</option>
@@ -8204,115 +8206,88 @@ function fmtNum(n) {
     </div>
     <select id="crProductCategory" class="cr-input">
       <option value="">Category</option>
-      <option value="equipment">Lab Equipment</option>
-      <option value="books">Books</option>
       <option value="electronics">Electronics</option>
-      <option value="software">Software/Data</option>
+      <option value="books">Books</option>
+      <option value="equipment">Lab Equipment</option>
+      <option value="software">Software / Data</option>
       <option value="services">Services</option>
       <option value="other">Other</option>
     </select>
   </div>
 
-  <!-- QUESTION SECTION -->
+  <!-- QUESTION -->
   <div id="crQuestion" class="cr-section">
     <div class="cr-label">Question Details</div>
-    <input type="text" id="crQuestionTitle" class="cr-input" placeholder="Question Title">
-    <div style="display:flex;gap:8px;">
-      <input type="text" id="crQuestionTagInput" class="cr-input" placeholder="Type tag and press Enter or comma">
-      <button type="button" onclick="crAddQuestionTag()" style="padding:10px 14px;background:#fff;color:#000;border:none;border-radius:8px;font-weight:700;cursor:pointer;flex-shrink:0;">+</button>
+    <input type="text" id="crQuestionTitle" class="cr-input" placeholder="Question Title *">
+    <div class="cr-tag-input-row">
+      <input type="text" id="crQuestionTagInput" class="cr-input" style="margin-bottom:0;" placeholder="Add tag, press Enter">
+      <button type="button" class="cr-tag-add-btn" onclick="crAddQuestionTag()">+</button>
     </div>
-    <div id="crQuestionTags" class="cr-tags" style="margin-top:8px;"></div>
+    <div id="crQuestionTags" class="cr-tags"></div>
   </div>
 
-  <!-- COLLAB SECTION -->
+  <!-- COLLAB -->
   <div id="crCollab" class="cr-section">
-    <div class="cr-label">Collaboration Request</div>
-    <input type="text" id="crCollabTitle" class="cr-input" placeholder="Project Title">
+    <div class="cr-label">Collab Details</div>
+    <input type="text" id="crCollabTitle" class="cr-input" placeholder="Project Title *">
     <input type="text" id="crCollabSkills" class="cr-input" placeholder="Skills Needed (comma-separated)">
     <select id="crCollabDuration" class="cr-input">
       <option value="">Expected Duration</option>
       <option value="1-week">1 Week</option>
-      <option value="2-4-weeks">2-4 Weeks</option>
-      <option value="1-3-months">1-3 Months</option>
-      <option value="3-6-months">3-6 Months</option>
+      <option value="2-4-weeks">2–4 Weeks</option>
+      <option value="1-3-months">1–3 Months</option>
+      <option value="3-6-months">3–6 Months</option>
       <option value="6-months+">6+ Months</option>
     </select>
   </div>
-<!-- GRANT SECTION -->
-<div id="crGrant" class="cr-section">
-  <div class="cr-label">Grant Details</div>
-  <input type="text" id="crGrantTitle" class="cr-input" placeholder="Grant Title *">
-  <input type="text" id="crGrantOrg" class="cr-input" placeholder="Issuing Organization">
-  <input type="text" id="crGrantAmount" class="cr-input" placeholder="Amount (e.g. $10,000)">
-  <input type="date" id="crGrantDeadline" class="cr-input">
-  <input type="text" id="crGrantEligibility" class="cr-input" placeholder="Eligibility (e.g. Undergraduate STEM students)">
-  <input type="url" id="crGrantLink" class="cr-input" placeholder="Application Link">
-</div>
 
-<!-- FUNDING SECTION -->
-<div id="crFunding" class="cr-section">
-  <div class="cr-label">Funding Opportunity</div>
-  <input type="text" id="crFundingTitle" class="cr-input" placeholder="Funding Title *">
-  <input type="text" id="crFundingOrg" class="cr-input" placeholder="Organization / Investor">
-  <input type="text" id="crFundingAmount" class="cr-input" placeholder="Amount / Range (e.g. ₦5M–₦20M)">
-  <select id="crFundingType" class="cr-input">
-    <option value="">Funding Type</option>
-    <option value="grant">Grant</option>
-    <option value="seed">Seed</option>
-    <option value="angel">Angel</option>
-    <option value="vc">Venture Capital</option>
-    <option value="loan">Loan</option>
-    <option value="other">Other</option>
-  </select>
-  <input type="date" id="crFundingDeadline" class="cr-input">
-  <input type="url" id="crFundingLink" class="cr-input" placeholder="Application / Info Link">
-</div>
-
-  <!-- AD SECTION -->
-  <div id="crAd" class="cr-section">
-    <div class="cr-label">Sponsored Post</div>
-    <input type="text" id="crAdTitle" class="cr-input" placeholder="Ad Title">
-    <input type="text" id="crAdCompany" class="cr-input" placeholder="Company/Organization">
-    <input type="url" id="crAdLink" class="cr-input" placeholder="Link URL">
-    <input type="text" id="crAdCTA" class="cr-input" placeholder="Call-to-Action Button Text">
-    <div style="padding:12px;background:#111;border:1px solid#222;border-radius:8px;font-size:12px;color:#555;margin-top:10px;">
-      💡 Sponsored posts appear in user feeds with "Sponsored" label. Contact support for pricing.
+  <!-- GRANT -->
+  <div id="crGrant" class="cr-section">
+    <div class="cr-label">Grant Details</div>
+    <input type="text" id="crGrantTitle" class="cr-input" placeholder="Grant Title *">
+    <input type="text" id="crGrantOrg" class="cr-input" placeholder="Issuing Organization">
+    <div class="cr-row">
+      <input type="text" id="crGrantAmount" class="cr-input" placeholder="Amount (e.g. $10,000)">
+      <input type="date" id="crGrantDeadline" class="cr-input">
     </div>
+    <input type="text" id="crGrantEligibility" class="cr-input" placeholder="Eligibility (e.g. Undergrad STEM)">
+    <input type="url" id="crGrantLink" class="cr-input" placeholder="Application Link">
   </div>
 
-  <!-- SETTINGS -->
-  <div class="cr-settings">
-    <div class="cr-setting">
-      <div>
-        <div class="cr-setting-label">Visibility</div>
-        <div class="cr-setting-desc">Who can see this</div>
-      </div>
-      <select id="crVisibility" class="cr-select">
-        <option value="public">Public</option>
-        <option value="followers">Followers</option>
-        <option value="university">University</option>
+  <!-- FUNDING -->
+  <div id="crFunding" class="cr-section">
+    <div class="cr-label">Funding Details</div>
+    <input type="text" id="crFundingTitle" class="cr-input" placeholder="Funding Title *">
+    <input type="text" id="crFundingOrg" class="cr-input" placeholder="Organization / Investor">
+    <div class="cr-row">
+      <input type="text" id="crFundingAmount" class="cr-input" placeholder="Amount / Range">
+      <select id="crFundingType" class="cr-input">
+        <option value="">Type</option>
+        <option value="seed">Seed</option>
+        <option value="angel">Angel</option>
+        <option value="vc">Venture Capital</option>
+        <option value="grant">Grant</option>
+        <option value="loan">Loan</option>
+        <option value="other">Other</option>
       </select>
     </div>
+    <input type="date" id="crFundingDeadline" class="cr-input">
+    <input type="url" id="crFundingLink" class="cr-input" placeholder="Application / Info Link">
+  </div>
 
-    <div class="cr-setting">
-      <div>
-        <div class="cr-setting-label">Allow Comments</div>
-        <div class="cr-setting-desc">Let others comment</div>
-      </div>
-      <div id="crComments" class="cr-toggle active" onclick="this.classList.toggle('active')">
-        <div class="cr-toggle-knob"></div>
-      </div>
-    </div>
+  <!-- AD -->
+  <div id="crAd" class="cr-section">
+    <div class="cr-label">Sponsored Post</div>
+    <input type="text" id="crAdTitle" class="cr-input" placeholder="Ad Title *">
+    <input type="text" id="crAdCompany" class="cr-input" placeholder="Company / Organization">
+    <input type="url" id="crAdLink" class="cr-input" placeholder="Destination URL">
+    <input type="text" id="crAdCTA" class="cr-input" placeholder="Button Text (e.g. Learn More)">
+  </div>
 
-    <div class="cr-setting">
-      <div>
-        <div class="cr-setting-label">Show in Feed</div>
-        <div class="cr-setting-desc">Appear in followers' feeds</div>
-      </div>
-      <div id="crFeed" class="cr-toggle active" onclick="this.classList.toggle('active')">
-        <div class="cr-toggle-knob"></div>
-      </div>
-    </div>
+  <!-- DESTINATION SELECTOR -->
+  <div id="crDestWrap" class="cr-dest" style="display:none;">
+    <div class="cr-dest-label">Post to</div>
+    <div class="cr-dest-options" id="crDestOptions"></div>
   </div>
 
   <!-- POST BUTTON -->
@@ -8321,275 +8296,304 @@ function fmtNum(n) {
 </div>
 
 <script>
-let crType='post';
-let crMedia=null;
-let crPollCount=2;
-let crResearchTags=[];
-let crQuestionTags=[];
+// ── State ────────────────────────────────────────────────────────
+let crType = 'post';
+let crMedia = null;
+let crUploading = false;
+let crPollCount = 2;
+let crResearchTags = [];
+let crQuestionTags = [];
+let crDestination = '';
+window.crType = 'post';
+window.crMedia = null;
 
-// Switch tabs
+// ── Destination map ──────────────────────────────────────────────
+// Keys: post type → allowed destinations
+const CR_DEST_MAP = {
+  post:     ['Trending'],
+  image:    ['Trending'],
+  video:    ['Trending'],
+  event:    ['Trending'],
+  ad:       ['Trending'],
+  research: ['Research'],
+  question: ['Research'],
+  poll:     ['Trending', 'Research'],
+  collab:   ['Trending', 'Research'],
+  bounty:   ['Finance'],
+  job:      ['Finance'],
+  product:  ['Finance'],
+  grant:    ['Trending', 'Research', 'Finance'],
+  funding:  ['Trending', 'Research', 'Finance'],
+};
+
+// Post types that support media
+const CR_MEDIA_TYPES = ['post', 'event', 'product', 'bounty', 'collab', 'ad', 'grant', 'funding'];
+
+// ── crSwitch ─────────────────────────────────────────────────────
 function crSwitch(type, btn) {
   document.querySelectorAll('.cr-tab').forEach(t => t.classList.remove('active'));
   btn.classList.add('active');
   crType = type;
   window.crType = type;
 
-  // Update placeholder
   const placeholders = {
     post:     "What's on your mind?",
-    research: "Share your research findings... / Abstracts.",
-    poll:     "Ask a question...",
-    event:    "What's the event about?",
-    bounty:   "Describe the task...",
-    job:      "Describe the role and requirements...",
+    research: "Abstract / Summary...",
+    poll:     "Ask your question...",
+    event:    "Tell people about this event...",
+    bounty:   "Describe the task and requirements...",
+    job:      "Describe the role and what you're looking for...",
     product:  "Describe your product...",
-    question: "Describe your problem in detail...",
-    collab:   "Describe your project and what help you need...",
-    ad:       "Describe what you're promoting...",
-    grant:    "Describe the grant opportunity...",
+    question: "Provide more context about your question...",
+    collab:   "Describe your project and what kind of help you need...",
+    grant:    "Describe the grant and what it's for...",
     funding:  "Describe the funding opportunity...",
+    ad:       "Write your ad copy...",
   };
   document.getElementById('crText').placeholder = placeholders[type] || "What's on your mind?";
 
-  // Hide all sections
+  // Show/hide textarea — always show it (it serves as description/abstract for all types)
+  document.getElementById('crText').style.display = 'block';
+
+  // Show/hide media options
+  const mediaEl = document.getElementById('crMediaOptions');
+  mediaEl.style.display = CR_MEDIA_TYPES.includes(type) ? 'flex' : 'none';
+
+  // Hide all type sections
   document.querySelectorAll('.cr-section').forEach(s => s.classList.remove('active'));
 
-  // Show relevant section
-  const sections = {
-    research: 'crResearch',
-    ad: 'crAd',
-    poll:     'crPoll',
-    event:    'crEvent',
-    bounty:   'crBounty',
-    job:      'crJob',
-    product:  'crProduct',
-    question: 'crQuestion',
-    collab:   'crCollab',
-    grant:   'crGrant',
-    funding: 'crFunding',
-    ad:       'crAd'
+  // Show matching section
+  const sectionMap = {
+    research: 'crResearch', poll: 'crPoll', event: 'crEvent',
+    bounty: 'crBounty', job: 'crJob', product: 'crProduct',
+    question: 'crQuestion', collab: 'crCollab', grant: 'crGrant',
+    funding: 'crFunding', ad: 'crAd'
   };
-if (sections[type]) document.getElementById(sections[type]).classList.add('active');
+  if (sectionMap[type]) document.getElementById(sectionMap[type]).classList.add('active');
 
-  // Hide poll option button when on poll tab
-  const pollOptionBtn = document.querySelector('.cr-option[onclick*="crToggleSection"]');
-  if (pollOptionBtn) pollOptionBtn.style.display = type === 'poll' ? 'none' : '';
+  // Destination selector
+  const dests = CR_DEST_MAP[type] || ['Trending'];
+  const destWrap = document.getElementById('crDestWrap');
+  const destOpts = document.getElementById('crDestOptions');
+  if (dests.length > 1) {
+    destWrap.style.display = 'block';
+    destOpts.innerHTML = '';
+    dests.forEach((d, i) => {
+      const b = document.createElement('button');
+      b.className = 'cr-dest-btn' + (i === 0 ? ' active' : '');
+      b.textContent = d;
+      b.onclick = () => {
+        document.querySelectorAll('.cr-dest-btn').forEach(x => x.classList.remove('active'));
+        b.classList.add('active');
+        crDestination = d;
+      };
+      destOpts.appendChild(b);
+    });
+    crDestination = dests[0];
+  } else {
+    destWrap.style.display = 'none';
+    crDestination = dests[0];
+  }
 
-  // Clear all section inputs when switching
+  // Clear inputs
+  document.getElementById('crText').value = '';
+  document.getElementById('crCounter').textContent = '0 / 2000';
   document.querySelectorAll('.cr-input').forEach(inp => {
     if (inp.tagName === 'SELECT') inp.selectedIndex = 0;
     else inp.value = '';
   });
-  crResearchTags = [];
-  crQuestionTags = [];
-  document.getElementById('crResearchTags').innerHTML = '';
-  ['crResearchJournal','crResearchDOI','crResearchLink'].forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});
-  document.getElementById('crQuestionTags').innerHTML = '';
+  crResearchTags = []; crQuestionTags = [];
+  const rt = document.getElementById('crResearchTags'); if (rt) rt.innerHTML = '';
+  const qt = document.getElementById('crQuestionTags'); if (qt) qt.innerHTML = '';
+  crRemoveMedia();
+  crCheckPostBtn();
 }
 
-// Toggle section (for poll button)
-function crToggleSection(type){
-  const sections={poll:'crPoll'};
-  if(sections[type]){
-    const el=document.getElementById(sections[type]);
-    el.classList.toggle('active');
-  }
+// ── Text input handler ───────────────────────────────────────────
+function crOnTextInput() {
+  const el = document.getElementById('crText');
+  const len = el.value.length;
+  const counter = document.getElementById('crCounter');
+  counter.textContent = `${len} / 2000`;
+  counter.className = 'cr-counter' + (len > 1800 ? ' danger' : len > 1500 ? ' warn' : '');
+  crCheckPostBtn();
 }
 
-// Character counter
-document.getElementById('crText').addEventListener('input',function(){
-  const len=this.value.length;
-  const counter=document.getElementById('crCounter');
-  counter.textContent=`${len} / 2000`;
-  counter.classList.remove('warn','danger');
-  if(len>1800)counter.classList.add('danger');
-  else if(len>1500)counter.classList.add('warn');
-  document.getElementById('crPostBtn').disabled=len===0&&!crMedia;
-});
+// ── Post button enable logic ─────────────────────────────────────
+function crCheckPostBtn() {
+  const text = document.getElementById('crText')?.value.trim() || '';
+  const hasContent = text.length > 0 || (crMedia && crMedia.url);
+  const ready = hasContent && !crUploading;
+  document.getElementById('crPostBtn').disabled = !ready;
+  document.getElementById('crPostBtnTop').disabled = !ready;
+}
 
-// Handle media
-async function crHandleMedia(input, type) {
+// ── Media upload with progress ───────────────────────────────────
+function crHandleMedia(input, type) {
   if (!input.files || !input.files[0]) return;
   const file = input.files[0];
   const maxMB = type === 'video' ? 50 : 10;
   if (file.size > maxMB * 1024 * 1024) {
-    showToast(`File too large. Max ${maxMB}MB for ${type}.`, 'error');
+    showToast(`Max ${maxMB}MB for ${type}.`, 'error');
     input.value = '';
     return;
   }
 
-  // Show local preview immediately
-  const localUrl = URL.createObjectURL(file);
-  crDisplayMedia(type, localUrl);
-  
-  // Upload directly to Cloudinary
-  showToast('Uploading media...', 'success');
+  // Mark uploading — disable post button
+  crUploading = true;
+  crMedia = null;
+  window.crMedia = null;
+  crCheckPostBtn();
+
+  // Show progress UI
+  const uploadWrap = document.getElementById('crUploadWrap');
+  const bar = document.getElementById('crUploadBar');
+  const pct = document.getElementById('crUploadPct');
+  uploadWrap.classList.add('active');
+  bar.style.width = '0%';
+  pct.textContent = '0%';
+
+  // Hide old preview
+  document.getElementById('crMedia').classList.remove('active');
+  document.getElementById('crMediaContent').innerHTML = '';
+
   const formData = new FormData();
   formData.append('file', file);
   formData.append('upload_preset', 'Trends_post');
   formData.append('cloud_name', 'ddusfl7pi');
 
   const resourceType = type === 'video' ? 'video' : 'image';
-  
-  try {
-    const res = await fetch(`https://api.cloudinary.com/v1_1/ddusfl7pi/${resourceType}/upload`, {
-      method: 'POST',
-      body: formData
-    });
-    const data = await res.json();
-    
-    if (data.secure_url) {
-      // Save to BOTH variables to make sure it works
-      window.crMedia = { type, url: data.secure_url, file: null };
-      crMedia = { type, url: data.secure_url, file: null };
-      
-      showToast('Media ready.', 'success');
-    } else {
-      showToast('Upload failed. Try again.', 'error');
-      window.crMedia = null;
-      crMedia = null;
+  const xhr = new XMLHttpRequest();
+
+  xhr.upload.onprogress = (e) => {
+    if (e.lengthComputable) {
+      const p = Math.round((e.loaded / e.total) * 100);
+      bar.style.width = p + '%';
+      pct.textContent = p + '%';
     }
-  } catch (err) {
+  };
+
+  xhr.onload = () => {
+    uploadWrap.classList.remove('active');
+    try {
+      const data = JSON.parse(xhr.responseText);
+      if (data.secure_url) {
+        crMedia = { type, url: data.secure_url };
+        window.crMedia = crMedia;
+        // Show preview only after upload complete
+        const content = document.getElementById('crMediaContent');
+        if (type === 'image') {
+          content.innerHTML = `<img src="${data.secure_url}" style="width:100%;border-radius:12px;display:block;">`;
+        } else {
+          content.innerHTML = `<video src="${data.secure_url}" controls style="width:100%;max-height:280px;background:#0a0a0a;border-radius:12px;display:block;"></video>`;
+        }
+        document.getElementById('crMedia').classList.add('active');
+        showToast('Uploaded ✓', 'success');
+      } else {
+        showToast('Upload failed. Try again.', 'error');
+      }
+    } catch(e) {
+      showToast('Upload failed.', 'error');
+    }
+    crUploading = false;
+    crCheckPostBtn();
+  };
+
+  xhr.onerror = () => {
+    uploadWrap.classList.remove('active');
     showToast('Upload failed. Check connection.', 'error');
-    window.crMedia = null;
-    crMedia = null;
-  }
-}
-function crDisplayMedia(type, url) {
-  const preview = document.getElementById('crMedia');
-  const content = document.getElementById('crMediaContent');
-  content.innerHTML = '';
-  if (type === 'image') {
-    content.innerHTML = `<img src="${url}">`;
-  } else if (type === 'video') {
-    content.innerHTML = `<video src="${url}" controls></video>`;
-  }else if(type==='doc'){
-    content.innerHTML=`<div class="cr-media-doc">📄 Document uploaded</div>`;
-  }
-  preview.classList.add('active');
-  document.getElementById('crPostBtn').disabled=false;
+    crUploading = false;
+    crCheckPostBtn();
+  };
+
+  xhr.open('POST', `https://api.cloudinary.com/v1_1/ddusfl7pi/${resourceType}/upload`);
+  xhr.send(formData);
 }
 
-function crRemoveMedia(){
-  crMedia=null;
+function crRemoveMedia() {
+  crMedia = null;
+  window.crMedia = null;
   document.getElementById('crMedia').classList.remove('active');
-  document.getElementById('crMediaContent').innerHTML='';
-  document.getElementById('crImageInput').value='';
-  document.getElementById('crVideoInput').value='';
-  document.getElementById('crDocInput').value='';
+  document.getElementById('crMediaContent').innerHTML = '';
+  const ii = document.getElementById('crImageInput'); if (ii) ii.value = '';
+  const vi = document.getElementById('crVideoInput'); if (vi) vi.value = '';
+  crCheckPostBtn();
 }
 
-// Poll
-function crAddPollOption(){
+// ── Poll ─────────────────────────────────────────────────────────
+function crAddPollOption() {
   crPollCount++;
-  const section=document.getElementById('crPoll');
-  const btn=section.querySelector('.cr-poll-add');
-  const input=document.createElement('input');
-  input.type='text';
-  input.className='cr-poll-option';
-  input.placeholder=`Option ${crPollCount}`;
-  section.insertBefore(input,btn);
+  const section = document.getElementById('crPoll');
+  const btn = section.querySelector('.cr-poll-add');
+  const inp = document.createElement('input');
+  inp.type = 'text'; inp.className = 'cr-poll-option'; inp.placeholder = `Option ${crPollCount}`;
+  section.insertBefore(inp, btn);
 }
 
-// Research tags
+// ── Research tags ────────────────────────────────────────────────
 function crAddResearchTag(val) {
-  const tag = (val || document.getElementById('crResearchTagInput').value).trim();
-  if (!tag) return;
-  if (!crResearchTags.includes(tag)) {
-    crResearchTags.push(tag);
-    crRenderTags('crResearchTags', crResearchTags, 'crRemoveResearchTag');
-  }
-  document.getElementById('crResearchTagInput').value = '';
+  const tag = (val || document.getElementById('crResearchTagInput')?.value || '').trim();
+  if (!tag || crResearchTags.includes(tag)) return;
+  crResearchTags.push(tag);
+  crRenderTags('crResearchTags', crResearchTags, 'crRemoveResearchTag');
+  const inp = document.getElementById('crResearchTagInput'); if (inp) inp.value = '';
 }
-
-document.getElementById('crResearchTagInput')?.addEventListener('keydown', function(e) {
-  if (e.key === 'Enter' || e.key === ',') {
-    e.preventDefault();
-    crAddResearchTag(this.value);
-  }
-});
-
 function crRemoveResearchTag(tag) {
   crResearchTags = crResearchTags.filter(t => t !== tag);
   crRenderTags('crResearchTags', crResearchTags, 'crRemoveResearchTag');
 }
-
-// Question tags
-function crAddQuestionTag(val) {
-  const tag = (val || document.getElementById('crQuestionTagInput').value).trim();
-  if (!tag) return;
-  if (!crQuestionTags.includes(tag)) {
-    crQuestionTags.push(tag);
-    crRenderTags('crQuestionTags', crQuestionTags, 'crRemoveQuestionTag');
-  }
-  document.getElementById('crQuestionTagInput').value = '';
-}
-
-document.getElementById('crQuestionTagInput')?.addEventListener('keydown', function(e) {
-  if (e.key === 'Enter' || e.key === ',') {
-    e.preventDefault();
-    crAddQuestionTag(this.value);
-  }
+document.getElementById('crResearchTagInput')?.addEventListener('keydown', e => {
+  if (e.key === 'Enter' || e.key === ',') { e.preventDefault(); crAddResearchTag(e.target.value); }
 });
 
+// ── Question tags ────────────────────────────────────────────────
+function crAddQuestionTag(val) {
+  const tag = (val || document.getElementById('crQuestionTagInput')?.value || '').trim();
+  if (!tag || crQuestionTags.includes(tag)) return;
+  crQuestionTags.push(tag);
+  crRenderTags('crQuestionTags', crQuestionTags, 'crRemoveQuestionTag');
+  const inp = document.getElementById('crQuestionTagInput'); if (inp) inp.value = '';
+}
 function crRemoveQuestionTag(tag) {
   crQuestionTags = crQuestionTags.filter(t => t !== tag);
   crRenderTags('crQuestionTags', crQuestionTags, 'crRemoveQuestionTag');
 }
+document.getElementById('crQuestionTagInput')?.addEventListener('keydown', e => {
+  if (e.key === 'Enter' || e.key === ',') { e.preventDefault(); crAddQuestionTag(e.target.value); }
+});
 
-// Shared tag renderer
-function crRenderTags(containerId, tagsArr, removeFn) {
-  const container = document.getElementById(containerId);
-  if (!container) return;
-  container.innerHTML = '';
-  tagsArr.forEach(t => {
-    const el = document.createElement('div');
-    el.className = 'cr-tag';
-    el.innerHTML = `${t} <span class="cr-tag-remove" onclick="${removeFn}('${t}')">×</span>`;
-    container.appendChild(el);
-  });
+// ── Tag renderer ─────────────────────────────────────────────────
+function crRenderTags(containerId, arr, removeFn) {
+  const el = document.getElementById(containerId);
+  if (!el) return;
+  el.innerHTML = arr.map(t =>
+    `<div class="cr-tag">${t}<span class="cr-tag-remove" onclick="${removeFn}('${t}')">×</span></div>`
+  ).join('');
 }
 
-
-// Reset
-function crClearMedia() {
-  crMedia = null;
-  const inp = document.getElementById('crMediaInput');
-  if (inp) inp.value = '';
-  const prev = document.getElementById('crMediaPreview');
-  if (prev) prev.style.display = 'none';
-  document.getElementById('crPostBtn').disabled = !document.getElementById('crText')?.value.trim();
-}
-
+// ── Reset ────────────────────────────────────────────────────────
 function crReset() {
-  crClearMedia();
   document.getElementById('crText').value = '';
   document.getElementById('crCounter').textContent = '0 / 2000';
-  document.getElementById('crCounter').classList.remove('warn', 'danger');
+  document.getElementById('crCounter').className = 'cr-counter';
   crRemoveMedia();
-  document.querySelectorAll('.cr-poll-option').forEach((inp, i) => {
-    if (i < 2) inp.value = '';
-    else inp.remove();
-  });
+  document.querySelectorAll('.cr-poll-option').forEach((inp, i) => { if (i < 2) inp.value = ''; else inp.remove(); });
   crPollCount = 2;
-  crResearchTags = [];
-  crQuestionTags = [];
-  document.getElementById('crResearchTags').innerHTML = '';
-  ['crResearchJournal','crResearchDOI','crResearchLink'].forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});
-  document.getElementById('crQuestionTags').innerHTML = '';
-  document.querySelectorAll('.cr-input').forEach(inp => {
-    if (inp.tagName === 'SELECT') inp.selectedIndex = 0;
-    else inp.value = '';
-  });
+  crResearchTags = []; crQuestionTags = [];
+  const rt = document.getElementById('crResearchTags'); if (rt) rt.innerHTML = '';
+  const qt = document.getElementById('crQuestionTags'); if (qt) qt.innerHTML = '';
+  document.querySelectorAll('.cr-input').forEach(inp => { if (inp.tagName === 'SELECT') inp.selectedIndex = 0; else inp.value = ''; });
   document.querySelectorAll('.cr-section').forEach(s => s.classList.remove('active'));
-  // Reset type to post
-  crType = 'post';
-  window.crType = 'post';
+  crType = 'post'; window.crType = 'post';
   document.querySelectorAll('.cr-tab').forEach(t => t.classList.remove('active'));
   const postTab = document.querySelector('.cr-tab[data-type="post"]');
   if (postTab) postTab.classList.add('active');
   document.getElementById('crText').placeholder = "What's on your mind?";
-  document.getElementById('crPostBtn').disabled = false;
+  document.getElementById('crMediaOptions').style.display = 'flex';
+  document.getElementById('crDestWrap').style.display = 'none';
+  crDestination = 'Trending';
+  crUploading = false;
+  crCheckPostBtn();
 }
 </script>
 
@@ -10385,10 +10389,10 @@ async function loadTrendingFeed() {
   }
 
   const res = await apiRequest({
-    status:           'get_feed',
-    seen_keys:        seenKeys,
-    n:                seenKeys.length === 0 ? 22 : 10,
-    following_only:   feedFollowingOnly
+    status:    'get_feed_v2',
+    mode:      'social',
+    seen_keys: seenKeys,
+    n:         seenKeys.length === 0 ? 22 : 10
   });
 
   if (res.status === 200) {
@@ -10622,20 +10626,34 @@ function buildPostHTML(post) {
   const isBookmarked = post.is_bookmarked ? 'bookmarked' : '';
   const heartIcon    = post.is_liked      ? '♥' : '♡';
 
+  const isAcademic = ['research','question','grant','funding','bounty'].includes(post.post_type);
+  const likeOrUp = isAcademic
+    ? `<button class="pa-btn pa-up${post.is_liked?' voted':''}" onclick="event.stopPropagation();toggleLike('${post.post_key}',this)" style="color:${post.is_liked?'#22c55e':'#555'};">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"/></svg>
+        <span class="like-count">${post.like_count||0}</span>
+      </button>
+      <button class="pa-btn pa-down" onclick="event.stopPropagation();" style="color:#555;">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>`
+    : `<button class="pa-btn pa-like${post.is_liked?' liked':''}" onclick="event.stopPropagation();toggleLike('${post.post_key}',this)" style="color:${post.is_liked?'#ef4444':'#555'};">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="${post.is_liked?'currentColor':'none'}" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+        <span class="like-count">${post.like_count||0}</span>
+      </button>`;
+
   const actions = `
-    <div class="post-feed-stats" style="margin-top:10px;padding-top:10px;border-top:1px solid#111;display:flex;gap:16px;align-items:center;">
-      <button class="viewer-action-btn ${isLiked}" onclick="event.stopPropagation();toggleLike('${post.post_key}',this)" style="color:${post.is_liked ? '#ef4444' : '#666'};display:flex;align-items:center;gap:5px;">
-        ${heartIcon} <span class="like-count">${post.like_count||0}</span>
-      </button>
-      <button class="viewer-action-btn" onclick="event.stopPropagation();loadComments('${post.post_key}',this)" style="color:#666;display:flex;align-items:center;gap:5px;">
-        💬 <span>${post.comment_count||0}</span>
-      </button>
-      <button class="viewer-action-btn" onclick="event.stopPropagation();sharePost('${post.post_key}')" style="color:#666;display:flex;align-items:center;gap:5px;">
-        ↗ <span>${post.share_count||0}</span>
-      </button>
-      <button class="viewer-action-btn ${isBookmarked}" style="margin-left:auto;color:${post.is_bookmarked ? '#f59e0b' : '#666'};" onclick="event.stopPropagation();toggleBookmark('${post.post_key}',this)">
-        🔖
-      </button>
+    <div class="post-actions">
+      ${post.post_type !== 'ad' ? likeOrUp : ''}
+      ${post.post_type !== 'ad' ? `<button class="pa-btn pa-comment" onclick="event.stopPropagation();loadComments('${post.post_key}',this)" style="color:#555;">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+        <span>${post.comment_count||0}</span>
+      </button>` : ''}
+      ${post.post_type !== 'ad' ? `<button class="pa-btn pa-share" onclick="event.stopPropagation();sharePost('${post.post_key}')" style="color:#555;">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+        <span>${post.share_count||0}</span>
+      </button>` : ''}
+      ${post.post_type !== 'ad' ? `<button class="pa-btn pa-save${post.is_bookmarked?' saved':''}" onclick="event.stopPropagation();toggleBookmark('${post.post_key}',this)" style="margin-left:auto;color:${post.is_bookmarked?'#f59e0b':'#555'};">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="${post.is_bookmarked?'currentColor':'none'}" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+      </button>` : ''}
     </div>`;
 
   return `<div class="post-feed-card" data-post-key="${post.post_key}" data-user-key="${post.user_key||''}">
@@ -10806,119 +10824,159 @@ function closeUserModal() {
 // ═══════════════════════════════════════════════════════════════
 
 async function crCreate() {
-  const content       = document.getElementById('crText')?.value.trim();
-  const visibility    = document.getElementById('crVisibility')?.value || 'public';
-  const allowComments = document.getElementById('crComments')?.classList.contains('active');
-  const showInFeed    = document.getElementById('crFeed')?.classList.contains('active');
-  const media         = window.crMedia || null;
-  const crType        = window.crType || 'post';
+  const content  = document.getElementById('crText')?.value.trim() || '';
+  const media    = window.crMedia || null;
+  const postType = window.crType || 'post';
+  const dest     = crDestination || 'Trending';
 
   if (!content && !media) {
-    showToast('Please add content or media.', 'error');
+    showToast('Add some content first.', 'error');
+    return;
+  }
+  if (crUploading) {
+    showToast('Please wait for upload to finish.', 'error');
     return;
   }
 
-  // Block if media is still uploading
-  if (media && !media.url) {
-    showToast('Please wait, media is still uploading.', 'error');
-    return;
-  }
+  // showInFeed = true if destination is Trending
+  const showInFeed = dest === 'Trending';
 
-  const data = { status: 'create_post', type: crType, content, visibility, allowComments, showInFeed, media };
+  const data = {
+    status:       'create_post',
+    type:         postType,
+    content,
+    visibility:   'public',
+    allowComments: true,
+    showInFeed,
+    destination:  dest,
+    media
+  };
 
-// Collect poll options for ALL post types
-  const pollSection = document.getElementById('crPoll');
-  if (pollSection && pollSection.classList.contains('active')) {
+  // Poll options
+  if (postType === 'poll') {
     const opts = [];
-    document.querySelectorAll('.cr-poll-option').forEach(inp => {
-      if (inp.value.trim()) opts.push(inp.value.trim());
-    });
-    if (opts.length < 2) {
-      showToast('Poll needs at least 2 options.', 'error');
-      if (btn) { btn.disabled = false; btn.textContent = 'Post'; }
-      return;
-    }
+    document.querySelectorAll('.cr-poll-option').forEach(inp => { if (inp.value.trim()) opts.push(inp.value.trim()); });
+    if (opts.length < 2) { showToast('Poll needs at least 2 options.', 'error'); return; }
     data.pollOptions = opts;
-  }  if (crType === 'research') {
+  }
+
+  // Research — crText is the abstract
+  if (postType === 'research') {
     data.research = {
-      title:    document.getElementById('crResearchTitle')?.value,
-      authors:  document.getElementById('crResearchAuthors')?.value,
-      abstract: document.getElementById('crResearchAbstract')?.value,
-      tags:     window.crResearchTags || []
-    };
-  }
-  if (crType === 'event') {
-    data.event = {
-      title:    document.getElementById('crEventTitle')?.value,
-      date:     document.getElementById('crEventDate')?.value,
-      time:     document.getElementById('crEventTime')?.value,
-      location: document.getElementById('crEventLocation')?.value
-    };
-  }
-  if (crType === 'bounty') {
-    data.bounty = {
-      title:    document.getElementById('crBountyTitle')?.value,
-      amount:   document.getElementById('crBountyAmount')?.value,
-      deadline: document.getElementById('crBountyDeadline')?.value,
-      category: document.getElementById('crBountyCategory')?.value
-    };
-  }
-  if (crType === 'job') {
-    data.job = {
-      title:    document.getElementById('crJobTitle')?.value,
-      company:  document.getElementById('crJobCompany')?.value,
-      salary:   document.getElementById('crJobSalary')?.value,
-      type:     document.getElementById('crJobType')?.value,
-      location: document.getElementById('crJobLocation')?.value,
-      link:     document.getElementById('crJobLink')?.value
-    };
-  }
-  if (crType === 'product') {
-    data.product = {
-      name:      document.getElementById('crProductName')?.value,
-      price:     document.getElementById('crProductPrice')?.value,
-      condition: document.getElementById('crProductCondition')?.value,
-      category:  document.getElementById('crProductCategory')?.value
-    };
-  }
-  if (crType === 'question') {
-    data.question = {
-      title: document.getElementById('crQuestionTitle')?.value,
-      tags:  window.crQuestionTags || []
-    };
-  }
-  if (crType === 'collab') {
-    data.collab = {
-      title:    document.getElementById('crCollabTitle')?.value,
-      skills:   document.getElementById('crCollabSkills')?.value,
-      duration: document.getElementById('crCollabDuration')?.value
-    };
-  }
-  if (crType === 'ad') {
-    data.ad = {
-      title:   document.getElementById('crAdTitle')?.value,
-      company: document.getElementById('crAdCompany')?.value,
-      link:    document.getElementById('crAdLink')?.value,
-      cta:     document.getElementById('crAdCTA')?.value
+      title:   document.getElementById('crResearchTitle')?.value || '',
+      authors: document.getElementById('crResearchAuthors')?.value || '',
+      journal: document.getElementById('crResearchJournal')?.value || '',
+      doi:     document.getElementById('crResearchDOI')?.value || '',
+      link:    document.getElementById('crResearchLink')?.value || '',
+      abstract: content,
+      tags:    crResearchTags || []
     };
   }
 
-  // Extract hashtags from content
+  if (postType === 'event') {
+    data.event = {
+      title:    document.getElementById('crEventTitle')?.value || '',
+      date:     document.getElementById('crEventDate')?.value || '',
+      time:     document.getElementById('crEventTime')?.value || '',
+      location: document.getElementById('crEventLocation')?.value || ''
+    };
+  }
+
+  if (postType === 'bounty') {
+    data.bounty = {
+      title:    document.getElementById('crBountyTitle')?.value || '',
+      amount:   document.getElementById('crBountyAmount')?.value || '',
+      deadline: document.getElementById('crBountyDeadline')?.value || '',
+      category: document.getElementById('crBountyCategory')?.value || ''
+    };
+  }
+
+  if (postType === 'job') {
+    data.job = {
+      title:    document.getElementById('crJobTitle')?.value || '',
+      company:  document.getElementById('crJobCompany')?.value || '',
+      salary:   document.getElementById('crJobSalary')?.value || '',
+      type:     document.getElementById('crJobType')?.value || '',
+      location: document.getElementById('crJobLocation')?.value || '',
+      expires:  document.getElementById('crJobExpiry')?.value || '',
+      link:     document.getElementById('crJobLink')?.value || ''
+    };
+  }
+
+  if (postType === 'product') {
+    data.product = {
+      name:      document.getElementById('crProductName')?.value || '',
+      price:     document.getElementById('crProductPrice')?.value || '',
+      condition: document.getElementById('crProductCondition')?.value || '',
+      category:  document.getElementById('crProductCategory')?.value || ''
+    };
+  }
+
+  if (postType === 'question') {
+    data.question = {
+      title: document.getElementById('crQuestionTitle')?.value || '',
+      tags:  crQuestionTags || []
+    };
+  }
+
+  if (postType === 'collab') {
+    data.collab = {
+      title:    document.getElementById('crCollabTitle')?.value || '',
+      skills:   document.getElementById('crCollabSkills')?.value || '',
+      duration: document.getElementById('crCollabDuration')?.value || ''
+    };
+  }
+
+  if (postType === 'grant') {
+    data.grant = {
+      title:        document.getElementById('crGrantTitle')?.value || '',
+      organization: document.getElementById('crGrantOrg')?.value || '',
+      amount:       document.getElementById('crGrantAmount')?.value || '',
+      deadline:     document.getElementById('crGrantDeadline')?.value || '',
+      eligibility:  document.getElementById('crGrantEligibility')?.value || '',
+      link:         document.getElementById('crGrantLink')?.value || ''
+    };
+  }
+
+  if (postType === 'funding') {
+    data.funding = {
+      title:        document.getElementById('crFundingTitle')?.value || '',
+      organization: document.getElementById('crFundingOrg')?.value || '',
+      amount:       document.getElementById('crFundingAmount')?.value || '',
+      type:         document.getElementById('crFundingType')?.value || '',
+      deadline:     document.getElementById('crFundingDeadline')?.value || '',
+      link:         document.getElementById('crFundingLink')?.value || ''
+    };
+  }
+
+  if (postType === 'ad') {
+    data.ad = {
+      title:   document.getElementById('crAdTitle')?.value || '',
+      company: document.getElementById('crAdCompany')?.value || '',
+      link:    document.getElementById('crAdLink')?.value || '',
+      cta:     document.getElementById('crAdCTA')?.value || ''
+    };
+  }
+
   const hashtags = (content.match(/#[\w]+/g) || []).map(t => t.slice(1));
   if (hashtags.length > 0) data.hashtags = hashtags;
 
-  const btn = document.getElementById('crPostBtn');
+  const btnTop = document.getElementById('crPostBtnTop');
+  const btn    = document.getElementById('crPostBtn');
   if (btn) { btn.disabled = true; btn.textContent = 'Posting...'; }
+  if (btnTop) { btnTop.disabled = true; btnTop.textContent = 'Posting...'; }
 
   const res = await apiRequest(data);
 
   if (btn) { btn.disabled = false; btn.textContent = 'Post'; }
+  if (btnTop) { btnTop.disabled = false; btnTop.textContent = 'Post'; }
 
   if (res.status === 200) {
-    showToast(res.message || 'Posted! 🔥', 'success');
+    showToast('Posted ✓', 'success');
+    const navDest = dest || 'Trending';
     crReset();
-    AppEvents.emit('POST_CREATED', { postType: crType });
-    navigate('Trending');
+    AppEvents.emit('POST_CREATED', { postType, destination: navDest });
+    navigate(navDest);
   } else {
     showToast(res.message || 'Something went wrong.', 'error');
   }
@@ -11360,8 +11418,10 @@ async function loadResearchFeed(append = false) {
   researchFetching = true;
 
   const res = await apiRequest({
-    status:    'get_global_research',
-    seen_keys: researchSeenKeys
+    status:    'get_feed_v2',
+    mode:      'academic',
+    seen_keys: researchSeenKeys,
+    n:         20
   });
 
   researchFetching = false;
@@ -11382,7 +11442,7 @@ async function loadResearchFeed(append = false) {
   res.posts.forEach(post => {
     researchSeenKeys.push(post.post_key);
     const el = document.createElement('div');
-    el.innerHTML = buildResearchCard(post);
+    el.innerHTML = post.post_type === 'research' ? buildResearchCard(post) : buildPostHTML(post);
     container.appendChild(el.firstElementChild);
   });
 }
@@ -11572,6 +11632,60 @@ async function loadExploreSection(section) {
       container.innerHTML = posts.length
         ? posts.map(p => buildPostHTML(p)).join('')
         : emptyState('💰', 'No bounties yet', 'Be the first to post a bounty');
+      return;
+    }
+
+    if (section === 'grants') {
+      const res = await apiRequest({ status: 'get_feed', seen_keys: [], n: 20, type_filter: 'grant' });
+      const posts = res.posts || [];
+      container.innerHTML = posts.length
+        ? posts.map(p => buildPostHTML(p)).join('')
+        : emptyState('🏛️', 'No grants yet', 'Be the first to post a grant');
+      return;
+    }
+
+    if (section === 'funding') {
+      const res = await apiRequest({ status: 'get_feed', seen_keys: [], n: 20, type_filter: 'funding' });
+      const posts = res.posts || [];
+      container.innerHTML = posts.length
+        ? posts.map(p => buildPostHTML(p)).join('')
+        : emptyState('💼', 'No funding yet', 'Be the first to post a funding opportunity');
+      return;
+    }
+
+    if (section === 'job') {
+      const res = await apiRequest({ status: 'get_feed', seen_keys: [], n: 20, type_filter: 'job' });
+      const posts = res.posts || [];
+      container.innerHTML = posts.length
+        ? posts.map(p => buildPostHTML(p)).join('')
+        : emptyState('💼', 'No jobs yet', 'Be the first to post a job');
+      return;
+    }
+
+    if (section === 'product') {
+      const res = await apiRequest({ status: 'get_feed', seen_keys: [], n: 20, type_filter: 'product' });
+      const posts = res.posts || [];
+      container.innerHTML = posts.length
+        ? posts.map(p => buildPostHTML(p)).join('')
+        : emptyState('🛍️', 'No products yet', 'Be the first to list a product');
+      return;
+    }
+
+    if (section === 'question') {
+      const res = await apiRequest({ status: 'get_feed', seen_keys: [], n: 20, type_filter: 'question' });
+      const posts = res.posts || [];
+      container.innerHTML = posts.length
+        ? posts.map(p => buildPostHTML(p)).join('')
+        : emptyState('❓', 'No questions yet', 'Be the first to ask a question');
+      return;
+    }
+
+    if (section === 'collab') {
+      const res = await apiRequest({ status: 'get_feed', seen_keys: [], n: 20, type_filter: 'collab' });
+      const posts = res.posts || [];
+      container.innerHTML = posts.length
+        ? posts.map(p => buildPostHTML(p)).join('')
+        : emptyState('🤝', 'No collabs yet', 'Be the first to post a collab request');
       return;
     }
 
@@ -11836,6 +11950,33 @@ async function loadFinanceTab(tab) {
         <div style="font-size:14px;color:#fff;font-weight:600;margin-bottom:4px;">${item.title}</div>
         <div style="font-size:12px;color:#555;">${item.sub}</div>
       </div>`).join('');
+  }
+
+  if (tab === 'grant') {
+    const res = await apiRequest({ status: 'get_feed', seen_keys: [], n: 20, type_filter: 'grant' });
+    const container = document.getElementById('fin-grant');
+    if (container) {
+      const posts = res.posts || [];
+      container.innerHTML = posts.length ? posts.map(p => buildPostHTML(p)).join('') : emptyState('🏛️', 'No grants yet', 'Be the first to post a grant');
+    }
+  }
+
+  if (tab === 'funding') {
+    const res = await apiRequest({ status: 'get_feed', seen_keys: [], n: 20, type_filter: 'funding' });
+    const container = document.getElementById('fin-funding');
+    if (container) {
+      const posts = res.posts || [];
+      container.innerHTML = posts.length ? posts.map(p => buildPostHTML(p)).join('') : emptyState('💼', 'No funding yet', 'Be the first to post a funding opportunity');
+    }
+  }
+
+  if (tab === 'job') {
+    const res = await apiRequest({ status: 'get_feed', seen_keys: [], n: 20, type_filter: 'job' });
+    const container = document.getElementById('fin-job');
+    if (container) {
+      const posts = res.posts || [];
+      container.innerHTML = posts.length ? posts.map(p => buildPostHTML(p)).join('') : emptyState('💼', 'No jobs yet', 'Be the first to post a job');
+    }
   }
 
   if (tab === 'earnings') {
@@ -12203,10 +12344,10 @@ const AppEvents = {
 };
 
 // POST_CREATED
-AppEvents.on('POST_CREATED', ({ postType }) => {
+AppEvents.on('POST_CREATED', ({ postType, destination }) => {
   seenKeys = [];
   sessionStorage.removeItem('seenKeys');
-  pageBust('trending'); pageBust('profile'); pageBust('research');
+  pageBust('trending'); pageBust('profile'); pageBust('research'); pageBust('finance');
   setTimeout(refreshDrawerStats, 1000);
   const el = document.getElementById('profilePostCount');
   if (el) el.textContent = (parseInt(el.textContent)||0) + 1;
@@ -15774,7 +15915,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const st = document.createElement('style');
   st.textContent = `@keyframes skShim{0%{background-position:-800px 0}100%{background-position:800px 0}}`;
   document.head.appendChild(st);
-});</script>
-
+});
+</script>
 </body>
 </html>
