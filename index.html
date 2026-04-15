@@ -76,7 +76,7 @@ section{padding:8rem 0;position:relative}
 .marquee-name{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:180px}
 
 /* ─── NAVBAR ─── */
-.navbar{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(0,0,0,.85);backdrop-filter:blur(20px);border-bottom:1px solid var(--border-subtle);transition:all var(--t-base)}
+.navbar{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(0,0,0,.85);backdrop-filter:blur(20px);border-bottom:1px solid var(--border-subtle);transition:all var(--t-base);overflow-x:scroll;}
 .navbar-inner{display:flex;align-items:center;justify-content:space-between;height:80px}
 .logo{font-family:var(--font-display);font-size:1.5rem;font-weight:600;letter-spacing:-.03em;cursor:pointer}
 .nav-links{display:flex;align-items:center;gap:2.5rem}
@@ -99,7 +99,7 @@ section{padding:8rem 0;position:relative}
 .overlay.active{opacity:1;visibility:visible}
 
 /* ─── USER DROPDOWN ─── */
-.user-dd{display:none;position:absolute;right:0;top:calc(100% + .5rem);background:var(--bg-secondary);border:1px solid var(--border-subtle);min-width:180px;z-index:2000}
+.user-dd{display:none;position:relative;right:0;top:calc(100% + .5rem);background:var(--bg-secondary);border:1px solid var(--border-subtle);min-width:180px;z-index:90000;}
 .user-dd-item{display:block;padding:.75rem 1.1rem;font-size:.875rem;color:var(--text-secondary);cursor:pointer;transition:all var(--t-fast);border-bottom:1px solid var(--border-subtle)}
 .user-dd-item:last-child{border-bottom:none}
 .user-dd-item:hover{background:var(--bg-tertiary);color:var(--text-primary)}
@@ -712,13 +712,18 @@ footer{background:var(--bg-secondary);border-top:1px solid var(--border-subtle);
 <!-- MOBILE MENU -->
 <div class="mobile-menu" id="mobileMenu">
   <button class="mobile-menu-close" id="mobileMenuClose">×</button>
-  <div class="mobile-menu-links">
-    <a onclick="go('landing');closeMob()">Home</a>
-    <a onclick="go('browse');closeMob()">Browse</a>
-    <a onclick="go('submit');closeMob()">List Startup</a>
-    <a onclick="go('dashboard');closeMob()">Dashboard</a>
-    <a onclick="scrollToSec('legal');closeMob()">Guidelines</a>
-  </div>
+<div class="mobile-menu-links">
+  <a onclick="go('landing');closeMob()">Home</a>
+  <a onclick="go('browse');closeMob()">Browse</a>
+  <a onclick="go('submit');closeMob()">List Startup</a>
+  <a onclick="go('dashboard');closeMob()">Dashboard</a>
+  <a onclick="go('community');closeMob()">Community</a>
+  <a onclick="go('chats');closeMob()">Messages</a>
+  <a onclick="go('notifications');closeMob()">Notifications</a>
+  <a onclick="go('settings');closeMob()">Settings</a>
+  <a onclick="go('surf');closeMob()">HiveSurf</a>
+  <a onclick="scrollToSec('legal');closeMob()">Guidelines</a>
+</div>
 </div>
 
 <!-- AUTH MODAL -->
@@ -806,23 +811,33 @@ footer{background:var(--bg-secondary);border-top:1px solid var(--border-subtle);
         <a class="btn btn-sm" onclick="go('submit')">+ List</a>
         <div style="position:relative">
           <img id="navAv" src="" alt="" style="width:36px;height:36px;border-radius:4px;border:1px solid var(--border-subtle);cursor:pointer;object-fit:cover;background:var(--bg-tertiary)" onclick="toggleDD()">
-          <div id="userDD" class="user-dd">
-            <a class="user-dd-item" id="ddProfile">My Profile</a>
-            <a class="user-dd-item" onclick="go('dashboard');toggleDD()">Dashboard</a>
-            <a class="user-dd-item" onclick="go('bookmarks');toggleDD()">Saved</a>
-            <a class="user-dd-item danger" onclick="logout();toggleDD()">Sign Out</a>
-          </div>
         </div>
       </div>
       <button class="mobile-menu-btn" id="mobileMenuBtn"><span></span><span></span><span></span></button>
+
     </div>
+    
   </div>
+
 </nav>
 
 <!-- ═══════════════════════════════════════════════════════════
      LANDING PAGE
 ═══════════════════════════════════════════════════════════ -->
+     <div id="userDD" class="user-dd">
+  <a class="user-dd-item" id="ddProfile" onclick="go('profile/' + (A.user?.username || ''));toggleDD()">My Profile</a>
+  <a class="user-dd-item" onclick="go('dashboard');toggleDD()">Dashboard</a>
+  <a class="user-dd-item" onclick="go('bookmarks');toggleDD()">Saved</a>
+  <a class="user-dd-item" onclick="go('community');toggleDD()">Community</a>
+  <a class="user-dd-item" onclick="go('chats');toggleDD()">Messages</a>
+  <a class="user-dd-item" onclick="go('notifications');toggleDD()">Notifications</a>
+  <a class="user-dd-item" onclick="go('settings');toggleDD()">Settings</a>
+  <a class="user-dd-item" onclick="go('surf');toggleDD()">HiveSurf</a>
+  <a class="user-dd-item danger" onclick="logout();toggleDD()">Sign Out</a>
+</div>
+
 <div id="view-landing">
+
   <!-- HERO -->
   <section class="hero">
     <div class="hero-bg">
@@ -1391,7 +1406,7 @@ function toast(msg, type='') {
 }
 
 // ─── ROUTER ──────────────────────────────────────────────────
-function go(view) {
+/*function go(view) {
   document.getElementById('view-landing').style.display = 'none';
   ['browse','detail','submit','dashboard','profile','bookmarks'].forEach(v => {
     const el = document.getElementById(`view-${v}`);
@@ -1425,7 +1440,7 @@ function go(view) {
     document.getElementById('view-landing').style.display='block';
   }
   window.scrollTo({top:0, behavior:'smooth'});
-}
+}*/
 function scrollToSec(id) {
   go('landing');
   setTimeout(()=>{ const el=document.getElementById(id); if(el) el.scrollIntoView({behavior:'smooth'}); }, 200);
@@ -2051,51 +2066,94 @@ window.dispatchEvent(new Event('resize'));
 // ─── NEW PAGES ────────────────────────────────────────────────────────────────
 
 // Extend the router
-/*
+
+// ─── MERGED ROUTER ───────────────────────────────────────────────────────────
 const _oldGo = go;
-function go(view, params={}) {
-   Extra pages
-  ['detail','community','surf','notifications','chats','settings'].forEach(v => {
+function go(view, params) {
+  // Hide landing first
+  document.getElementById('view-landing').style.display = 'none';
+  
+  // Hide all SPA views
+  ['browse','detail','submit','dashboard','profile','bookmarks',
+   'community','surf','notifications','chats','settings'].forEach(v => {
     const el = document.getElementById(`view-${v}`);
     if (el) el.classList.remove('active');
   });
+  
+  A.view = view;
+  
+  // NEW PAGES (from second function)
   if (view === 'community') {
+    if (!A.user) { openAuth('signin'); return; }
     document.getElementById('view-community').classList.add('active');
-    document.getElementById('view-landing').style.display = 'none';
-    loadComm(params.c || 's/general', null);
+    loadComm(params?.c || 's/general', null);
+    window.scrollTo({top:0, behavior:'smooth'});
     return;
   }
   if (view === 'surf') {
     document.getElementById('view-surf').classList.add('active');
-    document.getElementById('view-landing').style.display = 'none';
-    buildCatGrid(); if (params.q) { document.getElementById('surfInput').value=params.q; debounceSurf(params.q); }
+    buildCatGrid(); 
+    if (params?.q) { 
+      document.getElementById('surfInput').value = params.q; 
+      debounceSurf(params.q); 
+    }
+    window.scrollTo({top:0, behavior:'smooth'});
     return;
   }
   if (view === 'notifications') {
     if (!A.user) { openAuth('signin'); return; }
     document.getElementById('view-notifications').classList.add('active');
-    document.getElementById('view-landing').style.display = 'none';
-    loadNotifs(); return;
+    loadNotifs(); 
+    window.scrollTo({top:0, behavior:'smooth'});
+    return;
   }
   if (view === 'chats') {
     if (!A.user) { openAuth('signin'); return; }
     document.getElementById('view-chats').classList.add('active');
-    document.getElementById('view-landing').style.display = 'none';
-    loadChats(); return;
+    loadChats(); 
+    window.scrollTo({top:0, behavior:'smooth'});
+    return;
   }
   if (view === 'settings') {
     if (!A.user) { openAuth('signin'); return; }
     document.getElementById('view-settings').classList.add('active');
-    document.getElementById('view-landing').style.display = 'none';
-    loadSettings(); return;
+    loadSettings();
+    window.scrollTo({top:0, behavior:'smooth'});
+    return;
   }
-  // startup view (detail)
-  if (view.startsWith('startup/')) {
-    ['community','surf','notifications','chats','settings'].forEach(v=>{const el=document.getElementById(`view-${v}`);if(el)el.classList.remove('active');});
+  
+  // ORIGINAL PAGES (from first function)
+  if (view === 'landing') {
+    document.getElementById('view-landing').style.display = 'block';
+  } else if (view.startsWith('startup/')) {
+    document.getElementById('view-detail').classList.add('active');
+    loadDetail(view.replace('startup/', ''));
+  } else if (view.startsWith('profile/')) {
+    document.getElementById('view-profile').classList.add('active');
+    loadProfile(view.replace('profile/', ''));
+  } else if (view === 'browse') {
+    document.getElementById('view-browse').classList.add('active');
+    loadBrowse();
+  } else if (view === 'submit') {
+    if (!A.user) { openAuth('signup'); return; }
+    document.getElementById('view-submit').classList.add('active');
+    initSubmit();
+  } else if (view === 'dashboard') {
+    if (!A.user) { openAuth('signin'); return; }
+    document.getElementById('view-dashboard').classList.add('active');
+    loadDash();
+  } else if (view === 'bookmarks') {
+    if (!A.user) { openAuth('signin'); return; }
+    document.getElementById('view-bookmarks').classList.add('active');
+    loadBookmarks();
+  } else {
+    document.getElementById('view-landing').style.display = 'block';
   }
-  _oldGo(view);
+  
+  window.scrollTo({top:0, behavior:'smooth'});
 }
-*/
+
+
 
 const fN2 = n => fN(n);
 const ago2 = iso => ago(iso);
@@ -2581,6 +2639,7 @@ window.addEventListener('load',()=>{
   // Show landing by default
   document.getElementById('view-landing').style.display='block';
 });
+alert('Get a clearer view in desktop mode.')
 </script>
 </body>
 </html>
